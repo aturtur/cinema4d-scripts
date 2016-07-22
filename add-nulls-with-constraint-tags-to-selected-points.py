@@ -1,5 +1,5 @@
-# add nulls with constraint tags to selected points
 import c4d
+
 def main():
     obj = doc.GetActiveObject()
     sel = obj.GetPointS()
@@ -7,6 +7,7 @@ def main():
     null = c4d.BaseObject(c4d.Onull)
     null.SetName("Points")
     doc.InsertObject(null)
+    
     for i in range(count):
         if(sel.IsSelected(i)):
             #print("id "+str(i)+" "+"pos "+str(obj.GetPoint(i)))

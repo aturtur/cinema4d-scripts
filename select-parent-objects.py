@@ -1,4 +1,3 @@
-# select parent object(s) in object manager
 import c4d
 
 def main():

@@ -6,12 +6,13 @@ import c4d
 def main():
     
     # file location on computer
-    fopen = open("C:\L4133B.asc")
+    fopen = open("C:\L4212G.asc")
 
     points = []
     lineNb = 0
     rowNb = 0.0
-    size = 3000
+    first = fopen.readline()
+    size = int(first[13:])
 
     for line in fopen:
         if lineNb > 6:

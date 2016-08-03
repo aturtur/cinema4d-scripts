@@ -20,6 +20,8 @@ def main():
     f[c4d.FORMULAOBJECT_EFFECT] = 0
     f[c4d.FORMULAOBJECT_FY] = "0"
     
+    f.InsertUnderLast(p)
+    
     sds = c4d.BaseObject(c4d.Osds)
     sds[c4d.SDSOBJECT_SUBRAY_CM] = 1
     

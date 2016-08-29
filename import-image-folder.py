@@ -13,14 +13,18 @@ def main():
         mat[c4d.MATERIAL_USE_ALPHA] = 1      
         shd = c4d.BaseShader(c4d.Xbitmap)
         shd[c4d.BITMAPSHADER_FILENAME] = folder+"\\"+f
+        alpha = c4d.BaseShader(c4d.Xbitmap)
+        alpha[c4d.BITMAPSHADER_FILENAME] = folder+"\\"+f
         mat[c4d.MATERIAL_COLOR_SHADER] = shd
-        mat[c4d.MATERIAL_ALPHA_SHADER] = shd
+        mat[c4d.MATERIAL_ALPHA_SHADER] = alpha
         mat.InsertShader(shd)
+        mat.InsertShader(alpha)
+        
         mat.Message(c4d.MSG_UPDATE)
         mat.Update(True, True)
+        
         doc.InsertMaterial(mat)
-    
-    c4d.EventAdd()
+        c4d.EventAdd()
 
 if __name__=='__main__':
     main()

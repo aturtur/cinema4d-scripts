@@ -14,7 +14,12 @@ def main():
             point = c4d.BaseObject(c4d.Onull)
             point.SetName("p_"+str(i))
             point[c4d.NULLOBJECT_DISPLAY]=2
-            point.SetAbsPos(obj.GetPoint(i))
+            objpos = obj.GetMg().off            
+            pointpos = obj.GetPoint(i)            
+            fposx = pointpos[0]+objpos[0]
+            fposy = pointpos[1]+objpos[1]
+            fposz = pointpos[2]+objpos[2]            
+            point.SetAbsPos(c4d.Vector(fposx, fposy, fposz))            
             point.InsertTag(c4d.BaseTag(1019364))
             tag = point.GetFirstTag()
             tag[c4d.ID_CA_CONSTRAINT_TAG_CLAMP]=1

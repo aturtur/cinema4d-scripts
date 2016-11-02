@@ -1,6 +1,7 @@
 import c4d
 
 def main():
+    doc.StartUndo()
     s = doc.GetSelection()
     for x in s:     
         tags = x.GetTags()
@@ -12,8 +13,12 @@ def main():
                 copy = mat.GetClone()
                 copy.SetName(objname+"_"+matname)
                 doc.InsertMaterial(copy)
-                t.SetMaterial(copy)                
-c4d.EventAdd()
+                doc.AddUndo(c4d.UNDOTYPE_NEW, copy)
+                doc.AddUndo(c4d.UNDOTYPE_CHANGE, t)
+                t.SetMaterial(copy)
+                
+    c4d.EventAdd()
+    doc.EndUndo()
 
 if __name__=='__main__':
     main()

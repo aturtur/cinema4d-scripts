@@ -18,8 +18,7 @@ def main():
         mat[c4d.MATERIAL_COLOR_SHADER] = shd
         mat[c4d.MATERIAL_ALPHA_SHADER] = alpha
         mat.InsertShader(shd)
-        mat.InsertShader(alpha)
-        
+        mat.InsertShader(alpha)        
         mat.Message(c4d.MSG_UPDATE)
         mat.Update(True, True)
         

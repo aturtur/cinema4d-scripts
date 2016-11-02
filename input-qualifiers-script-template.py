@@ -26,7 +26,6 @@ def main():
             # code here
             c4d.EventAdd()
             return
-    
 
 if __name__=='__main__':
     main()

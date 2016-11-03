@@ -1,6 +1,7 @@
 import c4d
 
 def main():
+    doc.StartUndo()
     # variables
     selection = doc.GetSelection()
     plane = selection[0]
@@ -22,9 +23,12 @@ def main():
     
     # insert objects
     doc.InsertObject(null)    
+    doc.AddUndo(c4d.UNDOTYPE_NEW, null)
     camera.InsertUnder(null)
+    doc.AddUndo(c4d.UNDOTYPE_NEW, camera)
     
     c4d.EventAdd()
-
+    doc.EndUndo()
+    
 if __name__=='__main__':
     main()

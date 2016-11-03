@@ -3,6 +3,7 @@ from c4d import storage as s
 import os
 
 def main():
+    doc.StartUndo()
     folder = s.LoadDialog(c4d.FILESELECTTYPE_ANYTHING,'Select image folder',c4d.FILESELECT_DIRECTORY,'')
     if not folder: return
     files = os.listdir(folder)
@@ -20,10 +21,12 @@ def main():
         mat.InsertShader(shd)
         mat.InsertShader(alpha)        
         mat.Message(c4d.MSG_UPDATE)
-        mat.Update(True, True)
-        
+        mat.Update(True, True)        
         doc.InsertMaterial(mat)
+        doc.AddUndo(c4d.UNDOTYPE_NEW, mat)
+        
         c4d.EventAdd()
+        doc.EndUndo()
 
 if __name__=='__main__':
     main()

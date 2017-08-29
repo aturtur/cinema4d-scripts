@@ -3,8 +3,7 @@ import c4d
 def main():
     s = doc.GetSelection()
     
-    for x in s:
-        
+    for x in s:        
         nm = x.GetNodeMaster()
         root = nm.GetRoot()    
         fn = root.GetDown()        

@@ -1,4 +1,3 @@
-# if holding input qualifier at the time when the script is excuted
 import c4d
 from c4d import gui
 

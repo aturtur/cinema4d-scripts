@@ -1,6 +1,5 @@
-import c4d
+import c4d, os
 from c4d import storage as s
-import os
 
 def main():
     doc.StartUndo()

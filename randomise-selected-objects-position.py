@@ -1,5 +1,4 @@
-import c4d
-import math
+import c4d, math
 import random as rand
 
 def main():

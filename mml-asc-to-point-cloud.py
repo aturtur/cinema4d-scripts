@@ -1,10 +1,6 @@
-# MML (maanmittauslaitos) [NLS (national land survey of finland)]
-# https://tiedostopalvelu.maanmittauslaitos.fi/tp/kartta?lang=fi
-# elevation model - asc file to point cloud
 import c4d
 
-def main():
-    
+def main():    
     # file location on computer
     fopen = open("C:\L4212G.asc")
 
@@ -38,4 +34,4 @@ def main():
     fopen.close
 
 if __name__=='__main__':
-    main()
+main()

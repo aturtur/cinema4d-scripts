@@ -1,4 +1,3 @@
-# convert selected object to spline
 import c4d
 
 def main():

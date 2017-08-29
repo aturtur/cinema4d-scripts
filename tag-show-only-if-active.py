@@ -1,4 +1,5 @@
 import c4d
+
 def main():
     obj = op.GetObject()    
     if obj == doc.GetActiveObject():

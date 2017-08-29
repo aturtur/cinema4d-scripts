@@ -15,6 +15,7 @@ def main():
     mat[c4d.MATERIAL_COLOR_COLOR] = color
     mat.Message(c4d.MSG_UPDATE)
     mat.Update(True, True)
+    mat.SetName(str(hexcolor))
     doc.InsertMaterial(mat)
     doc.AddUndo(c4d.UNDOTYPE_NEW, mat)
 

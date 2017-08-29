@@ -1,10 +1,6 @@
-# template for making xpresso nodes and connecting them
-# ids can found here: http://188.166.72.248/c4d.python.id/
-
 import c4d
 
 def main():
-
     doc = c4d.documents.GetActiveDocument()
     selected = doc.GetActiveObject()
 

@@ -1,6 +1,5 @@
-import c4d
+import c4d, os
 from c4d import storage as s
-import os
 
 def main():
     folder = s.LoadDialog(c4d.FILESELECTTYPE_ANYTHING,'Select folder to import',c4d.FILESELECT_DIRECTORY,'')

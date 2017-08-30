@@ -47,9 +47,6 @@ def main():
     null = c4d.BaseObject(c4d.Onull)
     null.SetName(str(obj.GetName())+"_points")
     null[c4d.NULLOBJECT_DISPLAY]=14
-    null.SetAbsPos(obj.GetAbsPos())
-    null.SetAbsScale(obj.GetAbsScale())
-    null.SetAbsRot(obj.GetAbsRot())
     SetGlobalPosition(null,GetGlobalPosition(obj))
     SetGlobalRotation(null,GetGlobalRotation(obj))
     SetGlobalScale(null,GetGlobalScale(obj))

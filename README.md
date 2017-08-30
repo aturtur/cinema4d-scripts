@@ -15,6 +15,12 @@ This script creates a tracer object and puts selected object's children on it.
 #### Clone own materials
 This script creates individual materials for selected objects from existing texture tags.
 
+### Convert object to spline
+This script simply converts polygon object to spline object.
+
+### Create spline from selected nulls
+This script creates spline object from selected null objects.
+
 #### Get XPresso node ID
 This script prints the first XPresso node's ID to console. Select only the XPresso tag and run the script.
 

@@ -1,7 +1,7 @@
 import c4d
 
 def main():
-    bd = doc.GetActiveBaseDraw()    
+    bd = doc.GetActiveBaseDraw()
     if bd[c4d.BASEDRAW_DATA_TINTBORDER_OPACITY] == 0:
         bd[c4d.BASEDRAW_DATA_TINTBORDER_OPACITY] = 0.8
     else:

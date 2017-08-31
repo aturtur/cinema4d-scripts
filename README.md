@@ -19,7 +19,7 @@ This script creates individual materials for selected objects from existing text
 This script simply converts polygon object to spline object.
 
 ### Create spline from selected nulls
-This script creates spline object from selected null objects.
+This script creates spline object from selected null objects. UPDATED: Now you can give subdivisions count.
 
 #### Get XPresso node ID
 This script prints the first XPresso node's ID to console. Select only the XPresso tag and run the script.
@@ -32,6 +32,9 @@ This script imports image folder and makes individual materials from image files
 
 #### Import obj folder
 This script imports folder and merges every object on it to the current project.
+
+### Make dynamic spline with control points
+Select a spline and run this script. The script makes two nulls 
 
 #### MML ASC to point cloud
 This script imports ASC files from MML (maanmittauslaitos) [NLS (national land survey of finland)] and creates polygon objects with points. More info: https://tiedostopalvelu.maanmittauslaitos.fi/tp/kartta?lang=fi

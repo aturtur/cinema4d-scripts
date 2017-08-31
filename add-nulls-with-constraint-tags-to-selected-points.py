@@ -1,4 +1,3 @@
-# create nulls to selected points
 import c4d
 from c4d import utils
 

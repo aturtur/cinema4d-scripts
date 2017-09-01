@@ -2,7 +2,7 @@
 
 My collection of Maxon Cinema 4D scripts.
 
-## Script for Script Manager
+## Scripts for Script Manager
 #### Add materials to objects with same name
 This script simply adds materials to objects that have exaclty same name as the material.
 
@@ -61,7 +61,7 @@ This script randomises selected objects position. Minumum and maximum values and
 #### Voronoi pattern plane
 This script makes a plane with voronoi pattern. Useless script for fun.
 
-## Script for Python Tag
+## Scripts for Python Tag
 #### Tag color object with layer color
 This script will colorize object with layer color. You just need to enable "Use Color" in "Basic" tab.
 

@@ -38,9 +38,7 @@ def SetGlobalScale(obj, scale):
     m.v3 = m.v3.GetNormalized() * scale.z
     obj.SetMg(m)
 
-def main():
-    doc.StartUndo()
-    obj = doc.GetActiveObject()
+def InitObj(obj):
     sel = obj.GetPointS()
     count = obj.GetPointCount()
     null = c4d.BaseObject(c4d.Onull)
@@ -50,9 +48,7 @@ def main():
     SetGlobalRotation(null,GetGlobalRotation(obj))
     SetGlobalScale(null,GetGlobalScale(obj))
     doc.InsertObject(null)
-
     for i in range(count):
-
         if(sel.IsSelected(i)):
             point = c4d.BaseObject(c4d.Onull)
             point.SetName("p_"+str(i))
@@ -72,6 +68,12 @@ def main():
             point.InsertUnder(null)
             doc.AddUndo(c4d.UNDOTYPE_NEW, null)
             
+def main():
+    doc.StartUndo()
+    selo = doc.GetActiveObjects(0)
+    for x in selo:
+        InitObj(x)
+                    
     c4d.EventAdd()
     doc.EndUndo()
 

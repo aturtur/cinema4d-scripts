@@ -7,7 +7,7 @@ My collection of Maxon Cinema 4D scripts.
 This script simply adds materials to objects that have exaclty same name as the material.
 
 #### Add nulls with constraint tags to selected points
-This script creates null objects to polygon objects's selected points. UPDATED: Now it works with scaling, rotation and hierarchy. Yay!
+This script creates null objects to polygon objects's selected points. UPDATED2: Now it works with multiple objects.
 
 #### Children to tracer
 This script creates a tracer object and puts selected object's children on it.
@@ -15,10 +15,10 @@ This script creates a tracer object and puts selected object's children on it.
 #### Clone own materials
 This script creates individual materials for selected objects from existing texture tags.
 
-### Convert object to spline
+#### Convert object to spline
 This script simply converts polygon object to spline object.
 
-### Create spline from selected nulls
+#### Create spline from selected nulls
 This script creates spline object from selected null objects. UPDATED: Now you can give subdivisions count.
 
 #### Get XPresso node ID
@@ -34,7 +34,10 @@ This script imports image folder and makes individual materials from image files
 This script imports folder and merges every object on it to the current project.
 
 ### Make dynamic spline with control points
-Select a spline and run this script. The script makes two nulls 
+Select a spline or bunch of splines and run this script. The script makes splines dynamic and adds null controllers.
+
+### Make dynamic spline between selected nulls
+Select two nulls and run the script. 
 
 #### MML ASC to point cloud
 This script imports ASC files from MML (maanmittauslaitos) [NLS (national land survey of finland)] and creates polygon objects with points. More info: https://tiedostopalvelu.maanmittauslaitos.fi/tp/kartta?lang=fi

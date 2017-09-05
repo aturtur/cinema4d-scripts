@@ -33,11 +33,11 @@ This script imports image folder and makes individual materials from image files
 #### Import obj folder
 This script imports folder and merges every object on it to the current project.
 
-### Make dynamic spline with control points
+#### Make dynamic spline with control points
 Select a spline or bunch of splines and run this script. The script makes splines dynamic and adds null controllers.
 
-### Make dynamic spline between selected nulls
-Select two nulls and run the script. 
+#### Make dynamic spline between selected nulls
+Select two nulls and run the script. The script makes dynamic spline between those two nulls. You have also option to change spline's subdivision.
 
 #### MML ASC to point cloud
 This script imports ASC files from MML (maanmittauslaitos) [NLS (national land survey of finland)] and creates polygon objects with points. More info: https://tiedostopalvelu.maanmittauslaitos.fi/tp/kartta?lang=fi

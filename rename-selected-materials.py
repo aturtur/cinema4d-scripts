@@ -1,12 +1,14 @@
 import c4d
 
 def main():
+    prefix = "Mat"
+    separator = "_"
     doc.StartUndo()
     n = 1
     s = doc.GetActiveMaterials()
     for x in s:
         doc.AddUndo(c4d.UNDOTYPE_CHANGE, x)
-        x.SetName(n)
+        x.SetName(prefix+separator+str(n))
         n=n+1
 
     c4d.EventAdd()

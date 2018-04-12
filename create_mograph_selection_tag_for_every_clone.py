@@ -3,6 +3,7 @@ from c4d import gui
 from c4d.modules import mograph as mo
 
 def main():
+    doc.StartUndo()
     obj = doc.GetSelection()
     if obj:
         md = mo.GeGetMoData(obj[0])
@@ -12,8 +13,10 @@ def main():
             tag[c4d.ID_BASELIST_NAME] = "ms_"+str(i)
             s = c4d.BaseSelect()
             obj[0].InsertTag(tag)
+            doc.AddUndo(c4d.UNDOTYPE_NEW, tag)
             s.Select(i)
-            mo.GeSetMoDataSelection(tag, s)    
+            mo.GeSetMoDataSelection(tag, s)
+    doc.EndUndo()
     c4d.EventAdd()
 
 if __name__=='__main__':

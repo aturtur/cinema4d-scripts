@@ -29,5 +29,6 @@ def main():
         doc.AddUndo(c4d.UNDOTYPE_NEW, textSpline)
         doc.InsertObject(textSpline)
     c4d.EventAdd()
+    c4d.EndUndo()
 if __name__=='__main__':
     main()

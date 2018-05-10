@@ -3,12 +3,12 @@ doc.StartUndo()
 
 def GetNextObject(op):
     if op==None:
-        return None  
+        return None
     if op.GetDown():
         return op.GetDown()
     while not op.GetNext() and op.GetUp():
-        op = op.GetUp()  
-    return op.GetNext() 
+        op = op.GetUp()
+    return op.GetNext()
  
 def IterateHierarchy(op, materials):
     if op is None:
@@ -23,7 +23,7 @@ def IterateHierarchy(op, materials):
                 op.InsertTag(t)
                 doc.AddUndo(c4d.UNDOTYPE_NEW, t)
                 tag = op.GetFirstTag()
-                tag[c4d.TEXTURETAG_MATERIAL] = m        
+                tag[c4d.TEXTURETAG_MATERIAL] = m
         op = GetNextObject(op) 
 
 def main():
@@ -32,7 +32,7 @@ def main():
     IterateHierarchy(start_object, materials)
     
     c4d.EventAdd()
-    doc.StartUndo()   
+    doc.EndUndo()
   
 if __name__=='__main__':
-    main()
+main()

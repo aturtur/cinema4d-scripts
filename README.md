@@ -6,7 +6,11 @@ I have removed python tags from here since I'm putting here scripts only. You ca
 
 ## How to use
 
-How to use these scripts...
+This section is work in progress!
+
+## Script descriptions
+
+This section is work in progress!
 
 ## Support me
 If you find these scripts helpful, consider to support me. It helps me to do more of these scripts. Make a tiny donation: [Tip jar](https://paypal.me/aturtur)

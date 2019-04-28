@@ -1,7 +1,7 @@
 # Aturtur's Cinema 4D Scripts
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur).
-All scripts are almost fully commented to make every step clear and easy to learn.
+Almost all scripts are fully commented to make every step clear and easy to learn.
 I have removed python tags from here since I'm putting here scripts only. You can find python tags, effectors and plug-ins on my [blog](https://aturtur.com/).
 
 ## How to use

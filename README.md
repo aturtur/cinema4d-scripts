@@ -9,6 +9,6 @@ I have removed python tags from here since I'm putting here scripts only. You ca
 How to use these scripts...
 
 ## Support me
-If you find these scripts helpful, consider to support me. It helps me to do more of these scripts. Make a sweet little donation: [Tip jar](https://paypal.me/aturtur)
+If you find these scripts helpful, consider to support me. It helps me to do more of these scripts. Make a tiny donation: [Tip jar](https://paypal.me/aturtur)
 
 If you have some script ideas that I could create and add here, you can DM me at [Twitter](https://twitter.com/aturtur).

@@ -1,3 +1,12 @@
+"""
+AR_C4DSplinesToAeMasksPart1
+
+Author: Arttu Rautio (aturtur)
+Website: http://aturtur.com/
+Name-US: AR_C4DSplinesToAeMasksPart1
+Description-US: Exports selected spline objects to AI-sequence. Preview range will determine which frames will be exported.
+Written for Maxon Cinema 4D R20.057
+"""
 # Libraries
 import c4d, os
 from c4d import plugins

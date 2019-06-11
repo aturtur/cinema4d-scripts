@@ -1,6 +1,5 @@
 """
 AR_AxisCenter
-
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_AxisCenter
@@ -31,7 +30,8 @@ def CenterAxis(obj): # Center object's axis
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
-    selection = doc.GetActiveObjects(0) # Get active objects
+    flag = c4d.GETACTIVEOBJECTFLAGS_NONE # Only the topmost parent of each chain is added
+    selection = doc.GetActiveObjects(flag) # Get active objects
     for obj in selection: # Loop through selection
         doc.AddUndo(c4d.UNDOTYPE_CHANGE, obj) # Add undo command for making changes to object
         CenterAxis(obj) # Center spline's axis
@@ -40,4 +40,4 @@ def main():
 
 # Execute main()
 if __name__=='__main__':
-    main()
+main()

@@ -1,22 +1,21 @@
 """
-AR_CreateTracerFromChildren
+AR_CreateTracerFromSelection
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_CreateTracerFromChildren
-Description-US: Creates a tracer object and fills it with selected object's children
+Name-US: AR_CreateTracerFromSelection
+Description-US: Creates a tracer object and fills it with selected objects
 Written for Maxon Cinema 4D R20.057
 """
 # Libraries
 import c4d
 
 # Functions
-def tracerFromChildren(selected):
+def tracerFromSelection(selection):
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
-    children = selected.GetChildren() # Get selected object's children
     tracer = c4d.BaseObject(1018655) # Initialize tracer object
     tracerList = c4d.InExcludeData() # Initialize in-exclude data list
-    for obj in children: # Loop through children objects
-        tracerList.InsertObject(obj, 1) # Add object to list    
+    for s in selection: # Loop through selection
+        tracerList.InsertObject(s, 1) # Add object to list    
     tracer[c4d.MGTRACEROBJECT_OBJECTLIST] = tracerList # Update tracer object list
     tracer[c4d.MGTRACEROBJECT_MODE] = 1 # 'Connect All Objects'
     tracer[c4d.MGTRACEROBJECT_USEPOINTS] = False # Disable 'Trace Vertices'
@@ -27,8 +26,9 @@ def main():
     try: # Try to execute followind script
         doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
         doc.StartUndo() # Start recording undos
-        selected = doc.GetActiveObject() # Get selected object
-        tracerFromChildren(selected) # Run the function
+        flag = c4d.GETACTIVEOBJECTFLAGS_SELECTIONORDER # The selection array is sorted in the selection order
+        selection = doc.GetActiveObjects(flag) # Get selected objects
+        tracerFromSelection(selection) # Run the function
         doc.EndUndo() # Stop recording undos
         c4d.EventAdd() # Refresh Cinema 4D
     except: # If something went wrong

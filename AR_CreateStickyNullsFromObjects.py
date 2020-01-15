@@ -4,7 +4,7 @@ AR_CreateStickyNullsFromJoints
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_CreatStickyNulls
-Description-US: Create null objects with constraint tag (PSR) from selected joint(s)
+Description-US: Create null objects with constraint tag (PSR) from selected object(s)
 Written for Maxon Cinema 4D R20.057
 """
 # Libraries
@@ -52,22 +52,21 @@ def SetGlobalScale(obj, scale): # Set object's global scale
 def CreateNulls(obj):
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     try: # Try to execute following script
-        if obj.GetType() == 1019362: # If joint object
-            jointNull = c4d.BaseObject(c4d.Onull) # Initialize parent null object
-            jointNull.SetName(str(obj.GetName()) + " Points") # Set parent null's name
-            jointNull[c4d.NULLOBJECT_DISPLAY] = 14 # Set parent null's display mode to none
-            SetGlobalPosition(jointNull,GetGlobalPosition(obj)) # Set global position, rotation and scale
-            SetGlobalRotation(jointNull,GetGlobalRotation(obj))
-            SetGlobalScale(jointNull,GetGlobalScale(obj))
-            doc.InsertObject(jointNull) # Insert parent null to document
-            jointNull.SetName(obj.GetName()+"_Null") # Set null's name
-            jointNull[c4d.NULLOBJECT_DISPLAY] = 2 # Set null's display mode circle
-            jointNull.SetAbsPos(obj.GetAbsPos()) # Set null's position
-            jointNull.InsertTag(c4d.BaseTag(1019364)) # Insert constraint tag to null
-            tag = jointNull.GetFirstTag() # Select constraint tag
-            tag[c4d.ID_CA_CONSTRAINT_TAG_PSR] = 1 # Activate PSR constraint
-            tag[10001] = obj # Set Target        
-            doc.AddUndo(c4d.UNDOTYPE_NEW, jointNull) # Add undo command for adding new object
+        objectNull = c4d.BaseObject(c4d.Onull) # Initialize parent null object
+        objectNull.SetName(str(obj.GetName()) + " Points") # Set parent null's name
+        objectNull[c4d.NULLOBJECT_DISPLAY] = 14 # Set parent null's display mode to none
+        SetGlobalPosition(objectNull,GetGlobalPosition(obj)) # Set global position, rotation and scale
+        SetGlobalRotation(objectNull,GetGlobalRotation(obj))
+        SetGlobalScale(objectNull,GetGlobalScale(obj))
+        doc.InsertObject(objectNull) # Insert parent null to document
+        objectNull.SetName(obj.GetName()+"_Null") # Set null's name
+        objectNull[c4d.NULLOBJECT_DISPLAY] = 2 # Set null's display mode circle
+        objectNull.SetAbsPos(obj.GetAbsPos()) # Set null's position
+        objectNull.InsertTag(c4d.BaseTag(1019364)) # Insert constraint tag to null
+        tag = objectNull.GetFirstTag() # Select constraint tag
+        tag[c4d.ID_CA_CONSTRAINT_TAG_PSR] = 1 # Activate PSR constraint
+        tag[10001] = obj # Set Target        
+        doc.AddUndo(c4d.UNDOTYPE_NEW, objectNull) # Add undo command for adding new object
     except: # If something went wrong
         pass # Do nothing
 

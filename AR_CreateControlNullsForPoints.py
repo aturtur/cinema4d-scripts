@@ -1,10 +1,10 @@
 """
-AR_CreateControlNulls
+AR_CreateControlNullsForPoints
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_CreateControlNulls
-Description-US: Create control null objects from selected points
+Name-US: AR_CreateControlNullsForPoints
+Description-US: Create control null objects from selected point(s)
 Written for Maxon Cinema 4D R20.057
 """
 # Libraries

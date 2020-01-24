@@ -3,7 +3,7 @@ AR_ConsolidateMaterialSelections
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ConsolidateMaterialSelections
-Description-US: Consolidates different polygon selections together that uses same materials. Messes up with material projection.
+Description-US: Consolidates different polygon selections together that uses same materials. Messes up with material projection. Select object(s) and run the script.
 Written for Maxon Cinema 4D R20.057
 """
 # Libraries

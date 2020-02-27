@@ -4,7 +4,7 @@ AR_CreateStickyNulls
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_CreatStickyNulls
-Description-US: Create null objects with constraint tag from selected points
+Description-US: Create null objects with constraint tag (clamp) from selected point(s)
 Written for Maxon Cinema 4D R20.057
 """
 # Libraries

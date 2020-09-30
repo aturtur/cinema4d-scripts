@@ -82,14 +82,14 @@ Creates (clones) own materials for selected object(s) from existing materials.
 
 ### ![AR_CreateSpline](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateSpline.png) AR_CreateSpline.py
 Creates a spline(s) multiple different ways. Sometimes also with dynamics!
-#### No any object selection
+#### No any object selection:
 **Default:** Creates a simple two point spline on Z-axis.
 **Shift:** Creates a simple two point spline on Y-axis.
 **Ctrl:** Creates a simple two point spline on X-axis.
-#### One or multiple spline object(s) selected**
+#### One or multiple spline object(s) selected:
 **Default:** Creates a dynamic spline from a static spline with controllers on both ends (user input for subdivision).
 **Shift:** Creates a dynamic spline from a static spline with controllers for every spline point (user input for subdivision).
-#### Multiple objects selected
+#### Multiple objects selected:
 **Default:** Creates a one static spline from selected objects' positions.
 **Shift:** Creates multiple static splines betweeen selected objects.
 **Ctrl:** Creates a one dynamic spline from selected objects (user input for subdivision). 

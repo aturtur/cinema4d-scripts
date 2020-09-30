@@ -348,7 +348,7 @@ Splits object to individual objects by polygon selection tags.
 **Shift:** Swaps also objects place in the hierarchy.
 
 ### ![AR_TargetSniper_beta](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TargetSniper_beta.png) AR_TargetSniper_beta.py
-Shoots ray from the selected camera(s) and cretes focus null to closest hitting point. Not recommended with heavy projects.
+Shoots ray from the selected camera(s) and creates a focus null(s) to closest hitting point. Not recommended with heavy scenes. Very experimental script.
 
 ### ![AR_ToggleEnable](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ToggleEnable.png) AR_ToggleEnable.py
 Meant to be a replacement for the default 'Q' (Toggle Parent Generator) command.

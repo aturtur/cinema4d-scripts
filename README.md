@@ -199,7 +199,7 @@ Opens the folder in explorer where the project is rendered. Supports some tokens
 Create materials from Pixeur color palette file.
 
 ### ![AR_PrintType](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PrintType.png) AR_PrintType.py
-Prints selected object(s) type (ID). Utility script for helping for scripting.
+Prints selected object(s) type (ID) to console. Script for scripting.
 
 ### ![AR_RandomColors](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RandomColors.png) AR_RandomColors.py
 **Default:** Sets random display color to selected object(s).

@@ -1,5 +1,5 @@
 # Aturtur's Cinema 4D Scripts
-![AR_Scripts](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Scripts.jpg)
+![AR_Scripts](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/CoverImage.jpg)
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 

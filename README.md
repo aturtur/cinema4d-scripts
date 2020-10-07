@@ -368,6 +368,7 @@ Toggle grid visibility in viewport.
 **Default:** Toggle opacity of tinted border in viewport.
 **Shift:** Set the custom opacity value.
 **Ctrl:** Toggle tinted border, but leave guide lines.
+**Alt:** Set custom border color with hex color code.
 
 ### ![AR_VertexMapInvert](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_VertexMapInvert.png) AR_VertexMapInvert.py
 Inverts selected Vertex Map tag's data.

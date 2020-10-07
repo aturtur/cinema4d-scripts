@@ -74,31 +74,7 @@ def main():
         c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients['Houdini'][0])
         c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients['Houdini'][1])
 
-        #spot = None
-        #last = False
-        #for i, grad in enumerate(gradients): # Iterate through colors
-            #if (cg1 == grad[0]) and (cg2 == grad[1]):
-                #spot = i
-                #if i == len(gradients)-1:
-                    #last = True
-
         grads = iter(gradients)
-
-        for g in grads:
-            print g
-
-        """
-        if spot == None:
-            c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients['Houdini'][0])
-            c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients['Houdini'][1])
-        else:
-            if last == False:
-                c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients[spot+1][0])
-                c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients[spot+1][1])
-            if last == True:
-                c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients['Dark'][0])
-                c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients['Dark'][1])
-        """
 
     # If shift pressed
     if keyMod == "Shift": # New Cinema 4D (Default gradient)
@@ -144,7 +120,6 @@ def main():
             if last == True:
                 c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, userGradients[0][0])
                 c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, userGradients[0][1])
-
         f.close() # Close the file
         pass
 

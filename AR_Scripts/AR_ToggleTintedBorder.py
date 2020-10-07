@@ -11,6 +11,9 @@ Note: Run the script from stored file location where you have writing permission
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+07.10.2020 - Added ALT-modifier, set custom border color with hex color code
 """
 # Libraries
 import c4d, os, re
@@ -42,6 +45,13 @@ def GetKeyMod():
         else: # No keyboard modifiers used
             keyMod = 'None'
         return keyMod
+
+def HexToRgb(value):
+    value = value.replace(' ', '').replace('\n', '').replace('\r', '') # Remove spaces
+    value = value.lstrip('#') # Strip '#' symbol from value
+    lv = len(value) # Length of the input
+    #print value
+    return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
@@ -78,6 +88,12 @@ def main():
             bd[c4d.BASEDRAW_DATA_TINTBORDER_OPACITY] = 0 # Set opacity to 0
     elif keyMod == "Ctrl":
         bd[c4d.BASEDRAW_DATA_TINTBORDER] = not bd[c4d.BASEDRAW_DATA_TINTBORDER] # Toggle 'Tinted Border' checkbox
+    elif keyMod == "Alt": # Change border color
+        userColor = gui.InputDialog('Value', '#000000') # Store user given value
+        if userColor is not '':
+            rgb = HexToRgb(userColor)
+            color = c4d.Vector(float(rgb[0])/255,float(rgb[1])/255,float(rgb[2])/255) # Convert rgb to c4d form
+            bd[c4d.BASEDRAW_DATA_TINTBORDER_COLOR] = color # Set border color
 
     #except: # If something went wrong
         #pass # Do nothing

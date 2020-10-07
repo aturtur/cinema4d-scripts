@@ -3,13 +3,16 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
+**Version: 1.0.1** (Updated 07.10.2020)
+
 ## Change Log
-_No any changes so far..._
+- _07.10.2020_ **AR_ResizeCanvas.py:** Added support for non-perspective projections (e.g. parallel, isometric etc.)
+- _07.10.2020_ **AR_ToggleTintedBorder.py:** ALT-modifier, change border color with hex color code
 
 ## How to use
 In this section I go through how you install AR_Scripts to your Cinema 4D. These scripts are written for Maxon Cinema 4D R21.207 using Python version 2.7.14. Scripts are tested using Microsoft Windows. All of the script might not work with Mac.
 
-Use at your own risk!
+_Use at your own risk!_
 
 ### Installation
 Scripts should be installed to the folder where scripts have priviledges to write files, since some takes advantages for that.
@@ -40,8 +43,8 @@ Bakes selected cameras to world space. It might feel that when running the scrip
 Bakes selected object(s) to point level animation (PLA) in world space. Preview range determines the baking range.
 
 ### ![AR_BakeObjectPSR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BakeObjectPSR.png) AR_BakeObjectPSR.py
-*Default:* Bakes selected object(s) to PSR animation in world space.
-*Shift:* Bakes selected object(s) to PSR animation in local space.
+**Default:** Bakes selected object(s) to PSR animation in world space.
+**Shift:** Bakes selected object(s) to PSR animation in local space.
 Preview range determines the baking range.
 
 ### ![AR_BooleMuch](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BooleMuch.png) AR_BooleMuch.py

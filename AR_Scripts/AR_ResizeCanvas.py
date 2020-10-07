@@ -4,7 +4,7 @@ AR_ResizeCanvas
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ResizeCanvas
-Version: 1.0
+Version: 1.01
 Description-US: Resizes canvas without changing the perspective.
 Changes active render settings resolution and selected/active camera's sensor size (film gate) and possibly also film offsets.
 NOTE! If you don't have custom camera active or selected, script will modify default viewport camera's settings!
@@ -12,6 +12,9 @@ You can reset default viewport camera with "View -> Frame Default"
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+07.10.2020 - Supports now non perspective camera projections (e.g. parallel, isometric etc.)
 """
 # Libraries
 import c4d
@@ -36,7 +39,7 @@ def getSensorSize(old, new, sensor):
     return sensor * (new / old)
 
 def getFilmAnchor(old, new, current):
-    return current * (old/new)
+    return current * (old / new)
 
 def getFilmOffset(old, new, direction):
     filmOffset = ((1.0 - (old / new)) / 2.0)
@@ -53,6 +56,7 @@ def resizeComposition(anchor, newWidth, newHeight):
 
     focalLength = camera[c4d.CAMERA_FOCUS] # Get camera's focal length
     sensorSize = camera[c4d.CAMERAOBJECT_APERTURE] # Get camera's sensor size
+    zoom = camera[c4d.CAMERA_ZOOM] # Get camera's zoom value
     oldWidth = float(renderData[c4d.RDATA_XRES]) # Get render width resolution
     oldHeight = float(renderData[c4d.RDATA_YRES]) # Get render height resolution
 
@@ -63,43 +67,38 @@ def resizeComposition(anchor, newWidth, newHeight):
     oldFilmOffsetY = float(camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y])
     oldFilmOffsetX = float(camera[c4d.CAMERAOBJECT_FILM_OFFSET_X])
 
-    if anchor == "Mid Center":
+    if camera[c4d.CAMERA_PROJECTION] == 0: # If camera projection is perspective
         camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
+    else: # If camera projection is something else than perspective (parallel etc.)
+        camera[c4d.CAMERA_ZOOM] = getFilmAnchor(oldWidth, newWidth, zoom)
+
+    if anchor == "Mid Center":
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y] = getFilmAnchor(oldHeight, newHeight, oldFilmOffsetY)
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_X] = getFilmAnchor(oldWidth, newWidth, oldFilmOffsetX)
 
     elif anchor == "Top Center":
-        camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y] = getFilmAnchor(oldHeight, newHeight, oldFilmOffsetY) + getFilmOffset(oldHeight, newHeight, "Down")
     elif anchor == "Bot Center":
-        camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y] = getFilmAnchor(oldHeight, newHeight, oldFilmOffsetY) + getFilmOffset(oldHeight, newHeight, "Up")
     elif anchor == "Mid Left":
-        camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_X] = getFilmAnchor(oldWidth, newWidth, oldFilmOffsetX) + getFilmOffset(oldWidth, newWidth, "Right")
     elif anchor == "Mid Right":
-        camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
         filmOffsetX = getFilmAnchor(oldWidth, newWidth, oldFilmOffsetX) + getFilmOffset(oldWidth, newWidth, "Left")
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_X] = filmOffsetX
 
     # Corners
     elif anchor == "Top Left":
-        camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_X] = getFilmAnchor(oldWidth, newWidth, oldFilmOffsetX) + getFilmOffset(oldWidth, newWidth, "Right")
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y] = getFilmAnchor(oldHeight, newHeight, oldFilmOffsetY) + getFilmOffset(oldHeight, newHeight, "Down")
     elif anchor == "Top Right":
-        camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_X] = getFilmAnchor(oldWidth, newWidth, oldFilmOffsetX) + getFilmOffset(oldWidth, newWidth, "Left")
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y] = getFilmAnchor(oldHeight, newHeight, oldFilmOffsetY) + getFilmOffset(oldHeight, newHeight, "Down")
     elif anchor == "Bot Left":
-        camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_X] = getFilmAnchor(oldWidth, newWidth, oldFilmOffsetX) + getFilmOffset(oldWidth, newWidth, "Right")
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y] = getFilmAnchor(oldHeight, newHeight, oldFilmOffsetY) + getFilmOffset(oldHeight, newHeight, "Up")
     elif anchor == "Bot Right":
-        camera[c4d.CAMERAOBJECT_APERTURE] = getSensorSize(oldWidth, newWidth, sensorSize)
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_X] = getFilmAnchor(oldWidth, newWidth, oldFilmOffsetX) + getFilmOffset(oldWidth, newWidth, "Left")
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y] = getFilmAnchor(oldHeight, newHeight, oldFilmOffsetY) + getFilmOffset(oldHeight, newHeight, "Up")
-
 
     renderData[c4d.RDATA_XRES] = newWidth
     renderData[c4d.RDATA_YRES] = newHeight

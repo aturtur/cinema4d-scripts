@@ -4,7 +4,7 @@ AR_ToggleTintedBorder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ToggleTintedBorder
-Version: 1.0
+Version: 1.0.1
 Description-US: Toggle opacity of tinted border in viewport, press shift to set custom value.
 Note: Run the script from stored file location where you have writing permissions.
       The script creates a dat file for storing state of tinted border.

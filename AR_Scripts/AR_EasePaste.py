@@ -4,13 +4,15 @@ AR_EasePaste
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_EasePaste
-Version: 1.0
+Version: 1.0.1
 Description-US: Pastes copied easing to selected keyframes. If you use F-Curve editor hold SHIFT when running the script.
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
-"""
 
+Change log:
+09.10.2020 - Major bug fix
+"""
 # Libraries
 import c4d
 import os
@@ -99,13 +101,14 @@ def SetKeys(keyData, keyMod):
                 valueDiffOrig = k.GetValue() - k.GetNext().GetValue()
                 if valueDiffRef != 0:
                     if valueDiffOrig != 0:
-                        diff = valueDiffRef / valueDiffOrig
+                        diff = valueDiffOrig / valueDiffRef # Fixed
             if i == len(keyData)-1: # The last key
                 valueDiffRef = float(keyData[i-1]['value']) - float(keyData[i]['value'])
                 valueDiffOrig = k.GetPred().GetValue() - k.GetValue()
                 if valueDiffRef != 0:
                     if valueDiffOrig != 0:
-                        diff = valueDiffRef / valueDiffOrig
+                        diff = valueDiffOrig / valueDiffRef # Fixed
+                        print "end diff " + str(diff)
 
             leftValue = float(keyData[i]['leftvalue']) * diff
             rightValue = float(keyData[i]['rightvalue']) * diff

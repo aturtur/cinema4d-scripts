@@ -108,13 +108,13 @@ def main():
 
     # If shift pressed
     if keyMod == "Shift": # New Cinema 4D (Default gradient)
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients['Cinema 4D'][0])
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients['Cinema 4D'][1])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, presets['default'][0])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, presets['default'][1])
 
     # If control pressed
     if keyMod == "Ctrl": # Dark theme
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients['Dark'][0])
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients['Dark'][1])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, presets['dark'][0])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, presets['dark'][1])
 
     # If alt pressed, cycle through user gradients
     if keyMod == "Alt":

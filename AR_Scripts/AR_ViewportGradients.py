@@ -4,17 +4,21 @@ AR_ViewportGradients
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ViewportGradients
-Version: 1.0
+Version: 1.0.1
 Description-US: Cycles through different background gradients for viewport. SHIFT: Default gradient (R21)
 Note: Change is permanent.
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
+Change log:
+23.10.2020 - Wrong version fix
 """
 # Libraries
 import c4d, os
 from c4d import storage
+from c4d import gui
+
 
 # Functions
 def GetKeyMod():
@@ -53,12 +57,20 @@ def HexToRgb(value):
 def main():
 
     # Initialize colors ----------------------
-    gradients = {
-        'Cinema 4D': [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
-        'Houdini':   [c4d.Vector(0.741, 0.773, 0.776), c4d.Vector(0.4, 0.494, 0.545)],
-        'Maya':      [c4d.Vector(0.082, 0.086, 0.09), c4d.Vector(0.525, 0.608, 0.69)],
-        'Legacy':    [c4d.Vector(0.357, 0.357, 0.357), c4d.Vector(0.525, 0.525, 0.525)],
-        'Dark':      [c4d.Vector(0.08, 0.08, 0.08), c4d.Vector(0, 0, 0)]
+    gradients = [
+        [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
+        [c4d.Vector(0.741, 0.773, 0.776), c4d.Vector(0.4, 0.494, 0.545)],
+        [c4d.Vector(0.082, 0.086, 0.09), c4d.Vector(0.525, 0.608, 0.69)],
+        [c4d.Vector(0.357, 0.357, 0.357), c4d.Vector(0.525, 0.525, 0.525)],
+        [c4d.Vector(0.08, 0.08, 0.08), c4d.Vector(0, 0, 0)]]
+    presets = {
+        'cinema 4d': [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
+        'default': [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
+        'c4d': [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
+        'houdini':   [c4d.Vector(0.741, 0.773, 0.776), c4d.Vector(0.4, 0.494, 0.545)],
+        'maya':      [c4d.Vector(0.082, 0.086, 0.09), c4d.Vector(0.525, 0.608, 0.69)],
+        'legacy':    [c4d.Vector(0.357, 0.357, 0.357), c4d.Vector(0.525, 0.525, 0.525)],
+        'dark':      [c4d.Vector(0.08, 0.08, 0.08), c4d.Vector(0, 0, 0)]
     }
 
     keyMod = GetKeyMod() # Get keymodifier
@@ -71,20 +83,38 @@ def main():
         cg2 = c4d.GetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2)
 
         # Temporary change
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients['Houdini'][0])
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients['Houdini'][1])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, presets['houdini'][0])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, presets['houdini'][1])
 
-        grads = iter(gradients)
+        spot = None
+        last = False
+        for i, grad in enumerate(gradients): # Iterate through colors
+            if (cg1 == grad[0]) and (cg2 == grad[1]):
+                spot = i
+                if i == len(gradients)-1:
+                    last = True
+        if spot == None:
+            c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients[0][0])
+            c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients[0][1])
+        else:
+            if last == False:
+                c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients[spot+1][0])
+                c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients[spot+1][1])
+            if last == True:
+                c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients[0][0])
+                c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients[0][1])
+        pass
+
 
     # If shift pressed
     if keyMod == "Shift": # New Cinema 4D (Default gradient)
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, c4dg1)
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, c4dg2)
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients['Cinema 4D'][0])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients['Cinema 4D'][1])
 
     # If control pressed
     if keyMod == "Ctrl": # Dark theme
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, blkg1)
-        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, blkg2)
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, gradients['Dark'][0])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, gradients['Dark'][1])
 
     # If alt pressed, cycle through user gradients
     if keyMod == "Alt":
@@ -129,6 +159,17 @@ def main():
         data = os.path.join(path, 'AR_ViewportGradients.txt') # data file path
         storage.GeExecuteFile(data) # Open data file for editing user gradients
         pass
+
+    # If alt + control + shift pressed, open dat-file
+    if keyMod == "Alt+Ctrl":
+        name = gui.InputDialog("Prestet name", "").lower() # Input dialog
+        if name is None: return
+        if name is "": return
+
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD1, presets[name][0])
+        c4d.SetViewColor(c4d.VIEWCOLOR_C4DBACKGROUND_GRAD2, presets[name][1])
+        pass
+
 
     c4d.EventAdd() # Update
 

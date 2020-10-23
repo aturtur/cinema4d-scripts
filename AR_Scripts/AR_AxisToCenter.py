@@ -4,11 +4,14 @@ AR_AxisToCenter
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_AxisToCenter
-Version: 1.0
+Version: 1.0.1
 Description-US: Puts axis to center of the object(s). If non-editable object is selected, tries to move object to center of the children.
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+23.10.2020 - Major bug fix
 """
 # Libraries
 import c4d
@@ -19,7 +22,7 @@ toClean = []
 # Functions
 def Join(op, tempDoc):
     if (not op): return op
-    if op != None: 
+    if op != None:
         bc = c4d.BaseContainer() # Initialize Base Container
         res = c4d.utils.SendModelingCommand(c4d.MCOMMAND_JOIN, [op], c4d.MODELINGCOMMANDMODE_ALL, bc, tempDoc)
         return res[0]
@@ -97,7 +100,7 @@ def main():
     try: # Try to execute following script
         selection = doc.GetActiveObjects(0) # Get active objects
         for obj in selection: # Loop through selection
-            if (obj.GetType() != 5103) or (obj.GetType() != 5101): # If selected object is non-editable
+            if (obj.GetType() != 5100) and (obj.GetType() != 5101): # If selected object is non-editable
                 doc.AddUndo(c4d.UNDOTYPE_CHANGE, obj) # Add undo command for making changes to object
                 CenterNull(obj) # Move null
                 clean()

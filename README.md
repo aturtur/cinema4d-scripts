@@ -6,6 +6,7 @@ My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com
 **Version: 1.0.2** (Updated 09.10.2020)
 
 ## Change Log
+- _23.10.2020_ **AR_AxisToCenter.py:** Major bug fix.
 - _09.10.2020_ **AR_EasePaste.py:** Major bug fix.
 - _07.10.2020_ **AR_ResizeCanvas.py:** Added support for non-perspective projections (e.g. parallel, isometric etc.)
 - _07.10.2020_ **AR_ToggleTintedBorder.py:** ALT-modifier, change border color with hex color code

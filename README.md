@@ -3,7 +3,7 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
-**Version: 1.0.2** (Updated 09.10.2020)
+**Version: 1.0.3** (Updated 23.10.2020)
 
 ## Change Log
 - _23.10.2020_ **AR_ViewportGradients.py:** Wrong version fix.

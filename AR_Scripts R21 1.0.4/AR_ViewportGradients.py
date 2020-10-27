@@ -12,7 +12,7 @@ Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
 Change log:
-23.10.2020 - Wrong version fix
+1.0.1 (23.10.2020) - Wrong version fix
 """
 # Libraries
 import c4d, os
@@ -58,19 +58,23 @@ def main():
 
     # Initialize colors ----------------------
     gradients = [
-        [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
-        [c4d.Vector(0.741, 0.773, 0.776), c4d.Vector(0.4, 0.494, 0.545)],
-        [c4d.Vector(0.082, 0.086, 0.09), c4d.Vector(0.525, 0.608, 0.69)],
-        [c4d.Vector(0.357, 0.357, 0.357), c4d.Vector(0.525, 0.525, 0.525)],
-        [c4d.Vector(0.08, 0.08, 0.08), c4d.Vector(0, 0, 0)]]
+        [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)], # 0 Cinema 4D
+        [c4d.Vector(0.741, 0.773, 0.776), c4d.Vector(0.4, 0.494, 0.545)],      # 1 Houdini
+        [c4d.Vector(0.082, 0.086, 0.09), c4d.Vector(0.525, 0.608, 0.69)],      # 2 Maya
+        [c4d.Vector(0.357, 0.357, 0.357), c4d.Vector(0.525, 0.525, 0.525)],    # 3 Legacy
+        [c4d.Vector(0.08, 0.08, 0.08), c4d.Vector(0, 0, 0)]]                   # 4 Dark
+        
     presets = {
-        'cinema 4d': [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
-        'default': [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
-        'c4d': [c4d.Vector(0.2196, 0.2196, 0.2196), c4d.Vector(0.298, 0.298, 0.298)],
-        'houdini':   [c4d.Vector(0.741, 0.773, 0.776), c4d.Vector(0.4, 0.494, 0.545)],
-        'maya':      [c4d.Vector(0.082, 0.086, 0.09), c4d.Vector(0.525, 0.608, 0.69)],
-        'legacy':    [c4d.Vector(0.357, 0.357, 0.357), c4d.Vector(0.525, 0.525, 0.525)],
-        'dark':      [c4d.Vector(0.08, 0.08, 0.08), c4d.Vector(0, 0, 0)]
+        'cinema 4d': gradients[0],
+        'default':   gradients[0],
+        'new':       gradients[0],
+        'c4d':       gradients[0],
+        'houdini':   gradients[1],
+        'hou':       gradients[1],
+        'maya':      gradients[2],
+        'legacy':    gradients[3],
+        'old':       gradients[3],
+        'dark':      gradients[4]
     }
 
     keyMod = GetKeyMod() # Get keymodifier

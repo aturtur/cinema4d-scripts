@@ -3,9 +3,11 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
-**Version: 1.0.3** (Updated 23.10.2020)
+Latest version **: 1.0.4** _(Updated 27.10.2020)_
 
 ## Change Log
+- _27.10.2020_ **AR_Scripts folder versioning**
+- _27.10.2020_ **AR_BakeCameras.py, AR_BakeObjectPLA.py, AR_BakeObjectPSR.py:** Fixed setTime bug.
 - _23.10.2020_ **AR_ViewportGradients.py:** Wrong version fix.
 - _23.10.2020_ **AR_AxisToCenter.py:** Major bug fix.
 - _09.10.2020_ **AR_EasePaste.py:** Major bug fix.
@@ -383,7 +385,7 @@ Inverts selected Vertex Map tag's data.
 **Alt:** Cycles through user gradients.
 **Alt+Ctrl:** Set gradient by name (user input).
 **Alt+Ctrl+Shift:** Open txt-file for saving user gradients. Use hex color codes (#0000, #FFFFFF).
-Basic gradients: Houdini, Maya, Dark, Old Cinema 4D, New Cinema 4D.
+Basic gradients: Houdini, Maya, Dark, Old Cinema 4D (legacy), New Cinema 4D.
 _Note: Change is permanent._
 
 ## Support me

@@ -4,11 +4,14 @@ AR_BakeObjectPSR
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_BakeObjectPSR
-Version: 1.0
+Version: 1.0.1
 Description-US: Bakes object to PSR animation in world space. SHIFT: In local space
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+1.0.1 (27.10.2020) - Fixed setTime bug
 """
 # Libraries
 import c4d
@@ -130,8 +133,7 @@ def CreateUserDataLink(obj, name, link, parentGroup=None, shortname=None):
 
 def SetCurrentFrame(frame, doc):
     """ Changes editor's current frame to  """
-
-    doc.SetTime(c4d.BaseTime(float(frame)/doc.GetFps())) # Set current time to given frame
+    doc.SetTime(c4d.BaseTime(frame,doc.GetFps())) # Set current time to given frame
     doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
     c4d.GeSyncMessage(c4d.EVMSG_TIMECHANGED) # Send a synchronous event message that time has changed
     return

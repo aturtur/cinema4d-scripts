@@ -4,7 +4,7 @@ AR_ResizeCanvas
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ResizeCanvas
-Version: 1.01
+Version: 1.0.1
 Description-US: Resizes canvas without changing the perspective.
 Changes active render settings resolution and selected/active camera's sensor size (film gate) and possibly also film offsets.
 NOTE! If you don't have custom camera active or selected, script will modify default viewport camera's settings!
@@ -14,7 +14,7 @@ Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
 Change log:
-07.10.2020 - Supports now non perspective camera projections (e.g. parallel, isometric etc.)
+1.0.1 (07.10.2020) - Supports now non perspective camera projections (e.g. parallel, isometric etc.)
 """
 # Libraries
 import c4d

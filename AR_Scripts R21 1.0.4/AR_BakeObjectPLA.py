@@ -4,11 +4,14 @@ AR_BakeObjectPLA
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_BakeObjectPLA
-Version: 1.0
+Version: 1.0.1
 Description-US: Bakes quickly object to PLA animation
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+1.0.1 (27.10.2020) - Fixed setTime bug
 """
 # Libraries
 import c4d
@@ -39,7 +42,7 @@ def DisableDynamics(obj):
 def DummyObject(obj, doc):
     dummyObject = MakeEditable(obj) # Get clone from original object
     RemoveTags(dummyObject) # Remove tags of the object
-    
+
     # Clean
     if dummyObject.GetCTracks() != None:
         for cTrack in dummyObject.GetCTracks(): cTrack.Remove() # Remove unnecessary tracks
@@ -59,7 +62,7 @@ def DummyObject(obj, doc):
     prioritydata.SetPriorityValue(c4d.PRIORITYVALUE_PRIORITY, 449) # Set priority value to last possible value
     prioritydata.SetPriorityValue(c4d.PRIORITYVALUE_CAMERADEPENDENT, False) # Set Object dependent to false
     xpressoTag[c4d.EXPRESSION_PRIORITY] = prioritydata # Set priority data
-    
+
     link1 = CreateUserDataLink(dummyObject, "Source", obj) # Create user data link
     link2 = CreateUserDataLink(dummyObject, "Dummy", dummyObject) # Create user data link
 
@@ -168,8 +171,7 @@ def CreateUserDataLink(obj, name, link, parentGroup=None, shortname=None):
 
 def SetCurrentFrame(frame, doc):
     """ Changes editor's current frame to  """
-
-    doc.SetTime(c4d.BaseTime(float(frame)/doc.GetFps())) # Set current time to given frame
+    doc.SetTime(c4d.BaseTime(frame,doc.GetFps())) # Set current time to given frame
     doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
     c4d.GeSyncMessage(c4d.EVMSG_TIMECHANGED) # Send a synchronous event message that time has changed
     return
@@ -201,7 +203,7 @@ def Bake(source, target):
         frame = doc.GetTime().GetFrame(fps) # Get current frame
 
         points = source.GetAllPoints()
-        
+
         #key.SetValue(curve, value)
         #key.SetGeData(curve, value) # Keyframe value needs to be set with SetGeData
 
@@ -234,7 +236,7 @@ def main():
         DisableDynamics(bakeObj)
         dummyObject.Remove() # Delete dummy object
         bakedObjects.append(bakeObj)
-        
+
     for baked in reversed(bakedObjects):
         MoveToFirst(baked, doc) # Sort
 

@@ -11,7 +11,7 @@ Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
 Change log:
-23.10.2020 - Major bug fix
+1.0.1 (23.10.2020) - Major bug fix
 """
 # Libraries
 import c4d

@@ -4,11 +4,14 @@ AR_BakeCameras
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_BakeCameras
-Version: 1.0
+Version: 1.0.1
 Description-US: Bakes selected cameras to world space.
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+1.0.1 (27.10.2020) - Fixed setTime bug
 """
 # ----------------------------------------------------------------------------------------------------------------------------------------------
 copyTags = True # If set true, script will copy third party renderers camera tags to the baked camera object (Octane, Resdhift, Arnold)
@@ -178,7 +181,7 @@ def CopyRendererTags(source, target):
     for t in reversed(tags): # Iterate through tags
         if t.GetType() in rendererTags: # If tag is renderer tag
             d = t.GetClone() # Duplicate the tag
-            target.InsertTag(d) # Copy tag     
+            target.InsertTag(d) # Copy tag
 
 def CleanKeys(obj):
     """ Removes unnecessary keyframes """
@@ -223,8 +226,7 @@ def CreateUserDataLink(obj, name, link, parentGroup=None, shortname=None):
 
 def SetCurrentFrame(frame, doc):
     """ Changes editor's current frame to  """
-
-    doc.SetTime(c4d.BaseTime(float(frame)/doc.GetFps())) # Set current time to given frame
+    doc.SetTime(c4d.BaseTime(frame,doc.GetFps())) # Set current time to given frame
     doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
     c4d.GeSyncMessage(c4d.EVMSG_TIMECHANGED) # Send a synchronous event message that time has changed
     return
@@ -376,11 +378,11 @@ def main():
             RemoveTags(bakeCam) # Remove tags of the object
             Bake(dummyCam, bakeCam) # Bake the camera
             dummyCam.Remove() # Delete Dummy camera
-            CleanKeys(bakeCam) # Clean keyframes            
-            
+            CleanKeys(bakeCam) # Clean keyframes
+
             if copyTags == True:
-                CopyRendererTags(s, bakeCam) # Copies renderer tags from source camera to bake camera            
-            
+                CopyRendererTags(s, bakeCam) # Copies renderer tags from source camera to bake camera
+
             bakedCameras.append(bakeCam) # Add baked camera to bakedCameras array
 
     for b in reversed(bakedCameras):

@@ -4,13 +4,16 @@ AR_ToggleEnable
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ToggleEnable
-Version: 1.0
+Version: 1.0.1
 Description-US: Enables or disables generator. SHIFT: Toggle next parent generator. CTRL: Toggle root generator. ALT: Toggle generator family
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
-Similar to Cinema 4D's own Toggle Parent Generator script, but better ;)
+Similar to Cinema 4D's own Toggle Parent Generator script, but just a lot better ;)
+
+Change log:
+1.0.1 (04.11.2020) - Support for Redshift objects (lights, proxy, sky, environment)
 """
 import c4d
 
@@ -201,8 +204,14 @@ def main():
                 1019363, #Skin 0
                 5136]    #Stage
 
+    redshift = [1036751, # RS Light
+                1036754, # RS Sky
+                1038649, # RS Proxy
+                1038655, # RS Volume
+                1036757] # RS Environment
+
     default = generators + mggenerators
-    allGenerators = deformers + objects + splines + generators + mggenerators + mgeffectors + fields + others
+    allGenerators = deformers + objects + splines + generators + mggenerators + mgeffectors + fields + others + redshift
 
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
@@ -227,7 +236,7 @@ def main():
                                 if success: break
                 else:
                     ToggleEnable(x)
-            
+
             # 2. Enable/disable next parent generator from common list (SHIFT)
             elif keyMod == "Shift":
                 while(True):

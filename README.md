@@ -3,9 +3,12 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
-Latest version **: 1.0.4** _(Updated 27.10.2020)_
+Latest version **: 1.0.5** _(Updated 27.10.2020)_
 
 ## Change Log
+- _04.11.2020_ **AR_MaterialsToObjectsWithSameName:** New script.
+- _04.11.2020_ **AR_AddPhongTags:** New script.
+- _04.11.2020_ **AR_ToggleEnable:** Support for Redshift objects (lights, proxy, sky, environment)
 - _27.10.2020_ **AR_Scripts folder versioning**
 - _27.10.2020_ **AR_BakeCameras.py, AR_BakeObjectPLA.py, AR_BakeObjectPSR.py:** Fixed setTime bug.
 - _23.10.2020_ **AR_ViewportGradients.py:** Wrong version fix.
@@ -37,6 +40,9 @@ When you have installed AR_Scripts you have to reboot Cinema 4D if it is already
 You run the script simply by clicking it. Some scripts have multiple functions and you can use those with key modifiers (Alt / Ctrl / Shift) and different combinations.
 
 ## Script descriptions
+
+### ![AR_AddPhongTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AddPhongTags.png) AR_AddPhongTags.py
+Adds phong tags to objects if missing, but only if really needed. Supports object selection.
 
 ### ![AR_AxisToCenter](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AxisToCenter.png) AR_AxisToCenter.py
 Puts axis to center of the selected object(s) (works only with editable objects). If non-editable object is selected, tries to move the object to center of the children (does not support render instances).
@@ -140,6 +146,9 @@ _Note: Do not use any special charactes in your objects names, do not even use a
 
 ### ![AR_ImportOBJFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportOBJFolder.png) AR_ImportOBJFolder.py
 Imports OBJ-files from selected folder to the active document.
+
+### ![AR_MaterialsToObjectsWithSameName](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MaterialsToObjectsWithSameName.png) AR_MaterialsToObjectsWithSameName.py
+Puts materials to objects that has same name. Supports object selection.
 
 ### ![AR_MergeSelectionTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MergeSelectionTags.png) AR_MergeSelectionTags
 Merges selection tags from selected objects. You can also select only tags that you want to merge together. Tags have to be same type.

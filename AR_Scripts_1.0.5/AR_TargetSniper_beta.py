@@ -20,6 +20,11 @@ toClean = []
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -46,6 +51,13 @@ def GetKeyMod():
         return keyMod
 
 def Join(op, tempDoc):
+    """
+    Wrapper for op tomod instruction.
+
+    Args:
+        op: (todo): write your description
+        tempDoc: (todo): write your description
+    """
     if (not op): return op
     if op != None: 
         bc = c4d.BaseContainer() # Initialize Base Container
@@ -53,6 +65,13 @@ def Join(op, tempDoc):
         return res[0]
 
 def MakeEditable(op, tempDoc):
+    """
+    Creates an op. op.
+
+    Args:
+        op: (todo): write your description
+        tempDoc: (todo): write your description
+    """
     global toClean
 
     if op != None:
@@ -67,6 +86,12 @@ def MakeEditable(op, tempDoc):
         if op: return op[0] # Return object
 
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -76,6 +101,12 @@ def GetNextObject(op):
     return op.GetNext()
 
 def IterateHierarchy(op):
+    """
+    Perform a simple operation.
+
+    Args:
+        op: (todo): write your description
+    """
     objects = []
     tempDoc = c4d.documents.BaseDocument()
     if op is None: return
@@ -97,6 +128,12 @@ def IterateHierarchy(op):
 
 # Convert object points to global coordinates
 def GetGlobalPoint(obj):
+    """
+    Returns a list of all point objects.
+
+    Args:
+        obj: (todo): write your description
+    """
     if not isinstance(obj, c4d.PointObject): return
 
     mg = obj.GetMg()
@@ -109,6 +146,13 @@ def GetGlobalPoint(obj):
 
 # Convert global coordinate list to object's local coordinates
 def GetLocalPoint(pnt, obj):
+    """
+    Get a point object corresponding to the given object.
+
+    Args:
+        pnt: (str): write your description
+        obj: (todo): write your description
+    """
     if not isinstance(obj, c4d.BaseObject): return
     if type(pnt) != list: return
     mg = obj.GetMg()
@@ -118,6 +162,13 @@ def GetLocalPoint(pnt, obj):
     return pnt
 
 def GuideSpline(cam, length):
+    """
+    Calculate of the quadrine matrix.
+
+    Args:
+        cam: (todo): write your description
+        length: (int): write your description
+    """
     positions = []
     pos1 = cam.GetMg().off
 
@@ -135,6 +186,15 @@ def GuideSpline(cam, length):
     return splineObject
 
 def GetRayCollision(cam, obj, length, keyMod):
+    """
+    Gets a prettision object for the object.
+
+    Args:
+        cam: (todo): write your description
+        obj: (todo): write your description
+        length: (int): write your description
+        keyMod: (str): write your description
+    """
     global toClean
     ray = GuideSpline(cam, length)
     pnt = GetGlobalPoint(ray)
@@ -168,12 +228,22 @@ def GetRayCollision(cam, obj, length, keyMod):
         cam[c4d.CAMERAOBJECT_TARGETOBJECT] = target
         
 def clean():
+    """
+    Cleans and remove all references.
+
+    Args:
+    """
     global toClean
     for x in toClean:
         if x.IsAlive():
          x.Remove()
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier

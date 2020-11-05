@@ -19,6 +19,11 @@ level = 0 # Initialize level variable (how deep object is in hierarchy)
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -45,6 +50,12 @@ def GetKeyMod():
         return keyMod
 
 def GetNextObject(op): # Get next object from Object Manager
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     global level # Access to global variable (level)
     if op is None: # If there is no object
         return None # Return none
@@ -57,6 +68,12 @@ def GetNextObject(op): # Get next object from Object Manager
     return op.GetNext() # Return object
 
 def BuildHierarchyPath(obj): # Build hierarchy path for object
+    """
+    Recursively display path.
+
+    Args:
+        obj: (todo): write your description
+    """
     global level # Access to global variable (level)
     path = [] # Initialize empty list for path
     for i in range(0,level+1): # Iterate through levels
@@ -67,6 +84,11 @@ def BuildHierarchyPath(obj): # Build hierarchy path for object
     return path # Return hierarchy path
 
 def BuildHierarchy(): # Build hierarchy dictionary
+    """
+    Create a global documentation object for this module.
+
+    Args:
+    """
     global level # Access to global variable (level)
     global hieararchy # Access to global dictionary (hierarchy)
     doc = c4d.documents.GetActiveDocument()
@@ -88,6 +110,12 @@ def BuildHierarchy(): # Build hierarchy dictionary
     return hierarchy # Return hierarchy dictionary
 
 def FindRoot(data): # Find object's root
+    """
+    Find the root of the root of the root of - type.
+
+    Args:
+        data: (array): write your description
+    """
     dataType = type(data).__name__ # Get incoming data type name
     # List (data)
     if dataType == "list": # If data is list do following
@@ -110,6 +138,12 @@ def FindRoot(data): # Find object's root
             obj = obj.GetUp() # Get up
 
 def FindDeepest(start): # Find deepest level item(s)
+    """
+    Find the collection of the start to end.
+
+    Args:
+        start: (todo): write your description
+    """
     global hieararchy # Access to global dictionary (hierarchy)
     collection = [] # Initialize empty list
     sortedcollection = [] # Initialize empty list
@@ -124,6 +158,12 @@ def FindDeepest(start): # Find deepest level item(s)
     return sortedcollection # Return list of deepest children
 
 def Select(data): # Select object(s)
+    """
+    Set bitmap of a bitmap.
+
+    Args:
+        data: (array): write your description
+    """
     dataType = type(data).__name__ # Get incoming data type name
     # List (data)
     if dataType == "list": # If data is list do following
@@ -138,6 +178,12 @@ def Select(data): # Select object(s)
         obj.SetBit(c4d.BIT_ACTIVE) # Select object in Object Manager
 
 def Deselect(data): # Deselect object(s)
+    """
+    Create a bitstring.
+
+    Args:
+        data: (todo): write your description
+    """
     dataType = type(data).__name__ # Get incoming data type name
     # List (data)
     if dataType == "list": # If data is list do following
@@ -152,6 +198,11 @@ def Deselect(data): # Deselect object(s)
         obj.DelBit(c4d.BIT_ACTIVE) # Deselect object in Object Manager
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     global hieararchy # Access to global dictionary (hierarchy)

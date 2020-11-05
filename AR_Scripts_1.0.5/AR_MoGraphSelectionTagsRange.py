@@ -17,6 +17,11 @@ from c4d import gui as g
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -43,6 +48,13 @@ def GetKeyMod():
         return keyMod
 
 def MoGraphSelectionFromRange(obj, keyMod):
+    """
+    Makes a set of a user - defined name.
+
+    Args:
+        obj: (todo): write your description
+        keyMod: (str): write your description
+    """
     #try:
     userInput = g.InputDialog("Selected IDs for "+obj.GetName(),"") # User input dialog
     if userInput == "": return
@@ -108,6 +120,11 @@ def MoGraphSelectionFromRange(obj, keyMod):
 
 # Functions
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier

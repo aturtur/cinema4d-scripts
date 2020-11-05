@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     
     doc.StartUndo() # Start recording undos
     selection = doc.GetSelection() #Get selection

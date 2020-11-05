@@ -15,6 +15,12 @@ import c4d
 
 # Functions
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -24,6 +30,13 @@ def GetNextObject(op):
     return op.GetNext()
  
 def RemoveEmptySelectionTag(op, selection):
+    """
+    Removes a tag from a tag.
+
+    Args:
+        op: (todo): write your description
+        selection: (str): write your description
+    """
     selectionTags = [5673, # Polygon selection
                      5674, # Point selection
                      5701] # Edge selection
@@ -51,6 +64,11 @@ def RemoveEmptySelectionTag(op, selection):
     return True
 
 def main():
+    """
+    Main entry point.
+
+    Args:
+    """
     doc.StartUndo() # Start recording undos
     selection = doc.GetActiveObjects(0) # Get selected objects
     start_object = doc.GetFirstObject() # Get first object

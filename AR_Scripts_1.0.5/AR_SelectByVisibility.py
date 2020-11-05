@@ -24,6 +24,11 @@ from c4d import utils as u
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -50,6 +55,12 @@ def GetKeyMod():
         return keyMod
 
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -59,18 +70,37 @@ def GetNextObject(op):
     return op.GetNext()
  
 def Select(lst):
+    """
+    Set all bitmap of a bitmap.
+
+    Args:
+        lst: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     for l in lst: # Iterate through objects
         doc.AddUndo(c4d.UNDOTYPE_BITS, l) # Record undo
         l.SetBit(c4d.BIT_ACTIVE) # Select object
 
 def Deselect(lst):
+    """
+    Deselect bit bitmap.
+
+    Args:
+        lst: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     for l in lst: # Iterate through objects
         doc.AddUndo(c4d.UNDOTYPE_BITS, l) # Record undo
         l.DelBit(c4d.BIT_ACTIVE) # Deselect object
 
 def CollectByVisibility(op, keyMod):
+    """
+    Given a list of tuples of ( dese ). dese. dese operation ).
+
+    Args:
+        op: (todo): write your description
+        keyMod: (str): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     selectionList = []
     deselectionList = []
@@ -109,6 +139,11 @@ def CollectByVisibility(op, keyMod):
     return selectionList, deselectionList
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier
     #try: # Try to execute following script

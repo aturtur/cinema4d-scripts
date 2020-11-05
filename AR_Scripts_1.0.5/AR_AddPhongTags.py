@@ -16,6 +16,12 @@ import c4d
 
 # Functions
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -25,6 +31,13 @@ def GetNextObject(op):
     return op.GetNext()
 
 def CheckPhong(op, doc):
+    """
+    Checks that the given tag is a binary document.
+
+    Args:
+        op: (todo): write your description
+        doc: (todo): write your description
+    """
     phongFound = 0 # Initialize phongFound variable
     tags = op.GetTags() # Get tags of object
     for t in tags: # Loop Through tags
@@ -42,6 +55,13 @@ def CheckPhong(op, doc):
             doc.AddUndo(c4d.UNDOTYPE_NEW, phongTag)
  
 def IterateHierarchy(op, doc):
+    """
+    Perform an op. k. k. a.
+
+    Args:
+        op: (todo): write your description
+        doc: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     if op is None:
         return
@@ -51,6 +71,11 @@ def IterateHierarchy(op, doc):
     return True
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     try: # Try to execute following script

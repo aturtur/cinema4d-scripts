@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def swapObjects():
+    """
+    Swap all objects
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     bc = c4d.BaseContainer() # Initialize Base Container
     tempNullA = c4d.BaseObject(c4d.Onull) # Initialize temporary Null object
@@ -39,6 +44,11 @@ def swapObjects():
     return True # Everything is fine
 
 def main():
+    """
+    Main entry point.
+
+    Args:
+    """
     try: # Try to execute following script
         doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
         doc.StartUndo() # Start recording undos

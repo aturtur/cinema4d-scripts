@@ -22,6 +22,11 @@ from c4d import gui
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -48,6 +53,12 @@ def GetKeyMod():
         return keyMod
 
 def HexToRgb(value):
+    """
+    Convert the color from rgb to hsv.
+
+    Args:
+        value: (str): write your description
+    """
     value = value.replace(' ', '').replace('\n', '').replace('\r', '') # Remove spaces
     value = value.lstrip('#') # Strip '#' symbol from value
     lv = len(value) # Length of the input
@@ -55,6 +66,11 @@ def HexToRgb(value):
     return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
 def main():
+    """
+    The main routine.
+
+    Args:
+    """
 
     # Initialize colors ----------------------
     gradients = [

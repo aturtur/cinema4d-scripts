@@ -16,6 +16,12 @@ from c4d.modules import mograph as mo
 
 # Functions
 def SetMoGraphWeightMap(op):
+    """
+    Sets whether or not encoder for a given op.
+
+    Args:
+        op: (todo): write your description
+    """
     md = mo.GeGetMoData(op)
     if md is None: return False
     cnt = md.GetCount()
@@ -26,6 +32,11 @@ def SetMoGraphWeightMap(op):
     mo.GeSetMoDataWeights(moWeightMapTag, warr)
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     generators = [1018544, 1018545, 1018791, 440000054, 1018957, 1036557, 1019268]    

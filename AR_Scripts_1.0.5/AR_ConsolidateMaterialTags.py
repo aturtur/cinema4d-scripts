@@ -15,6 +15,12 @@ import c4d
 
 # Functions
 def ConsolidateMaterialSelections(s):
+    """
+    Given a list of material objects.
+
+    Args:
+        s: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     selectionTags = [] # Initialize list for selection tags
     materialTags = [] # Initialize list for material tags
@@ -55,6 +61,11 @@ def ConsolidateMaterialSelections(s):
         materialTag[c4d.TEXTURETAG_RESTRICTION] = selectionTag.GetName() # Set selection
 
 def main():
+    """
+    The main routine.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     selection = doc.GetActiveObjects(0) # Get selected objects

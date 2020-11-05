@@ -18,6 +18,12 @@ selectGenerators = True # If true, generator(s) will be selected
 
 # Functions
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op == None:
         return None
     if op.GetDown():
@@ -27,6 +33,13 @@ def GetNextObject(op):
     return op.GetNext()
 
 def PrintInfo(obj, generators):
+    """
+    Prints information about an object.
+
+    Args:
+        obj: (todo): write your description
+        generators: (todo): write your description
+    """
     cnt = len(generators)
     print obj.GetName() + " is used in ("+str(cnt)+") generator(s):"
     for generator in generators:
@@ -35,6 +48,13 @@ def PrintInfo(obj, generators):
 
 
 def IterateHierarchy(op, obj):
+    """
+    Generate implementation of - style implementation.
+
+    Args:
+        op: (todo): write your description
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     stringList = [] # Collected generators
     generators = { # MoGraph generators dictionary
@@ -105,6 +125,11 @@ def IterateHierarchy(op, obj):
     return stringList # End script
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     global selectGenerators # Access to global variable
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos

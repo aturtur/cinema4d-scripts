@@ -15,6 +15,12 @@ import c4d
 
 # Functions
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -24,6 +30,12 @@ def GetNextObject(op):
     return op.GetNext()
  
 def RemoveAll(op):
+    """
+    Removes all of the given a op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op is None:
         return
     while op:
@@ -36,6 +48,12 @@ def RemoveAll(op):
     return True
 
 def RemoveSelected(op):
+    """
+    Removes op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op is None:
         return
     while op:
@@ -49,6 +67,11 @@ def RemoveSelected(op):
     return True
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     try: # Try to execute following script

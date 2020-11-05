@@ -16,6 +16,12 @@ from c4d import utils as u
 
 # Functions
 def RemoveTagsWithMissingSelection(op):
+    """
+    Removes tags in a given bytuple.
+
+    Args:
+        op: (todo): write your description
+    """
     materialTags = [] # Init an array
     selectionTags = [] # Init an array
     tags = op.GetTags() # Get object's tags
@@ -34,6 +40,12 @@ def RemoveTagsWithMissingSelection(op):
     return True
 
 def RemoveEmptySelectionTag(op):
+    """
+    Removes a tag from the tag.
+
+    Args:
+        op: (todo): write your description
+    """
     selectionTags = [5673, # Polygon selection
                      5674, # Point selection
                      5701] # Edge selection
@@ -47,6 +59,12 @@ def RemoveEmptySelectionTag(op):
     return True
 
 def SplitCommand(op):
+    """
+    .. version of the pty.
+
+    Args:
+        op: (todo): write your description
+    """
     if op != None:
         bc = c4d.BaseContainer()
         mode = c4d.MODELINGCOMMANDMODE_POLYGONSELECTION
@@ -54,6 +72,12 @@ def SplitCommand(op):
         return res[0]
 
 def SplitByPolySelection(obj):
+    """
+    Given a polynomial of a polygon.
+
+    Args:
+        obj: (todo): write your description
+    """
     selectedPolys = obj.GetPolygonS()
     tags = obj.GetTags()
     for t in reversed(tags):
@@ -68,6 +92,11 @@ def SplitByPolySelection(obj):
             RemoveTagsWithMissingSelection(result)
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     #try: # Try to execute following script

@@ -20,6 +20,12 @@ from c4d import utils as u
 
 # Functions
 def RemoveConnection(nodeMaster):
+    """
+    Removes all pending nodes.
+
+    Args:
+        nodeMaster: (todo): write your description
+    """
     nodes = [] # Initialize a list
     root = nodeMaster.GetRoot() # Get node master root
     nodeMaster.AddUndo() # Add undo for changing nodes
@@ -41,6 +47,11 @@ def RemoveConnection(nodeMaster):
         nodes[0].RemoveConnections() # Remove all connections
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active document
     bc = c4d.BaseContainer() # Initialize a base container
     doc.StartUndo() # Start recording undos

@@ -20,6 +20,12 @@ import re
 
 # Functions
 def CheckFolders(path):
+    """
+    Checks the path is a valid path.
+
+    Args:
+        path: (str): write your description
+    """
     folders = path.split("..\\")
     if len(folders)>1:
         p = doc.GetDocumentPath()
@@ -32,6 +38,11 @@ def CheckFolders(path):
     return path
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active document
     bd = doc.GetActiveBaseDraw() # Get active base draw
     renderData = doc.GetActiveRenderData() # Get document active render data

@@ -21,6 +21,13 @@ toClean = []
 
 # Functions
 def Join(op, tempDoc):
+    """
+    Wrapper for op tomod instruction.
+
+    Args:
+        op: (todo): write your description
+        tempDoc: (todo): write your description
+    """
     if (not op): return op
     if op != None:
         bc = c4d.BaseContainer() # Initialize Base Container
@@ -28,6 +35,13 @@ def Join(op, tempDoc):
         return res[0]
 
 def MakeEditable(op, tempDoc):
+    """
+    Creates an op. op.
+
+    Args:
+        op: (todo): write your description
+        tempDoc: (todo): write your description
+    """
     global toClean
     if op != None:
         clone = op.GetClone() # Get clone
@@ -41,6 +55,12 @@ def MakeEditable(op, tempDoc):
         if op: return op[0] # Return object
 
 def ConnectObjects(lst):
+    """
+    Returns a list of objects.
+
+    Args:
+        lst: (list): write your description
+    """
     objects = []
     tempDoc = c4d.documents.BaseDocument()
     for op in lst:
@@ -59,12 +79,23 @@ def ConnectObjects(lst):
     return None
 
 def clean():
+    """
+    Cleans and remove all references.
+
+    Args:
+    """
     global toClean
     for x in toClean:
         if x.IsAlive():
          x.Remove()
 
 def CenterNull(null):
+    """
+    Generate the children of children.
+
+    Args:
+        null: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     children = null.GetChildren() # Get children objects
     if len(children) != 0: # If there are children
@@ -78,6 +109,12 @@ def CenterNull(null):
             children[i].SetMg(mat)
 
 def CenterAxis(obj): # Center object's axis
+    """
+    Make a set of points on a set of points.
+
+    Args:
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     points = [] # Initialize empty list
     pointCount = obj.GetPointCount() # Get object's point count
@@ -95,6 +132,11 @@ def CenterAxis(obj): # Center object's axis
             matrix.v1, matrix.v2, matrix.v3)) # Set new matrix for the object
 
 def main():
+    """
+    The main routine.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     try: # Try to execute following script

@@ -16,6 +16,11 @@ from c4d.modules import mograph as mo
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -42,6 +47,13 @@ def GetKeyMod():
         return keyMod
 
 def MakeEditable(op, doc):
+    """
+    Wrapper for opclone.
+
+    Args:
+        op: (todo): write your description
+        doc: (todo): write your description
+    """
     if (not op): return op # Check if object is already editable
     clone = op.GetClone() # Get clone
     doc.AddUndo(c4d.UNDOTYPE_NEW, clone)
@@ -59,6 +71,13 @@ def MakeEditable(op, doc):
     else: return None # Otherwise return nothing
 
 def CreateVertexMap(op, keyMod):
+    """
+    Creates a new encoder.
+
+    Args:
+        op: (todo): write your description
+        keyMod: (str): write your description
+    """
     wtag = op.MakeVariableTag(c4d.Tvertexmap, op.GetPointCount()) # Initialize weight tag
     doc.AddUndo(c4d.UNDOTYPE_NEW, wtag) # Add undo command for inserting new tag
     if keyMod == "Shift":
@@ -77,6 +96,11 @@ def CreateVertexMap(op, keyMod):
     wtag.SetBit(c4d.BIT_ACTIVE) # Select tag
 
 def main():
+    """
+    The main routine.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
 

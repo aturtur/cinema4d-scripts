@@ -13,6 +13,11 @@ from c4d import plugins
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -39,6 +44,12 @@ def GetKeyMod():
         return keyMod
 
 def SetExporter(doc):
+    """
+    Returns a docstring for a document.
+
+    Args:
+        doc: (todo): write your description
+    """
     plug = plugins.FindPlugin(1012074, c4d.PLUGINTYPE_SCENESAVER)
     if plug is None:
         return
@@ -67,6 +78,12 @@ def SetExporter(doc):
         aiExport[c4d.TUAIEXPORT_FRAME_RATE] = doc.GetFps() # Frame rate
 
 def SetRender(doc):
+    """
+    Convert the data structure
+
+    Args:
+        doc: (todo): write your description
+    """
     renderData = doc.GetActiveRenderData() # Get document render data
     currVideoPost = renderData.GetFirstVideoPost() # Get first render effect
     sntFound = False # Initialize variable for storing info is 'Sketch and Toon' effect enabled already

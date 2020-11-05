@@ -22,6 +22,17 @@ from c4d import utils as u
 # Classes
 class nodeObject(object):
     def __init__(self, obj, px, py, sx, sy):
+        """
+        Initialize a p : class
+
+        Args:
+            self: (todo): write your description
+            obj: (todo): write your description
+            px: (float): write your description
+            py: (float): write your description
+            sx: (int): write your description
+            sy: (todo): write your description
+        """
         self.node = obj # Node object
         self.px = px # X position
         self.py = py # Y position
@@ -30,12 +41,25 @@ class nodeObject(object):
 
 # Functions
 def GetPortIndex(node, portId):
+    """
+    Returns the index of the port
+
+    Args:
+        node: (todo): write your description
+        portId: (int): write your description
+    """
     inPorts = node.GetInPorts()
     for i, port in enumerate(inPorts):
         if port.GetMainID() == portId:
             return i
 
 def AddControllers(nodeMaster):
+    """
+    Adds a cluster to the network.
+
+    Args:
+        nodeMaster: (todo): write your description
+    """
     nodes = [] # Initialize a list
     root = nodeMaster.GetRoot() # Get node master root
     nodeMaster.AddUndo() # Add undo for changing nodes
@@ -135,6 +159,11 @@ def AddControllers(nodeMaster):
             bcd.SetReal(101, py) # Set y position
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     materials = doc.GetMaterials() # Get materials

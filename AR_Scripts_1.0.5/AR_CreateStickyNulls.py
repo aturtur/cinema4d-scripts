@@ -17,23 +17,55 @@ from c4d import utils as u
 
 # Functions
 def GetGlobalPosition(obj): # Get object's global position
+    """
+    Return the position of the given object.
+
+    Args:
+        obj: (todo): write your description
+    """
     return obj.GetMg().off
 
 def GetGlobalRotation(obj): # Get object's global rotation
+    """
+    Returns the rotation object.
+
+    Args:
+        obj: (todo): write your description
+    """
     return u.MatrixToHPB(obj.GetMg())
 
 def GetGlobalScale(obj): # Get object's global scale
+    """
+    Return a vector object.
+
+    Args:
+        obj: (todo): write your description
+    """
     m = obj.GetMg()
     return c4d.Vector(m.v1.GetLength(),
                       m.v2.GetLength(),
                       m.v3.GetLength())
 
 def SetGlobalPosition(obj, pos): # Set object's global position
+    """
+    Sets position.
+
+    Args:
+        obj: (todo): write your description
+        pos: (int): write your description
+    """
     m = obj.GetMg()
     m.off = pos
     obj.SetMg(m)
 
 def SetGlobalRotation(obj, rot): # Set object's global rotation
+    """
+    Sets the rotation matrix.
+
+    Args:
+        obj: (todo): write your description
+        rot: (todo): write your description
+    """
     m = obj.GetMg()
     pos = m.off
     scale = c4d.Vector(m.v1.GetLength(),
@@ -47,6 +79,13 @@ def SetGlobalRotation(obj, rot): # Set object's global rotation
     obj.SetMg(m)
 
 def SetGlobalScale(obj, scale): # Set object's global scale
+    """
+    Sets scale scale.
+
+    Args:
+        obj: (todo): write your description
+        scale: (float): write your description
+    """
     m = obj.GetMg()
     m.v1 = m.v1.GetNormalized() * scale.x
     m.v2 = m.v2.GetNormalized() * scale.y
@@ -54,6 +93,12 @@ def SetGlobalScale(obj, scale): # Set object's global scale
     obj.SetMg(m)
 
 def CreateNullsFromPoints(obj):
+    """
+    Creates a list.
+
+    Args:
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     try: # Try to execute following script
         points = obj.GetPointS() # Get object's points
@@ -86,6 +131,12 @@ def CreateNullsFromPoints(obj):
         pass # Do nothing
 
 def CreateNullsFromObjects(obj):
+    """
+    Creates a circle object from an object.
+
+    Args:
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     try: # Try to execute following script
         objectNull = c4d.BaseObject(c4d.Onull) # Initialize null object
@@ -116,6 +167,11 @@ def CreateNullsFromObjects(obj):
         pass # Do nothing
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     editorMode = doc.GetMode() # Get editor's active mode

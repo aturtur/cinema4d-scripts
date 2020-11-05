@@ -19,6 +19,11 @@ import c4d
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -45,6 +50,12 @@ def GetKeyMod():
         return keyMod
 
 def deleteWithoutChildren(s):
+    """
+    Removes all children from s
+
+    Args:
+        s: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     children = s.GetChildren() # Get selected object's children
     for child in reversed(children): # Loop through children
@@ -56,6 +67,13 @@ def deleteWithoutChildren(s):
     s.Remove() # Remove selected object
 
 def replaceObjects(keyMod, inherit = False):
+    """
+    Replace all instances of the der.
+
+    Args:
+        keyMod: (str): write your description
+        inherit: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_SELECTIONORDER) # Get selection
     objList = [] # Initialize list for objects
@@ -141,6 +159,11 @@ def replaceObjects(keyMod, inherit = False):
             i.SetBit(c4d.BIT_ACTIVE) # Select object
 
 def main():
+    """
+    The main routine.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     selection = doc.GetSelection() #Get selection

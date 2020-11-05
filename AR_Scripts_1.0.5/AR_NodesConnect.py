@@ -22,6 +22,17 @@ from c4d import utils as u
 # Classes
 class nodeObject(object):
     def __init__(self, obj, px, py, sx, sy):
+        """
+        Initialize a p : class
+
+        Args:
+            self: (todo): write your description
+            obj: (todo): write your description
+            px: (float): write your description
+            py: (float): write your description
+            sx: (int): write your description
+            sy: (todo): write your description
+        """
         self.node = obj # Node object
         self.px = px # X position
         self.py = py # Y position
@@ -30,6 +41,11 @@ class nodeObject(object):
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -56,18 +72,37 @@ def GetKeyMod():
         return keyMod
 
 def GetPort(ports):
+    """
+    Return a list of ports.
+
+    Args:
+        ports: (int): write your description
+    """
     for i, port in enumerate(ports):
         if port.GetNrOfConnections() == 0:
             return port
     return ports[0]
 
 def GetLastPort(ports):
+    """
+    Return a port number of ports.
+
+    Args:
+        ports: (int): write your description
+    """
     for i, port in enumerate(reversed(ports)):
         if port.GetNrOfConnections() == 0:
             return port
     return ports[-1]
 
 def ConnectNodes(nodeMaster, keyMod):
+    """
+    This function to connect to a connected cluster.
+
+    Args:
+        nodeMaster: (todo): write your description
+        keyMod: (str): write your description
+    """
     if keyMod == "Shift":
         fromPort = int(c4d.gui.InputDialog("From port number", 0))
         toPort = int(c4d.gui.InputDialog("To port number", 0))
@@ -105,6 +140,11 @@ def ConnectNodes(nodeMaster, keyMod):
                 outPort.Connect(inPort) # Connect ports
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active document
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = GetKeyMod() # Get keymodifier

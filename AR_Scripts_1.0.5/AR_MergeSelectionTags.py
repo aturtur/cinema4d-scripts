@@ -15,6 +15,12 @@ import c4d
 
 # Functions
 def SortTags(collectedTags):
+    """
+    Returns a list of objects representing all the objects.
+
+    Args:
+        collectedTags: (bool): write your description
+    """
     polyTags = []
     edgeTags = []
     pointTags = []
@@ -36,6 +42,15 @@ def SortTags(collectedTags):
     return polyTags, edgeTags, pointTags, objects
 
 def MergePolySelectionTags(polyTags, edgeTags, pointTags, objects):
+    """
+    Merge polymerlection objects into a list of - placeholders.
+
+    Args:
+        polyTags: (todo): write your description
+        edgeTags: (todo): write your description
+        pointTags: (dict): write your description
+        objects: (list): write your description
+    """
     # Polygon tags
     removeList = []
     for o in objects:
@@ -95,6 +110,12 @@ def MergePolySelectionTags(polyTags, edgeTags, pointTags, objects):
             t.Remove() # Detele the tag
 
 def MergeSelectionTags(selection):
+    """
+    Polynomial polynomials.
+
+    Args:
+        selection: (str): write your description
+    """
 
     collectedObjects = []
     collectedTags = []
@@ -119,6 +140,11 @@ def MergeSelectionTags(selection):
         MergePolySelectionTags(polyTags, edgeTags, pointTags, objects)
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     #try: # Try to execute following script

@@ -19,6 +19,11 @@ import c4d
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -45,6 +50,12 @@ def GetKeyMod():
         return keyMod
 
 def ToggleEnable(op):
+    """
+    Returns true if the op is on a toggle.
+
+    Args:
+        op: (todo): write your description
+    """
     status = op[c4d.ID_BASEOBJECT_GENERATOR_FLAG]
     doc.AddUndo(c4d.UNDOTYPE_CHANGE_NOCHILDREN, op)
     op[c4d.ID_BASEOBJECT_GENERATOR_FLAG] = not op[c4d.ID_BASEOBJECT_GENERATOR_FLAG] # Toggle generator
@@ -52,6 +63,12 @@ def ToggleEnable(op):
     else: return False
 
 def GetRoot(obj):
+    """
+    Returns the root of an object.
+
+    Args:
+        obj: (todo): write your description
+    """
     while obj: # Infinite loop
         if obj.GetUp() == None: # If object has no parent
             return obj # Return object
@@ -60,6 +77,11 @@ def GetRoot(obj):
 
 # Main function
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     deformers = [431000028, #Bevel 0
                 5149, #Wind 0
                 1019768, #Morph 0

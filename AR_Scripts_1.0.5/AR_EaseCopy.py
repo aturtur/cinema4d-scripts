@@ -18,6 +18,11 @@ import csv
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -44,6 +49,12 @@ def GetKeyMod():
         return keyMod
 
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -53,18 +64,34 @@ def GetNextObject(op):
     return op.GetNext()
 
 def IterateHierarchy():
+    """
+    Yield a sequence operations.
+
+    Args:
+    """
     op = doc.GetFirstObject()
     while op is not None:
         yield op
         op = GetNextObject(op)
 
 def IterateTracks():
+    """
+    Generate a list of the track.
+
+    Args:
+    """
     for op in IterateHierarchy():
         ctracks = op.GetCTracks()
         for track in op.GetCTracks():
             yield track
 
 def GetKeys(keyMod):
+    """
+    Get keys for all keys.
+
+    Args:
+        keyMod: (str): write your description
+    """
     keys = []
     for track in IterateTracks():
         curve = track.GetCurve()
@@ -113,6 +140,11 @@ def GetKeys(keyMod):
     return keys
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     keyMod = GetKeyMod() # Get keymodifier
     keys = GetKeys(keyMod) # Collect keyframe data
     path, fn = os.path.split(__file__) # Get path of the script

@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     #try: # Try to execute following script

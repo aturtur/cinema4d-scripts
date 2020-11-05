@@ -21,6 +21,17 @@ except:
 # Classes
 class nodeObject(object):
     def __init__(self, obj, px, py, sx, sy):
+        """
+        Initialize a p : class
+
+        Args:
+            self: (todo): write your description
+            obj: (todo): write your description
+            px: (float): write your description
+            py: (float): write your description
+            sx: (int): write your description
+            sy: (todo): write your description
+        """
         self.node = obj # Node object
         self.px = px # X position
         self.py = py # Y position
@@ -29,6 +40,13 @@ class nodeObject(object):
 
 # Functions
 def AlignNodesVer(nodeMaster, keyMod):
+    """
+    Verifies that a derdata.
+
+    Args:
+        nodeMaster: (todo): write your description
+        keyMod: (str): write your description
+    """
     nodes = [] # Initialize a list for collecting nodes
     root = nodeMaster.GetRoot() # Get xpresso root
     for node in root.GetChildren(): # Iterate through nodes
@@ -64,6 +82,11 @@ def AlignNodesVer(nodeMaster, keyMod):
         bcd.SetReal(101, p) # Set y position
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active document
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status

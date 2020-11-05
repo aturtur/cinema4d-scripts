@@ -17,12 +17,25 @@ from c4d import gui
 
 # Functions
 def checkRedshiftMaterial(mat):
+    """
+    Checks if mat is a matlab matrices.
+
+    Args:
+        mat: (todo): write your description
+    """
     if mat.GetType() == 1036224: # If Redshift material
         return mat
     else:
         return None
 
 def CheckCustomAOV(vpRS, name):
+    """
+    Checks if the name of the name of the same name.
+
+    Args:
+        vpRS: (todo): write your description
+        name: (str): write your description
+    """
     aovs = redshift.RendererGetAOVs(vpRS)
     for aov in aovs:
         if aov.GetParameter(c4d.REDSHIFT_AOV_TYPE) == 39:
@@ -33,6 +46,13 @@ def CheckCustomAOV(vpRS, name):
     return False
 
 def CreateCustomAOV(vpRS, name):
+    """
+    Create a set of - of - points.
+
+    Args:
+        vpRS: (todo): write your description
+        name: (str): write your description
+    """
     aovs = redshift.RendererGetAOVs(vpRS)
     aov = redshift.RSAOV()
     aov.SetParameter(c4d.REDSHIFT_AOV_TYPE, c4d.REDSHIFT_AOV_TYPE_CUSTOM)
@@ -42,6 +62,14 @@ def CreateCustomAOV(vpRS, name):
     return redshift.RendererSetAOVs(vpRS, aovs)
 
 def CreateAOVNode(nodeMaster, name, outputNode):
+    """
+    Create a node
+
+    Args:
+        nodeMaster: (todo): write your description
+        name: (str): write your description
+        outputNode: (str): write your description
+    """
     # Node generation
     root = nodeMaster.GetRoot() # Get node master root
     aovNode = nodeMaster.CreateNode(root, 1036227, outputNode, x = -1, y = -1) # Crete a Redshift node
@@ -56,6 +84,15 @@ def CreateAOVNode(nodeMaster, name, outputNode):
     return aovNode, beautyInput, aovInPort, portId
 
 def CheckNode(node, nodeMaster, name, outputNode):
+    """
+    Checks the validity of a node.
+
+    Args:
+        node: (todo): write your description
+        nodeMaster: (todo): write your description
+        name: (str): write your description
+        outputNode: (str): write your description
+    """
     if node[c4d.GV_REDSHIFT_SHADER_META_CLASSNAME] == "StoreScalarToAOV":
         # check ports
         if node.AddPortIsOK(c4d.GV_PORT_INPUT, 10000) == True:
@@ -102,6 +139,13 @@ def CheckNode(node, nodeMaster, name, outputNode):
         return CreateAOVNode(nodeMaster, name, outputNode)
 
 def CheckMattes(node, name):
+    """
+    Checks the validity of - 2.
+
+    Args:
+        node: (todo): write your description
+        name: (str): write your description
+    """
     if node[c4d.GV_REDSHIFT_SHADER_META_CLASSNAME] == "StoreScalarToAOV":
         if node[c4d.REDSHIFT_SHADER_STORESCALARTOAOV_AOV_NAME0,c4d.REDSHIFT_AOVREF_NAME] == name: return None
         if node[c4d.REDSHIFT_SHADER_STORESCALARTOAOV_AOV_NAME1,c4d.REDSHIFT_AOVREF_NAME] == name: return None
@@ -114,6 +158,14 @@ def CheckMattes(node, name):
     return True
 
 def AddMatte(nodeMaster, vprs, name):
+    """
+    Add a constant to a node.
+
+    Args:
+        nodeMaster: (todo): write your description
+        vprs: (todo): write your description
+        name: (str): write your description
+    """
     root = nodeMaster.GetRoot() # Get node master root
     nodeMaster.AddUndo() # Add undo for changing nodes
     for node in root.GetChildren(): # Iterate through nodes
@@ -162,6 +214,11 @@ def AddMatte(nodeMaster, vprs, name):
         CreateCustomAOV(vprs, name)
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     name = gui.InputDialog("Matte name", "") # Input dialog
     if name is None: return
     if name is "": return

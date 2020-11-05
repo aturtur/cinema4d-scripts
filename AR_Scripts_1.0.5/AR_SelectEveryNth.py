@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -41,6 +46,11 @@ def GetKeyMod():
         return keyMod
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument()
     doc.StartUndo() # Start recording undos
     

@@ -17,6 +17,12 @@ from c4d.modules import mograph as mo
 
 # Functions
 def MgSelTagForEveryClone(obj):
+    """
+    Create a tag to an array
+
+    Args:
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     try: # Try to execute following
         md = mo.GeGetMoData(obj) # Get MoGraph data
@@ -33,6 +39,11 @@ def MgSelTagForEveryClone(obj):
         pass # Do nothing
 
 def main():
+    """
+    Main entry point.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_0) # Get active object(s)

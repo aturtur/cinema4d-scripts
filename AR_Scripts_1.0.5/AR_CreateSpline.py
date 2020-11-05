@@ -18,6 +18,11 @@ from collections import OrderedDict
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -44,23 +49,55 @@ def GetKeyMod():
         return keyMod
 
 def GetGlobalPosition(obj): # Get object's global position
+    """
+    Return the position of the given object.
+
+    Args:
+        obj: (todo): write your description
+    """
     return obj.GetMg().off
 
 def GetGlobalRotation(obj): # Get object's global rotation
+    """
+    Returns the rotation object.
+
+    Args:
+        obj: (todo): write your description
+    """
     return u.MatrixToHPB(obj.GetMg())
 
 def GetGlobalScale(obj): # Get object's global scale
+    """
+    Return a vector object.
+
+    Args:
+        obj: (todo): write your description
+    """
     m = obj.GetMg()
     return c4d.Vector(m.v1.GetLength(),
                       m.v2.GetLength(),
                       m.v3.GetLength())
 
 def SetGlobalPosition(obj, pos): # Set object's global position
+    """
+    Sets position.
+
+    Args:
+        obj: (todo): write your description
+        pos: (int): write your description
+    """
     m = obj.GetMg()
     m.off = pos
     obj.SetMg(m)
 
 def SetGlobalRotation(obj, rot): # Set object's global rotation
+    """
+    Sets the rotation matrix.
+
+    Args:
+        obj: (todo): write your description
+        rot: (todo): write your description
+    """
     m = obj.GetMg()
     pos = m.off
     scale = c4d.Vector(m.v1.GetLength(),
@@ -74,6 +111,13 @@ def SetGlobalRotation(obj, rot): # Set object's global rotation
     obj.SetMg(m)
 
 def SetGlobalScale(obj, scale): # Set object's global scale
+    """
+    Sets scale scale.
+
+    Args:
+        obj: (todo): write your description
+        scale: (float): write your description
+    """
     m = obj.GetMg()
     m.v1 = m.v1.GetNormalized() * scale.x
     m.v2 = m.v2.GetNormalized() * scale.y
@@ -81,6 +125,12 @@ def SetGlobalScale(obj, scale): # Set object's global scale
     obj.SetMg(m)
 
 def CenterAxis(obj): # Center object's axis
+    """
+    Generate a 3disisisis.
+
+    Args:
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     points = [] # Initialize empty list
     pointCount = obj.GetPointCount() # Get object's point count
@@ -98,18 +148,38 @@ def CenterAxis(obj): # Center object's axis
             matrix.v1, matrix.v2, matrix.v3)) # Set new matrix for the object
 
 def Subdivide(op, amount):
+    """
+    Applies a subdivide operation.
+
+    Args:
+        op: (int): write your description
+        amount: (int): write your description
+    """
     bc = c4d.BaseContainer() # Initialize Base Container
     bc[c4d.MDATA_SUBDIVIDE_SPLINESUB] = int(amount) # Subdivision rate
     mcommand = c4d.MCOMMAND_SUBDIVIDE # Mcommand 'Make Editable'
     op = c4d.utils.SendModelingCommand(mcommand, [op], 0, bc, doc, c4d.MODELINGCOMMANDFLAGS_CREATEUNDO) # Subdivide
 
 def CollectPositions(objects):
+    """
+    Returns a list of positions for a given objects.
+
+    Args:
+        objects: (todo): write your description
+    """
     positions = []
     for i, obj in enumerate(objects):
         positions.append(obj.GetMg().off)
     return positions
 
 def CreateSpline(pointCount, pointPositions):
+    """
+    Creates a point array from a pointline coordinates.
+
+    Args:
+        pointCount: (str): write your description
+        pointPositions: (todo): write your description
+    """
     spline = c4d.SplineObject(pointCount, c4d.SPLINETYPE_LINEAR) # Initialize a spline object
     spline.SetAllPoints(pointPositions) # Set spline points
     spline[c4d.SPLINEOBJECT_TYPE] = 0 # Set spline's type to Linear
@@ -117,8 +187,22 @@ def CreateSpline(pointCount, pointPositions):
     return spline # Return the spline
 
 def CreateControls(spline, selectedPoints):
+    """
+    Creates plots for each spline
+
+    Args:
+        spline: (todo): write your description
+        selectedPoints: (str): write your description
+    """
 
     def CreateNull(spline, parentNull):
+        """
+        Creates a point map.
+
+        Args:
+            spline: (todo): write your description
+            parentNull: (todo): write your description
+        """
         pointNull = c4d.BaseObject(c4d.Onull) # Initialize point null object
         pointNull.SetMg(spline.GetUpMg()*spline.GetMg())
         pointNull.SetName(spline.GetName()+" Control "+str(i)) # Set point null's name
@@ -164,7 +248,22 @@ def CreateControls(spline, selectedPoints):
     return nullsDict
 
 def CreateDynamics(spline, controllers, subd):
+    """
+    Create a list of the subdynamaint objects.
+
+    Args:
+        spline: (todo): write your description
+        controllers: (dict): write your description
+        subd: (str): write your description
+    """
     def CreateConstraintTag(spline, obj):
+        """
+        Creates a constraint object.
+
+        Args:
+            spline: (todo): write your description
+            obj: (todo): write your description
+        """
         constraintTag = spline.MakeTag(1018074) # Create hair constraint tag
         doc.AddUndo(c4d.UNDOTYPE_NEW, constraintTag) # Add undo for creating a tag
         constraintTag[c4d.HAIR_CONSTRAINTS_TAG_ANCHOR_LINK] = obj # Set link
@@ -206,11 +305,24 @@ def CreateDynamics(spline, controllers, subd):
     return spline
 
 def InsertObject(obj):
+    """
+    Flush an object.
+
+    Args:
+        obj: (todo): write your description
+    """
     doc.InsertObject(obj) # Insert obj to the document
     doc.AddUndo(c4d.UNDOTYPE_NEW, obj) # Add undo command for changing bits
     obj.SetBit(c4d.BIT_ACTIVE) # Select obj object in Object Manager
 
 def SplineFromObjects(objects, keyMod):   
+    """
+    Creates a spline object from a list of objects.
+
+    Args:
+        objects: (list): write your description
+        keyMod: (str): write your description
+    """
     if keyMod == "None":
         pointPositions = CollectPositions(objects)
         pointCount     = len(pointPositions)
@@ -252,6 +364,12 @@ def SplineFromObjects(objects, keyMod):
             CreateDynamics(spline, [objA, objB], int(subd)) # Create spline dynamic
 
 def DeleteWithoutChildren(s):
+    """
+    Removes all children from a string.
+
+    Args:
+        s: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     children = s.GetChildren() # Get selected object's children
     for child in reversed(children): # Loop through children
@@ -264,6 +382,11 @@ def DeleteWithoutChildren(s):
 
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier

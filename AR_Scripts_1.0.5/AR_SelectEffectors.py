@@ -17,6 +17,12 @@ import c4d
 
 # Functions
 def GetNextItem(op): # Get next item
+    """
+    Returns an op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None: return None
     if op.GetDown(): return op.GetDown()
     while not op.GetNext() and op.GetUp():
@@ -24,6 +30,14 @@ def GetNextItem(op): # Get next item
     return op.GetNext()
 
 def IterateFieldList(op, obj, effector): # Iterate fields
+    """
+    Lists all fields in a op operation.
+
+    Args:
+        op: (todo): write your description
+        obj: (todo): write your description
+        effector: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument()
     if op is None: return
     while op:
@@ -35,6 +49,13 @@ def IterateFieldList(op, obj, effector): # Iterate fields
         op = GetNextItem(op)
 
 def SelectEffectors(op, obj): # Iterate objects
+    """
+    Finds a generator.
+
+    Args:
+        op: (todo): write your description
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument()
 
     generators = { # MoGraph generators dictionary
@@ -124,6 +145,11 @@ def SelectEffectors(op, obj): # Iterate objects
     return True
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument()
     doc.StartUndo() # Start recording undos
     try:

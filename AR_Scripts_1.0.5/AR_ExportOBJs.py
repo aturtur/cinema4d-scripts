@@ -16,6 +16,11 @@ from c4d import plugins
 
 # Functions
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     fn = c4d.storage.LoadDialog(c4d.FILESELECTTYPE_ANYTHING, "Folder to export", c4d.FILESELECT_DIRECTORY)
     if not fn: return # If cancelled stop the script
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document

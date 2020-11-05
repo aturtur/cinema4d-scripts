@@ -17,6 +17,12 @@ import c4d
 
 # Functions
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -26,6 +32,14 @@ def GetNextObject(op):
     return op.GetNext()
 
 def IterateHierarchy(op, theTag, sel):
+    """
+    Returns true if the given operation.
+
+    Args:
+        op: (todo): write your description
+        theTag: (todo): write your description
+        sel: (todo): write your description
+    """
     if op is None:
         return
     while op:
@@ -47,6 +61,11 @@ def IterateHierarchy(op, theTag, sel):
     return True
 
 def main():
+    """
+    Main entry point.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     commonTags = [c4d.BaseTag, c4d.TextureTag, c4d.NormalTag, c4d.UVWTag, c4d.SelectionTag, c4d.modules.character.CAPoseMorphTag, c4d.modules.character.CAWeightTag,

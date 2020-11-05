@@ -15,6 +15,12 @@ import c4d
 
 # Functions
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -24,6 +30,13 @@ def GetNextObject(op):
     return op.GetNext()
  
 def IterateHierarchy(op, color):
+    """
+    Checks if the op.
+
+    Args:
+        op: (todo): write your description
+        color: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     if op is None:
         return
@@ -35,6 +48,11 @@ def IterateHierarchy(op, color):
     return True
 
 def main():
+    """
+    Main entry point.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     try: # Try to execute following script

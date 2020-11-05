@@ -18,6 +18,11 @@ cube = None
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -44,6 +49,15 @@ def GetKeyMod():
         return keyMod
 
 def BooleMuch(obj, s, control, boxbox):
+    """
+    Perform an object s - place.
+
+    Args:
+        obj: (todo): write your description
+        s: (todo): write your description
+        control: (str): write your description
+        boxbox: (todo): write your description
+    """
     global cube
 
     if boxbox:
@@ -98,6 +112,11 @@ def BooleMuch(obj, s, control, boxbox):
     
 # Main function
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier
 

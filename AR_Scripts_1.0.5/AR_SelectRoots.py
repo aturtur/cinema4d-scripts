@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -41,16 +46,34 @@ def GetKeyMod():
         return keyMod
 
 def Select(op):
+    """
+    Create a bitwise operations on the operation.
+
+    Args:
+        op: (todo): write your description
+    """
     if op != None:
         doc.AddUndo(c4d.UNDOTYPE_BITS, op) # Record undo for changing bits
         op.SetBit(c4d.BIT_ACTIVE) # Select object
 
 def Deselect(op):
+    """
+    Create a bit instruction.
+
+    Args:
+        op: (todo): write your description
+    """
     if op != None:
         doc.AddUndo(c4d.UNDOTYPE_BITS, op) # Record undo for changing bits
         op.DelBit(c4d.BIT_ACTIVE) # Deselect object
 
 def GetRoot(op):
+    """
+    Returns an opbreak operator.
+
+    Args:
+        op: (todo): write your description
+    """
     while op: # Infinite loop
         if op.GetUp() == None: # If item has no parent
             return op # Return opect
@@ -58,6 +81,11 @@ def GetRoot(op):
         op = op.GetUp() # Item is object's parent
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
 

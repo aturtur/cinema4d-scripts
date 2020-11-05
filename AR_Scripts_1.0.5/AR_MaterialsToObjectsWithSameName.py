@@ -17,6 +17,12 @@ from c4d import gui
 
 # Functions
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -26,6 +32,13 @@ def GetNextObject(op):
     return op.GetNext()
 
 def InsertMaterialTag(op, m):
+    """
+    Create a new tag.
+
+    Args:
+        op: (todo): write your description
+        m: (todo): write your description
+    """
     tag = c4d.BaseTag(5616) # Initialize a material tag
     tag[c4d.TEXTURETAG_MATERIAL] = m # Assign material to the material tag
     tag[c4d.TEXTURETAG_PROJECTION] = 6 #UVW Mapping
@@ -33,6 +46,15 @@ def InsertMaterialTag(op, m):
     doc.AddUndo(c4d.UNDOTYPE_NEW, tag) # Record undo for adding tag
 
 def MatsToObjsWithSameName(op, m, selection, doc):
+    """
+    Perform a mats of the given operations *
+
+    Args:
+        op: (todo): write your description
+        m: (todo): write your description
+        selection: (str): write your description
+        doc: (str): write your description
+    """
     if op is None:
         return
     while op:
@@ -47,6 +69,11 @@ def MatsToObjsWithSameName(op, m, selection, doc):
     return True
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc.StartUndo() # Start recording undos
     selection = doc.GetActiveObjects(0) # Get active objects
     materials = doc.GetMaterials() # Get all materials

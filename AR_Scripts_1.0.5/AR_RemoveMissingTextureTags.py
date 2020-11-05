@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -41,6 +46,12 @@ def GetKeyMod():
         return keyMod
 
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -50,6 +61,13 @@ def GetNextObject(op):
     return op.GetNext()
  
 def RemoveMissingTextureTags(op, selection):
+    """
+    Removes a op from the given ).
+
+    Args:
+        op: (todo): write your description
+        selection: (str): write your description
+    """
     if op is None:
         return
     while op:
@@ -71,6 +89,13 @@ def RemoveMissingTextureTags(op, selection):
     return True
 
 def RemoveTagsWithMissingSelection(op, selection):
+    """
+    Removes a selection from a selection.
+
+    Args:
+        op: (todo): write your description
+        selection: (str): write your description
+    """
     if op is None:
         return
     while op:
@@ -104,6 +129,11 @@ def RemoveTagsWithMissingSelection(op, selection):
     return True
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN) # Get active selection

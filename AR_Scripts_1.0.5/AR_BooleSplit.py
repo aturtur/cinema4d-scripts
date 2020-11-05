@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -41,6 +46,14 @@ def GetKeyMod():
         return keyMod
 
 def BooleSplit(a, b, instance):
+    """
+    Perform an instance of python 3.
+
+    Args:
+        a: (todo): write your description
+        b: (todo): write your description
+        instance: (todo): write your description
+    """
     booleA = c4d.BaseObject(1010865)
     booleA.SetName("Boole Subtract")
 
@@ -104,6 +117,11 @@ def BooleSplit(a, b, instance):
 
 # Main function
 def main():
+    """
+    Main entry point.
+
+    Args:
+    """
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier
 

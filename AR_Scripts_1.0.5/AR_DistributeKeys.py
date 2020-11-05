@@ -18,6 +18,11 @@ from c4d import gui
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -44,6 +49,12 @@ def GetKeyMod():
         return keyMod
 
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -53,18 +64,33 @@ def GetNextObject(op):
     return op.GetNext()
 
 def IterateHierarchy():
+    """
+    Yield a sequence operations.
+
+    Args:
+    """
     op = doc.GetFirstObject()
     while op is not None:
         yield op
         op = GetNextObject(op)
 
 def IterateTracks():
+    """
+    Generate a list of the track.
+
+    Args:
+    """
     for op in IterateHierarchy():
         ctracks = op.GetCTracks()
         for track in op.GetCTracks():
             yield track
 
 def GetTracks():
+    """
+    Returns a list of tracks.
+
+    Args:
+    """
     tracks = []
     for track in IterateTracks():
         if track.GetNBit(c4d.NBIT_TL1_SELECT): # If track is selected in timeline
@@ -72,6 +98,11 @@ def GetTracks():
     return tracks
 
 def GetKeys():
+    """
+    Returns a list of keys for the given tracks.
+
+    Args:
+    """
     tracks = []
     for track in IterateTracks():
         curve = track.GetCurve()
@@ -86,6 +117,13 @@ def GetKeys():
     return tracks
 
 def DistributeKeys(keyMod, step):
+    """
+    Makes a step.
+
+    Args:
+        keyMod: (str): write your description
+        step: (int): write your description
+    """
     tracks = GetKeys() # Get selected keys
     for track in tracks:
         keys = track[1]
@@ -101,6 +139,11 @@ def DistributeKeys(keyMod, step):
                 index = curve.FindKey(k.GetTime())["idx"] # Get correct index
                 curve.MoveKey(c4d.BaseTime(time), index, None, True, False) # Move keyframe        
 def main():
+    """
+    Main entry point.
+
+    Args:
+    """
     doc.StartUndo() # Start recording undos
     try: # Try to execute following script
         keyMod = GetKeyMod() # Get keymodifier

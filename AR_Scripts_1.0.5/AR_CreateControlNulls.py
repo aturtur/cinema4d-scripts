@@ -16,6 +16,12 @@ from c4d import utils as u
 
 # Functions
 def FreezeThis(obj):
+    """
+    Converts the modifThis object to the v3d object.
+
+    Args:
+        obj: (todo): write your description
+    """
     # Position
     obj[c4d.ID_BASEOBJECT_FROZEN_POSITION,c4d.VECTOR_X] = obj[c4d.ID_BASEOBJECT_REL_POSITION,c4d.VECTOR_X]
     obj[c4d.ID_BASEOBJECT_FROZEN_POSITION,c4d.VECTOR_Y] = obj[c4d.ID_BASEOBJECT_REL_POSITION,c4d.VECTOR_Y]
@@ -41,23 +47,55 @@ def FreezeThis(obj):
     obj[c4d.ID_BASEOBJECT_REL_ROTATION,c4d.VECTOR_Z] = 0
 
 def GetGlobalPosition(obj): # Get object's global position
+    """
+    Return the position of the given object.
+
+    Args:
+        obj: (todo): write your description
+    """
     return obj.GetMg().off
 
 def GetGlobalRotation(obj): # Get object's global rotation
+    """
+    Returns the rotation object.
+
+    Args:
+        obj: (todo): write your description
+    """
     return u.MatrixToHPB(obj.GetMg())
 
 def GetGlobalScale(obj): # Get object's global scale
+    """
+    Return a vector object.
+
+    Args:
+        obj: (todo): write your description
+    """
     m = obj.GetMg()
     return c4d.Vector(m.v1.GetLength(),
                       m.v2.GetLength(),
                       m.v3.GetLength())
 
 def SetGlobalPosition(obj, pos): # Set object's global position
+    """
+    Sets position.
+
+    Args:
+        obj: (todo): write your description
+        pos: (int): write your description
+    """
     m = obj.GetMg()
     m.off = pos
     obj.SetMg(m)
 
 def SetGlobalRotation(obj, rot): # Set object's global rotation
+    """
+    Sets the rotation matrix.
+
+    Args:
+        obj: (todo): write your description
+        rot: (todo): write your description
+    """
     m = obj.GetMg()
     pos = m.off
     scale = c4d.Vector(m.v1.GetLength(),
@@ -71,6 +109,13 @@ def SetGlobalRotation(obj, rot): # Set object's global rotation
     obj.SetMg(m)
 
 def SetGlobalScale(obj, scale): # Set object's global scale
+    """
+    Sets scale scale.
+
+    Args:
+        obj: (todo): write your description
+        scale: (float): write your description
+    """
     m = obj.GetMg()
     m.v1 = m.v1.GetNormalized() * scale.x
     m.v2 = m.v2.GetNormalized() * scale.y
@@ -78,6 +123,16 @@ def SetGlobalScale(obj, scale): # Set object's global scale
     obj.SetMg(m)
 
 def CreateUserDataLink(obj, name, link, parentGroup=None, shortname=None): # Create User Data Link
+    """
+    Creates a user link.
+
+    Args:
+        obj: (todo): write your description
+        name: (str): write your description
+        link: (str): write your description
+        parentGroup: (todo): write your description
+        shortname: (str): write your description
+    """
     if obj is None: return False
     if shortname is None: shortname = name
     bc = c4d.GetCustomDatatypeDefault(c4d.DTYPE_BASELISTLINK)
@@ -93,6 +148,12 @@ def CreateUserDataLink(obj, name, link, parentGroup=None, shortname=None): # Cre
     return element
 
 def CreateControlNulls(obj):
+    """
+    Create exisis objects.
+
+    Args:
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     points = obj.GetPointS() # Get object's points
     pointCount = obj.GetPointCount() # Get point count of object
@@ -163,6 +224,11 @@ def CreateControlNulls(obj):
     #return controlNulls
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_SELECTIONORDER) # Get active selection

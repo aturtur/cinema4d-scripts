@@ -16,6 +16,12 @@ from c4d.modules import mograph as mo
 
 #Functions
 def MgSelTagsFromSelectedClones(obj):
+    """
+    Extracts a token from a - bgSel object.
+
+    Args:
+        obj: (todo): write your description
+    """
     tag = obj.GetLastTag() # Get object's last tag
     tags = obj.GetTags() # Get object's tags
     md = mo.GeGetMoData(obj) # Get object's MoGraph data
@@ -41,6 +47,11 @@ def MgSelTagsFromSelectedClones(obj):
     doc.AddUndo(c4d.UNDOTYPE_DELETE, tag) # Add undo command for removing tag
 
 def main():
+    """
+    The main routine.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_0) # Get active object(s)

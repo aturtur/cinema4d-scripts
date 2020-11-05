@@ -16,6 +16,11 @@ from c4d import storage as s
 
 # Functions
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     extensions = ["obj"] # File extensions that will be imported
     folder = s.LoadDialog(c4d.FILESELECTTYPE_ANYTHING,'Select folder to import',c4d.FILESELECT_DIRECTORY,'') # Load folder
     if not folder: return # If there is no folder, stop the script

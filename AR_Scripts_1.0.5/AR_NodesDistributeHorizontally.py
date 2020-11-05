@@ -22,6 +22,17 @@ from c4d import utils as u
 # Classes
 class nodeObject(object):
     def __init__(self, obj, px, py, sx, sy):
+        """
+        Initialize a p : class
+
+        Args:
+            self: (todo): write your description
+            obj: (todo): write your description
+            px: (float): write your description
+            py: (float): write your description
+            sx: (int): write your description
+            sy: (todo): write your description
+        """
         self.node = obj # Node object
         self.px = px # X position
         self.py = py # Y position
@@ -30,6 +41,12 @@ class nodeObject(object):
 
 # Functions
 def DistributeNodes(nodeMaster):
+    """
+    Returns a list of nodes of the nodes of the given node.
+
+    Args:
+        nodeMaster: (todo): write your description
+    """
     nodes = [] # Initialize a list
     root = nodeMaster.GetRoot() # Get node master root
     for node in root.GetChildren(): # Iterate through nodes
@@ -71,6 +88,11 @@ def DistributeNodes(nodeMaster):
             bcd.SetReal(100, r) # Set x position
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     materials = doc.GetMaterials() # Get materials

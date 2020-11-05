@@ -17,6 +17,12 @@ from c4d import utils as u
 
 # Functions
 def CreateGuide(positions):
+    """
+    Creates a vector of a vector.
+
+    Args:
+        positions: (todo): write your description
+    """
     guide = c4d.BaseObject(1027657) # Initialize a guide object
     doc.InsertObject(guide) # Insert guide object to the document
     doc.AddUndo(c4d.UNDOTYPE_NEW, guide) # Record undo
@@ -42,6 +48,12 @@ def CreateGuide(positions):
     guide[c4d.ID_BASEOBJECT_COLOR] = c4d.Vector(140.0/255.0, 203.0/255.0, 1) # Set color
 
 def CreateGuideFromPoints(obj):
+    """
+    Create a point objects from a list of point objects.
+
+    Args:
+        obj: (todo): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     points = obj.GetPointS() # Get object's points
     pointCount = obj.GetPointCount() # Get point count of object
@@ -56,12 +68,23 @@ def CreateGuideFromPoints(obj):
     CreateGuide(positions) # Create the guide
     
 def CreateGuideFromObjects(selection):
+    """
+    Create a bitx from a metadata object from a metadata object.
+
+    Args:
+        selection: (str): write your description
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     selection = doc.GetActiveObjects(1) # Get selected objects
     positions = [selection[0].GetMg().off, selection[1].GetMg().off] # Positions
     CreateGuide(positions) # Create the guide
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     editorMode = doc.GetMode() # Get editor's active mode

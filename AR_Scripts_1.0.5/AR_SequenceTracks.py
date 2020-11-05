@@ -18,6 +18,11 @@ from c4d import gui
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -44,6 +49,12 @@ def GetKeyMod():
         return keyMod
 
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -53,18 +64,33 @@ def GetNextObject(op):
     return op.GetNext()
 
 def IterateHierarchy():
+    """
+    Yield a sequence operations.
+
+    Args:
+    """
     op = doc.GetFirstObject()
     while op is not None:
         yield op
         op = GetNextObject(op)
 
 def IterateTracks():
+    """
+    Generate a list of the track.
+
+    Args:
+    """
     for op in IterateHierarchy():
         ctracks = op.GetCTracks()
         for track in op.GetCTracks():
             yield track
 
 def GetTracks():
+    """
+    Returns a list of tracks.
+
+    Args:
+    """
     tracks = []
     for track in IterateTracks():
         if track.GetNBit(c4d.NBIT_TL1_SELECT): # If track is selected in timeline
@@ -72,6 +98,13 @@ def GetTracks():
     return tracks
 
 def MoveKeys(curve, shift=1):
+    """
+    Shift the shift.
+
+    Args:
+        curve: (todo): write your description
+        shift: (float): write your description
+    """
     shift = c4d.BaseTime((1.0/doc.GetFps())*shift) # Get one frame in BaseTime
     keyCount = curve.GetKeyCount() # Get count of keyframes
     for i in range(0, keyCount): # Iterate through keyframe indicies
@@ -80,6 +113,12 @@ def MoveKeys(curve, shift=1):
         curve.MoveKey(newTime, i, None, True, False) # Move keyframe
 
 def SequenceTracks(keyMod):
+    """
+    Make a sequence of the flow.
+
+    Args:
+        keyMod: (str): write your description
+    """
     tracks = GetTracks() # Get selected tracks
     prevTrack = tracks[0] # Get the first selected track
     prevOut = prevTrack.GetCurve().GetEndTime() # Get out time
@@ -112,6 +151,11 @@ def SequenceTracks(keyMod):
         prevOut = curve.GetEndTime() # Get new out time
         
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc.StartUndo() # Start recording undos
     try: # Try to execute following script
         keyMod = GetKeyMod() # Get keymodifier

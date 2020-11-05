@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active document
     path = doc.GetDocumentPath() # Get file path of project
     if path is not "": # If path is not empty

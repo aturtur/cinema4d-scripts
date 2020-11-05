@@ -20,6 +20,11 @@ import csv
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -46,6 +51,12 @@ def GetKeyMod():
         return keyMod
 
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -55,18 +66,34 @@ def GetNextObject(op):
     return op.GetNext()
 
 def IterateHierarchy():
+    """
+    Yield a sequence operations.
+
+    Args:
+    """
     op = doc.GetFirstObject()
     while op is not None:
         yield op
         op = GetNextObject(op)
 
 def IterateTracks():
+    """
+    Generate a list of the track.
+
+    Args:
+    """
     for op in IterateHierarchy():
         ctracks = op.GetCTracks()
         for track in op.GetCTracks():
             yield track
 
 def GetKeys(keyMod):
+    """
+    Returns a list of all keys for a list of keys.
+
+    Args:
+        keyMod: (str): write your description
+    """
     tracks = []
     for track in IterateTracks():
         curve = track.GetCurve()
@@ -85,12 +112,25 @@ def GetKeys(keyMod):
     return tracks
 
 def CheckBit(bit):
+    """
+    Returns the number of the number
+
+    Args:
+        bit: (int): write your description
+    """
     if int(bit) == 1:
         return c4d.NBITCONTROL_SET
     elif int(bit) == 0:
         return c4d.NBITCONTROL_CLEAR
 
 def SetKeys(keyData, keyMod):
+    """
+    Sets the key keys for the data.
+
+    Args:
+        keyData: (str): write your description
+        keyMod: (str): write your description
+    """
     tracks = GetKeys(keyMod) # Get selected keys
     for track in tracks:
         keys = track[1]
@@ -132,6 +172,11 @@ def SetKeys(keyData, keyMod):
             k.SetTimeRight(curve, rightTime)
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier

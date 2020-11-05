@@ -18,6 +18,11 @@ import c4d
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -44,16 +49,37 @@ def GetKeyMod():
         return keyMod
 
 def MoveToLast(obj, doc):
+    """
+    Makes a doc object to the given doc.
+
+    Args:
+        obj: (todo): write your description
+        doc: (todo): write your description
+    """
     items = doc.GetObjects() # Get top level items from the document
     last = items[-1] # The Last item in the hierarchy
     obj.InsertAfter(last) # Move object after the last item
 
 def MoveToFirst(obj, doc):
+    """
+    Convert doc to doc ascii object.
+
+    Args:
+        obj: (todo): write your description
+        doc: (todo): write your description
+    """
     items = doc.GetObjects() # Get top level items from the document
     first = items[0] # The first item in the hierarchy
     obj.InsertBefore(first) # Move object before the first item
 
 def CopyTags(source, target):
+    """
+    Copy a target.
+
+    Args:
+        source: (todo): write your description
+        target: (todo): write your description
+    """
     hiddenTags = [c4d.PointTag, c4d.PolygonTag] # Tag types that you dont wan't to delete
     tags = source.GetTags() # Get objects tags
     for t in reversed(tags): # Iterate through tags
@@ -62,12 +88,25 @@ def CopyTags(source, target):
             target.InsertTag(d) # Copy tag
 
 def DisableDynamics(obj):
+    """
+    Returns the tags of an object.
+
+    Args:
+        obj: (todo): write your description
+    """
     tags = obj.GetTags() # Get objects tags
     for t in tags: # Iterate through tags
         if t.GetType() == 180000102: # If dynamics tag
             t[c4d.RIGID_BODY_ENABLED] = False # Disable dynamics
 
 def DummyObject(obj, doc):
+    """
+    This function returns a dummy object.
+
+    Args:
+        obj: (todo): write your description
+        doc: (todo): write your description
+    """
     dummyObject = obj.GetClone() # Initialize a camera object
     RemoveTags(dummyObject)
     dummyObject.SetName("Dummy "+obj.GetName()) # Set name

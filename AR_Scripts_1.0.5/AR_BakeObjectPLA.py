@@ -18,6 +18,12 @@ import c4d
 
 # Functions
 def MakeEditable(op):
+    """
+    Creates an op.
+
+    Args:
+        op: (todo): write your description
+    """
     if (op != None) and op.GetType() not in [5100, 5101]:
         clone = op.GetClone() # Get clone
         clone.SetMg(op.GetMg()) # Set global matrix
@@ -30,6 +36,12 @@ def MakeEditable(op):
         return op.GetClone()
 
 def DisableDynamics(obj):
+    """
+    List all tags of the tags.
+
+    Args:
+        obj: (todo): write your description
+    """
     tags = obj.GetTags() # Get objects tags
     for t in tags: # Iterate through tags
         if t.GetType() == 180000102: # If dynamics tag
@@ -40,6 +52,13 @@ def DisableDynamics(obj):
             t[c4d.EXPRESSION_ENABLE] = False # Disable spline dynamics
 
 def DummyObject(obj, doc):
+    """
+    Convert a dummy.
+
+    Args:
+        obj: (todo): write your description
+        doc: (todo): write your description
+    """
     dummyObject = MakeEditable(obj) # Get clone from original object
     RemoveTags(dummyObject) # Remove tags of the object
 
@@ -125,16 +144,37 @@ def DummyObject(obj, doc):
     return dummyObject
 
 def MoveToLast(obj, doc):
+    """
+    Makes a doc object to the given doc.
+
+    Args:
+        obj: (todo): write your description
+        doc: (todo): write your description
+    """
     items = doc.GetObjects() # Get top level items from the document
     last = items[-1] # The Last item in the hierarchy
     obj.InsertAfter(last) # Move object after the last item
 
 def MoveToFirst(obj, doc):
+    """
+    Convert doc to doc ascii object.
+
+    Args:
+        obj: (todo): write your description
+        doc: (todo): write your description
+    """
     items = doc.GetObjects() # Get top level items from the document
     first = items[0] # The first item in the hierarchy
     obj.InsertBefore(first) # Move object before the first item
 
 def CopyTags(source, target):
+    """
+    Copy a target.
+
+    Args:
+        source: (todo): write your description
+        target: (todo): write your description
+    """
     hiddenTags = [c4d.PointTag, c4d.PolygonTag] # Tag types that you dont wan't to delete
     tags = source.GetTags() # Get objects tags
     for t in reversed(tags): # Iterate through tags
@@ -143,6 +183,12 @@ def CopyTags(source, target):
             target.InsertTag(d) # Copy tag
 
 def ResetPSR(op):
+    """
+    Resets the vlan operation.
+
+    Args:
+        op: (todo): write your description
+    """
     op[c4d.ID_BASEOBJECT_REL_POSITION,c4d.VECTOR_X] = 0
     op[c4d.ID_BASEOBJECT_REL_POSITION,c4d.VECTOR_Y] = 0
     op[c4d.ID_BASEOBJECT_REL_POSITION,c4d.VECTOR_Z] = 0

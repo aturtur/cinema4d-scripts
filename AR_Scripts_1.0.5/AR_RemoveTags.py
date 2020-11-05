@@ -15,6 +15,12 @@ import c4d
 
 # Functions
 def GetNextObject(op):
+    """
+    Returns the next op.
+
+    Args:
+        op: (todo): write your description
+    """
     if op==None:
         return None
     if op.GetDown():
@@ -24,6 +30,13 @@ def GetNextObject(op):
     return op.GetNext()
  
 def RemoveTags(op, selection):
+    """
+    Removes all tags from the given op.
+
+    Args:
+        op: (todo): write your description
+        selection: (str): write your description
+    """
     if op is None:
         return
     while op:
@@ -45,6 +58,11 @@ def RemoveTags(op, selection):
     return True
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN) # Get active selection

@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     bd = doc.GetActiveBaseDraw() # Get active basedraw
     bd[c4d.BASEDRAW_DISPLAYFILTER_GRID] = not bd[c4d.BASEDRAW_DISPLAYFILTER_GRID] # Toggle grid

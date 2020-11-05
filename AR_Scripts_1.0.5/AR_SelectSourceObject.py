@@ -15,6 +15,11 @@ import c4d
 
 # Functions
 def GetKeyMod():
+    """
+    Retrieves the key from the key.
+
+    Args:
+    """
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
     # Button is pressed
@@ -41,6 +46,15 @@ def GetKeyMod():
         return keyMod
 
 def Select(obj, source, doc, keyMod):
+    """
+    Make a source object.
+
+    Args:
+        obj: (todo): write your description
+        source: (todo): write your description
+        doc: (todo): write your description
+        keyMod: (str): write your description
+    """
     doc.AddUndo(c4d.UNDOTYPE_BITS, obj) # Add undo command for changing bits
     if keyMod == "None":
         obj.DelBit(c4d.BIT_ACTIVE) # Deselect original object
@@ -52,6 +66,11 @@ def Select(obj, source, doc, keyMod):
         c4d.CallCommand(100004769) # Scroll to First Active
 
 def main():
+    """
+    The main function.
+
+    Args:
+    """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     keyMod = GetKeyMod() # Get keymodifier
     doc.StartUndo() # Start recording undos

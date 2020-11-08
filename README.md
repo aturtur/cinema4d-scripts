@@ -3,9 +3,11 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
-Latest version **: 1.0.5** _(Updated 04.11.2020)_
+Latest version **: 1.0.6** _(Updated 08.11.2020)_
 
 ## Change Log
+- _08.11.2020_ **AR_ToggleEnable.py:** Added Alt+Shift and Alt+Ctrl shortcuts to force disable and enable. Added also Ctrl+Shift and Alt+Ctrl+Shift for toggling generators based on custom list and for editing custom list.
+- _07.11.2020_ **AR_CreateFolderNull:** Added support for Esc and Enter keys.
 - _04.11.2020_ **AR_MaterialsToObjectsWithSameName:** New script.
 - _04.11.2020_ **AR_AddPhongTags:** New script.
 - _04.11.2020_ **AR_ToggleEnable:** Support for Redshift objects (lights, proxy, sky, environment)
@@ -373,7 +375,11 @@ Meant to be a replacement for the default 'Q' (Toggle Parent Generator) command.
 **Shift:** Toggle next parent generator that is in the specific generator list.
 **Ctrl:** Toggle root generator that is in the specific generator list.
 **Alt:** Toggle generator family that are in the specific generator list.
-_To make the script work like it is meant to be assing Q, Shift+Q, Ctrl+Q and Alt+Q shorcuts to the script in 'Customize Commands...' editor!_
+**Alt+Shift:** Force enable.
+**Alt+Ctrl:** Force disable.
+**Ctrl+Shift:** Toggle generators, custom list.
+**Alt+Ctrl+Shift:** Edit custom list.
+_To make the script work like it is meant to be assing Q, Shift+Q, Ctrl+Q, Alt+Q... shorcuts to the script in 'Customize Commands...' editor!_
 
 ### ![AR_ToggleGrid](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ToggleGrid.png) AR_ToggleGrid.py
 Toggle grid visibility in viewport.

@@ -4,7 +4,7 @@ AR_ToggleEnable
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ToggleEnable
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Enables or disables generator. SHIFT: Toggle next parent generator. CTRL: Toggle root generator. ALT: Toggle generator family
 
 Written for Maxon Cinema 4D R21.207
@@ -13,9 +13,12 @@ Python version 2.7.14
 Similar to Cinema 4D's own Toggle Parent Generator script, but just a lot better ;)
 
 Change log:
+1.0.2 (08.11.2020) - Added Alt+Shift and Alt+Ctrl shortcuts to force disable and enable.
+                     Added also Ctrl+Shift and Alt+Ctrl+Shift for toggling generators based on custom list and for editing custom list.
 1.0.1 (04.11.2020) - Support for Redshift objects (lights, proxy, sky, environment)
 """
-import c4d
+import c4d, os
+from c4d import storage
 
 # Functions
 def GetKeyMod():
@@ -48,6 +51,20 @@ def ToggleEnable(op):
     status = op[c4d.ID_BASEOBJECT_GENERATOR_FLAG]
     doc.AddUndo(c4d.UNDOTYPE_CHANGE_NOCHILDREN, op)
     op[c4d.ID_BASEOBJECT_GENERATOR_FLAG] = not op[c4d.ID_BASEOBJECT_GENERATOR_FLAG] # Toggle generator
+    if status is not op[c4d.ID_BASEOBJECT_GENERATOR_FLAG]: return True
+    else: return False
+
+def Enable(op):
+    status = op[c4d.ID_BASEOBJECT_GENERATOR_FLAG]
+    doc.AddUndo(c4d.UNDOTYPE_CHANGE_NOCHILDREN, op)
+    op[c4d.ID_BASEOBJECT_GENERATOR_FLAG] = True
+    if status is not op[c4d.ID_BASEOBJECT_GENERATOR_FLAG]: return True
+    else: return False
+
+def Disable(op):
+    status = op[c4d.ID_BASEOBJECT_GENERATOR_FLAG]
+    doc.AddUndo(c4d.UNDOTYPE_CHANGE_NOCHILDREN, op)
+    op[c4d.ID_BASEOBJECT_GENERATOR_FLAG] = False
     if status is not op[c4d.ID_BASEOBJECT_GENERATOR_FLAG]: return True
     else: return False
 
@@ -265,9 +282,39 @@ def main():
                         success = ToggleEnable(x)
                     x = x.GetUp()
 
-            # 5. ? (SHIT + CTRL)
-            # 6. ? (ALT + CTRL)
-            # 7. ? (ALT + SHIFT)
+            # 5. Force disable (ALT + CTRL)
+            elif keyMod == "Alt+Ctrl":
+                Disable(x)
+
+            # 6. Force enable (ALT + SHIFT)
+            elif keyMod == "Alt+Shift":
+                Enable(x)
+
+            # 7. Force enable (ALT + SHIFT)
+            elif keyMod == "Ctrl+Shift":
+                path, fn = os.path.split(__file__) # Get path of the script
+                data = os.path.join(path, 'AR_ToggleEnable.txt') # data file path
+                customGenerators = [] # Initialize list for custom generators
+                f = open(data.decode("utf-8")) # Open the file for reading
+                for line in f: # Iterate through every row
+                    line = line.split("#") # Split by hashtag (comment)
+                    customGenerators.append(int(line[0])) # Add generator to the list
+                if x.GetType() in customGenerators:
+                    ToggleEnable(x)
+                else:
+                    while(True):
+                        x = x.GetUp()
+                        if x is None: break
+                        if x.GetType() in customGenerators:
+                            success = ToggleEnable(x)
+                            if success: break
+
+        # 8. Force enable (ALT + CTRL + SHIFT)
+        if keyMod == "Alt+Ctrl+Shift":
+            path, fn = os.path.split(__file__) # Get path of the script
+            data = os.path.join(path, 'AR_ToggleEnable.txt') # data file path
+            storage.GeExecuteFile(data) # Open data file for editing custom generators
+            pass
 
     except:
         pass

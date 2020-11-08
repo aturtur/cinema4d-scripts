@@ -4,11 +4,14 @@ AR_CreateFolderNull
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_CreateFolderNull
-Version: 1.0
+Version: 1.0.1
 Description-US: Creates a folder null for easier organizing.
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+1.0.1 (07.11.2020) - Added support for Esc and Enter keys
 """
 # Libraries
 import c4d
@@ -315,6 +318,8 @@ class Dialog(GeDialog):
 
     # Processing
     def Command(self, paramid, msg): # Handling commands (pressed button etc.)
+        bc = c4d.BaseContainer() # Initialize a base container
+
         # Actions here
         if paramid == 3005: # If 'Cancel' button is pressed
             self.Close() # Close dialog
@@ -324,6 +329,19 @@ class Dialog(GeDialog):
             icon = int(self.GetInt32(3006)) # Get icon
             createFolderNull(name, color, icon) # Run the main algorithm
             self.Close() # Close dialog
+
+        c4d.gui.GetInputState(c4d.BFM_INPUT_KEYBOARD, c4d.KEY_ESC, bc)
+        if bc[c4d.BFM_INPUT_VALUE]:
+            self.Close()
+
+        c4d.gui.GetInputState(c4d.BFM_INPUT_KEYBOARD, c4d.KEY_ENTER, bc)
+        if bc[c4d.BFM_INPUT_VALUE]:
+            name  = str(self.GetString(3001)) # Get name
+            color = int(self.GetInt32(3003)) # Get color
+            icon = int(self.GetInt32(3006)) # Get icon
+            createFolderNull(name, color, icon) # Run the main algorithm
+            self.Close() # Close dialog
+
         return True # Everything is fine
 
 dlg = Dialog() # Create dialog object

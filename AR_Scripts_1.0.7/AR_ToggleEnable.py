@@ -4,7 +4,7 @@ AR_ToggleEnable
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ToggleEnable
-Version: 1.0.2
+Version: 1.0.3
 Description-US: Enables or disables generator. SHIFT: Toggle next parent generator. CTRL: Toggle root generator. ALT: Toggle generator family
 
 Written for Maxon Cinema 4D R21.207
@@ -13,6 +13,7 @@ Python version 2.7.14
 Similar to Cinema 4D's own Toggle Parent Generator script, but just a lot better ;)
 
 Change log:
+1.0.3 (13.11.2020) - Support for alembic generators.
 1.0.2 (08.11.2020) - Added Alt+Shift and Alt+Ctrl shortcuts to force disable and enable.
                      Added also Ctrl+Shift and Alt+Ctrl+Shift for toggling generators based on custom list and for editing custom list.
 1.0.1 (04.11.2020) - Support for Redshift objects (lights, proxy, sky, environment)
@@ -219,13 +220,15 @@ def main():
                 1026352, #MSkin 0
                 1026224, #Muscle 0
                 1019363, #Skin 0
-                5136]    #Stage
+                5136,    #Stage
+                1028083] # Alembic
 
     redshift = [1036751, # RS Light
                 1036754, # RS Sky
                 1038649, # RS Proxy
                 1038655, # RS Volume
                 1036757] # RS Environment
+
 
     default = generators + mggenerators
     allGenerators = deformers + objects + splines + generators + mggenerators + mgeffectors + fields + others + redshift

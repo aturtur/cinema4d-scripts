@@ -4,11 +4,16 @@ AR_CreateSpline
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_CreateSpline
-Version: 1.0
+Version: 1.0.1
 Description-US: Creates a spline various ways
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+1.0.1 (14.11.2020) - Alt + multiple selection: create a spline based on object manager order 
+                   - Alt+Shift + multiple selection create: Tracer setup based on selection order
+                   - Ctrl+Alt  + multiple selection create: Tracer setup based on object manager order
 """
 # Libraries
 import c4d
@@ -218,6 +223,13 @@ def SplineFromObjects(objects, keyMod):
         InsertObject(spline)
         CenterAxis(spline) # Center spline's axis
 
+    if keyMod == "Alt":
+        pointPositions = CollectPositions(doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN))
+        pointCount     = len(pointPositions)
+        spline         = CreateSpline(pointCount, pointPositions)
+        InsertObject(spline)
+        CenterAxis(spline) # Center spline's axis
+
     if keyMod == "Shift":
         cnt = len(objects) # Count of the objects
         for i in range(0, cnt-1): # Iterate through objects
@@ -262,6 +274,22 @@ def DeleteWithoutChildren(s):
     doc.AddUndo(c4d.UNDOTYPE_DELETE, s) # Add undo command for deleting selected object
     s.Remove() # Remove selected object
 
+def TracerFromObjects(selection, keyMod):
+    tracer = c4d.BaseObject(1018655) # Initialize tracer object
+    tracerList = c4d.InExcludeData() # Initialize in-exclude data list
+    if keyMod == "Alt+Shift": # If Alt pressed
+        for s in selection: # Loop through selection
+            tracerList.InsertObject(s, 1) # Add object to list
+    elif keyMod == "Alt+Ctrl": # If Alt and Ctrl pressed
+        objectManagerSelection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN) # Include children also if selected
+        for s in objectManagerSelection: # Loop through selection
+            tracerList.InsertObject(s, 1) # Add object to list
+    tracer[c4d.MGTRACEROBJECT_OBJECTLIST] = tracerList # Update tracer object list
+    tracer[c4d.MGTRACEROBJECT_MODE] = 1 # 'Connect All Objects'
+    tracer[c4d.MGTRACEROBJECT_USEPOINTS] = False # Disable 'Trace Vertices'
+    doc.InsertObject(tracer) # Insert tracer object to document
+    doc.AddUndo(c4d.UNDOTYPE_NEW, tracer) # Add undo command for inserting new object
+    tracer.SetBit(c4d.BIT_ACTIVE) # Select tracer object
 
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
@@ -271,6 +299,7 @@ def main():
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_SELECTIONORDER) # Get active objects
     cnt = len(selection) # Count of selected objects
 
+    # Edge selection
     if editorMode == c4d.Medges:
         edgeToSpline = c4d.MCOMMAND_EDGE_TO_SPLINE # Mcommand 'Edge To Spline'
         modeEdgeSel = c4d.MODELINGCOMMANDMODE_EDGESELECTION # Modeling command mode 'Edge Selection'
@@ -290,8 +319,11 @@ def main():
         spline.SetBit(c4d.BIT_ACTIVE)
         doc.SetMode(c4d.Mmodel)
 
+    # Object selection
     else:
-        if cnt == 0: # If no active objects
+
+        # No active objects
+        if cnt == 0:
             if keyMod == "None":
                 spline = CreateSpline(2, [c4d.Vector(0,0,0),c4d.Vector(0,0,100),])
                 InsertObject(spline)
@@ -302,7 +334,8 @@ def main():
                 spline = CreateSpline(2, [c4d.Vector(0,0,0),c4d.Vector(100,0,0),])
                 InsertObject(spline)
 
-        elif cnt == 1: # Only one selected
+        # Only one selected object
+        elif cnt == 1:
             if selection[0].GetType() == 5101: # If spline object
                 subd = gui.InputDialog('Subdivide', "0")
                 if keyMod == "None":
@@ -313,12 +346,10 @@ def main():
                 doc.AddUndo(c4d.UNDOTYPE_BITS, selection[0]) # Add undo command for changing bits
                 selection[0].DelBit(c4d.BIT_ACTIVE) # Deselect object
         
+        # Multiple selected objects
         else:
-            for s in selection: # Iterate through selection
-                doc.AddUndo(c4d.UNDOTYPE_BITS, s) # Add undo command for changing bits
-                s.DelBit(c4d.BIT_ACTIVE) # Deselect object
-
-            if selection[0].GetType() == 5101: # If spline object
+            # If spline object
+            if selection[0].GetType() == 5101:
                 subd = gui.InputDialog('Subdivide', "0")
                 for s in selection:
                     if keyMod == "None":
@@ -327,8 +358,18 @@ def main():
                         controllers = CreateControls(s, "All")
                     CreateDynamics(s, controllers, int(subd))
                     doc.AddUndo(c4d.UNDOTYPE_BITS, s) # Add undo command for changing bits
+            
+            # No spline object
             else:
-                SplineFromObjects(selection, keyMod)
+                if keyMod == "Alt+Shift" or keyMod == "Alt+Ctrl":
+                    TracerFromObjects(selection, keyMod)
+                else:
+                    SplineFromObjects(selection, keyMod)
+
+            # Deselect old selection
+            for s in selection: # Iterate through selection
+                doc.AddUndo(c4d.UNDOTYPE_BITS, s) # Add undo command for changing bits
+                s.DelBit(c4d.BIT_ACTIVE) # Deselect object
 
     doc.EndUndo() # Stop recording undos
     c4d.EventAdd() # Refresh Cinema 4D

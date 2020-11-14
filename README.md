@@ -3,9 +3,12 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
-Latest version **: 1.0.6** _(Updated 08.11.2020)_
+Latest version **: 1.0.7** _(Updated 14.11.2020)_
 
 ## Change Log
+- _14.11.2020_ **AR_ExtractUserTracks.py:** New script.
+- _13.11.2020_ **AR_ToggleEnable.py:** Added support for alembic generators.
+- _12.11.2020_ **AR_CreateSpline.py:** Alt + multiple selection: create a spline based on object manager order, Alt+Shift + multiple selection create: Tracer setup based on selection order, Ctrl+Alt  + multiple selection create: Tracer setup based on object manager order.
 - _08.11.2020_ **AR_ToggleEnable.py:** Added Alt+Shift and Alt+Ctrl shortcuts to force disable and enable. Added also Ctrl+Shift and Alt+Ctrl+Shift for toggling generators based on custom list and for editing custom list.
 - _07.11.2020_ **AR_CreateFolderNull:** Added support for Esc and Enter keys.
 - _04.11.2020_ **AR_MaterialsToObjectsWithSameName:** New script.
@@ -109,7 +112,10 @@ Creates a spline(s) multiple different ways. Sometimes also with dynamics!
 **Default:** Creates a one static spline from selected objects' positions.
 **Shift:** Creates multiple static splines betweeen selected objects.
 **Ctrl:** Creates a one dynamic spline from selected objects (user input for subdivision). 
+**Alt:** Create a spline from selected objects based on object manager order.
 **Ctrl+Shift:** Creates multiple dynamic splines from selected objects (user input for subdivision).
+**Alt+Shift:** Creates a tracer setup based on object selection order.
+**Alt+Ctrl:** Creates a tracer setup based on object manager object order.
 
 ### ![AR_CreateStickyNulls](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateStickyNulls.png) AR_CreateStickyNulls.py
 Creates null object(s) with constraint tag (clamp) from selected point(s) or creates null objects with constraint tag (PSR) from selected object(s).
@@ -141,6 +147,9 @@ Exports selected spline objects to Adobe Illustrator file sequence. Preview rang
 Check my After Effects script to import file sequence to Masks or Shape Objects.
 **Shift:** Export objects to separated folders.
 _Note: Do not use any special charactes in your objects names, do not even use a dot (.)._
+
+### ![AR_ExtractUserTracks](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExtractUserTracks.png) AR_ExtractUserTracks.py
+Extracts 2D user tracks from selected motion tracker to null objects.
 
 ### ![AR_ImportImageFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportImageFolder.png) AR_ImportImageFolder.py
 **Default:** Import image folder to materials.

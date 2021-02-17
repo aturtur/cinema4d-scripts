@@ -1,14 +1,17 @@
 """
-AR_NodesAlignVertically
+AR_NodesAlignHorizontally
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_NodesAlignVertically
-Version: 1.0
-Description-US: Aligns selected graph nodes vertically
+Name-US: AR_NodesAlignHorizontally
+Version: 1.0.1
+Description-US: Aligns selected graph nodes horizontally
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+1.0.1 (17.02.2021) - Alt modifier: The lowest node rules
 """
 # Libraries
 import c4d
@@ -28,7 +31,7 @@ class nodeObject(object):
         self.sy = sy # Y scale
 
 # Functions
-def AlignNodesVer(nodeMaster, keyMod):
+def AlignNodesHor(nodeMaster, keyMod):
     nodes = [] # Initialize a list for collecting nodes
     root = nodeMaster.GetRoot() # Get xpresso root
     for node in root.GetChildren(): # Iterate through nodes
@@ -41,27 +44,33 @@ def AlignNodesVer(nodeMaster, keyMod):
             sx  = bcd.GetReal(108) # Get x scale
             sy  = bcd.GetReal(109) # Get y scale
             nodes.append(nodeObject(node, px, py, sx, sy)) # Create nodeObject and add it to a list
+
     if nodes:
-        theNode = min(nodes, key=attrgetter('px'))
-        nodes.sort(key=attrgetter('px')) # Sort nodes by y position
+        if (keyMod == "Alt") or (keyMod == "Alt+Shift") or (keyMod == "Alt+Ctrl"):
+            theNode = max(nodes, key=attrgetter('py'))
+            nodes.sort(key=attrgetter('py')) # Sort nodes by the lowest y position
+            nodes.reverse()
+        else:
+            theNode = min(nodes, key=attrgetter('py'))
+            nodes.sort(key=attrgetter('py')) # Sort nodes by the highest y position
     nodeMaster.AddUndo() # Add undo for changing nodes
     for i in range(0, len(nodes)): # Iterate through collected nodes
         node =  nodes[i].node # Get node
         bc = node.GetDataInstance() # Get base container
         bsc = bc.GetContainerInstance(c4d.ID_SHAPECONTAINER) # Get shape container
         bcd = bsc.GetContainerInstance(c4d.ID_OPERATORCONTAINER) # Get operator container
-        p = theNode.py
-        if keyMod == "Shift":
+        p = theNode.px
+        if (keyMod == "Shift") or (keyMod == "Alt+Shift"):
             if i != 0:
-                tAnchor = nodes[i].sy / 2.0
-                sAnchor = (theNode.py + (theNode.sy / 2.0))
+                tAnchor = nodes[i].sx / 2.0
+                sAnchor = (theNode.px + (theNode.sx / 2.0))
                 p = (sAnchor - tAnchor)
-        elif keyMod == "Ctrl":
+        elif (keyMod == "Ctrl") or (keyMod == "Alt+Ctrl"):
             if i != 0:
-                tAnchor = nodes[i].sy
-                sAnchor = (theNode.py + theNode.sy)
-                p = (sAnchor - tAnchor)
-        bcd.SetReal(101, p) # Set y position
+                tAnchor = nodes[i].sx
+                sAnchor = (theNode.px + theNode.sx)
+                p = (sAnchor - tAnchor)        
+        bcd.SetReal(100, p) # Set x position
 
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active document
@@ -96,12 +105,12 @@ def main():
         for s in selection: # Iterate through selection
             if type(s).__name__ == "XPressoTag": # If operator is xpresso tag
                 xpnm = s.GetNodeMaster() # Get node master
-                AlignNodesVer(xpnm, keyMod) # Run the main function
+                AlignNodesHor(xpnm, keyMod) # Run the main function
         # Redshift
         for m in materials: # Iterate through materials
             if m.GetBit(c4d.BIT_ACTIVE): # If material is selected
                 rsnm = redshift.GetRSMaterialNodeMaster(m) # Get Redshift material node master
-                AlignNodesVer(rsnm, keyMod) # Run the main function
+                AlignNodesHor(rsnm, keyMod) # Run the main function
     except: # Otherwise
         pass # Do nothing
     doc.EndUndo() # Stop recording undos

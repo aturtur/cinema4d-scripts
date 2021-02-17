@@ -1,14 +1,17 @@
 """
-AR_NodesLineUpVertically
+AR_NodesLineUpHorizontally
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_NodesLineUpVertically
-Version: 1.0
-Description-US: Lines up selected graph nodes vertically
+Name-US: AR_NodesLineUpHorizontally
+Version: 1.0.1
+Description-US: Lines up selected graph nodes horizontally
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+1.0.1 (17.02.2021) - Alt modifier: The rightmost node rules
 """
 # Libraries
 import c4d
@@ -41,21 +44,27 @@ def DistributeNodes(nodeMaster, keyMod):
             py  = bcd.GetReal(101) # Get y position
             sx  = bcd.GetReal(108) # Get x scale
             sy  = bcd.GetReal(109) # Get y scale
-            nodes.append(nodeObject(node, px, py, sx, sy)) # Create nodeObject and add it to a list
+            nodes.append(nodeObject(node, px, py, sx, sy)) # Create nodeObject and add it to the list
 
     if nodes: # If there is nodes
-        firstNode = min(nodes, key=attrgetter('py')) # Get the node with the minimum x position value
-        fpos = firstNode.py + firstNode.sy # Get first position
-        nodes.sort(key=attrgetter('py')) # Sort nodes by x position
+        if (keyMod == "Alt") or (keyMod == "Alt+Shift"):
+            firstNode = max(nodes, key=attrgetter('px')) # Get the node with the maximum x position value
+            nodes.sort(key=attrgetter('px')) # Sort nodes by x position
+            nodes.reverse()
+            fpos = firstNode.px - firstNode.sx # Get first position
+        else:
+            firstNode = min(nodes, key=attrgetter('px')) # Get the node with the minimum x position value
+            nodes.sort(key=attrgetter('px')) # Sort nodes by x position
+            fpos = firstNode.px + firstNode.sx # Get first position
         count = len(nodes) # Get count of nodes
         r = fpos # Initialize a r variable
     helper = 0 # Initialize a helper variable
     nodeMaster.AddUndo() # Add undo for changing nodes
 
-    if keyMod == "None":
-        gap = 20
-    elif keyMod == "Shift":
-        gap = float(c4d.gui.InputDialog("Gap size", 20))
+    if (keyMod == "None") or (keyMod == "Alt"):
+        gap = 50
+    elif (keyMod == "Shift") or (keyMod == "Alt+Shift"):
+        gap = float(c4d.gui.InputDialog("Gap size", 50))
 
     for i in range(0, len(nodes)): # Iterate through collected nodes
         node=  nodes[i].node # Get node
@@ -63,11 +72,14 @@ def DistributeNodes(nodeMaster, keyMod):
         bsc = bc.GetContainerInstance(c4d.ID_SHAPECONTAINER) # Get shape container
         bcd = bsc.GetContainerInstance(c4d.ID_OPERATORCONTAINER) # Get operator container
         if i != 0: # Not first node
-            s = nodes[i].sy # Get node length
-            r = r + gap + helper # Calculate node position
+            s = nodes[i].sx # Get node length
+            if (keyMod == "Alt+Shift") or (keyMod == "Alt"):
+                r = r - gap - helper # Calculate node position
+            else:
+                r = r + gap + helper # Calculate node position
             helper = s # Set helper
-            bcd.SetReal(100, firstNode.px) # Set x position
-            bcd.SetReal(101, r) # Set y position
+            bcd.SetReal(100, r) # Set x position
+            bcd.SetReal(101, firstNode.py) # Set y position
 
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active document

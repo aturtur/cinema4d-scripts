@@ -1,23 +1,25 @@
 """
-AR_NodesLineUpHorizontally
+AR_NodesAlignVertically
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_NodesLineUpHorizontally
-Version: 1.0
-Description-US: Lines up selected graph nodes horizontally
+Name-US: AR_NodesAlignVertically
+Version: 1.0.1
+Description-US: Aligns selected graph nodes vertically
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
+
+Change log:
+1.0.1 (17.02.2021) - Alt modifier: The rightmost node rules
 """
 # Libraries
 import c4d
+from operator import attrgetter
 try:
     import redshift
 except:
     pass
-from operator import attrgetter
-from c4d import utils as u
 
 # Classes
 class nodeObject(object):
@@ -29,12 +31,12 @@ class nodeObject(object):
         self.sy = sy # Y scale
 
 # Functions
-def DistributeNodes(nodeMaster, keyMod):
-    nodes = [] # Initialize a list
-    root = nodeMaster.GetRoot() # Get node master root
+def AlignNodesVer(nodeMaster, keyMod):
+    nodes = [] # Initialize a list for collecting nodes
+    root = nodeMaster.GetRoot() # Get xpresso root
     for node in root.GetChildren(): # Iterate through nodes
         if node.GetBit(c4d.BIT_ACTIVE): # If node is selected
-            bc  = node.GetData() # Get copy of base container
+            bc = node.GetData() # Get copy of base container
             bsc = bc.GetContainer(c4d.ID_SHAPECONTAINER) # Get copy of shape container
             bcd = bsc.GetContainer(c4d.ID_OPERATORCONTAINER) # Get copy of operator container
             px  = bcd.GetReal(100) # Get x position
@@ -42,32 +44,33 @@ def DistributeNodes(nodeMaster, keyMod):
             sx  = bcd.GetReal(108) # Get x scale
             sy  = bcd.GetReal(109) # Get y scale
             nodes.append(nodeObject(node, px, py, sx, sy)) # Create nodeObject and add it to a list
+    if nodes:
+        if (keyMod == "Alt") or (keyMod == "Alt+Shift") or (keyMod == "Alt+Ctrl"):
+            theNode = max(nodes, key=attrgetter('px'))
+            nodes.sort(key=attrgetter('px')) # Sort nodes by the rightmost x position
+            nodes.reverse()
+        else:
+            theNode = min(nodes, key=attrgetter('px'))
+            nodes.sort(key=attrgetter('px')) # Sort nodes by the leftmost x position
 
-    if nodes: # If there is nodes
-        firstNode = min(nodes, key=attrgetter('px')) # Get the node with the minimum x position value
-        fpos = firstNode.px + firstNode.sx # Get first position
-        nodes.sort(key=attrgetter('px')) # Sort nodes by x position
-        count = len(nodes) # Get count of nodes
-        r = fpos # Initialize a r variable
-    helper = 0 # Initialize a helper variable
     nodeMaster.AddUndo() # Add undo for changing nodes
-
-    if keyMod == "None":
-        gap = 50
-    elif keyMod == "Shift":
-        gap = float(c4d.gui.InputDialog("Gap size", 50))
-
     for i in range(0, len(nodes)): # Iterate through collected nodes
-        node=  nodes[i].node # Get node
-        bc  = node.GetDataInstance() # Get base container
+        node =  nodes[i].node # Get node
+        bc = node.GetDataInstance() # Get base container
         bsc = bc.GetContainerInstance(c4d.ID_SHAPECONTAINER) # Get shape container
         bcd = bsc.GetContainerInstance(c4d.ID_OPERATORCONTAINER) # Get operator container
-        if i != 0: # Not first node
-            s = nodes[i].sx # Get node length
-            r = r + gap + helper # Calculate node position
-            helper = s # Set helper
-            bcd.SetReal(100, r) # Set x position
-            bcd.SetReal(101, firstNode.py) # Set y position
+        p = theNode.py
+        if (keyMod == "Shift") or (keyMod == "Alt+Shift"):
+            if i != 0:
+                tAnchor = nodes[i].sy / 2.0
+                sAnchor = (theNode.py + (theNode.sy / 2.0))
+                p = (sAnchor - tAnchor)
+        elif (keyMod == "Ctrl") or (keyMod == "Alt+Ctrl"):
+            if i != 0:
+                tAnchor = nodes[i].sy
+                sAnchor = (theNode.py + theNode.sy)
+                p = (sAnchor - tAnchor)
+        bcd.SetReal(101, p) # Set y position
 
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active document
@@ -102,11 +105,12 @@ def main():
         for s in selection: # Iterate through selection
             if type(s).__name__ == "XPressoTag": # If operator is xpresso tag
                 xpnm = s.GetNodeMaster() # Get node master
-                DistributeNodes(xpnm, keyMod) # Run the main function
+                AlignNodesVer(xpnm, keyMod) # Run the main function
+        # Redshift
         for m in materials: # Iterate through materials
             if m.GetBit(c4d.BIT_ACTIVE): # If material is selected
                 rsnm = redshift.GetRSMaterialNodeMaster(m) # Get Redshift material node master
-                DistributeNodes(rsnm, keyMod) # Run the main function
+                AlignNodesVer(rsnm, keyMod) # Run the main function
     except: # Otherwise
         pass # Do nothing
     doc.EndUndo() # Stop recording undos

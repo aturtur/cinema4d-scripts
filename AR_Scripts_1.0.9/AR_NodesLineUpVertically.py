@@ -51,7 +51,7 @@ def DistributeNodes(nodeMaster, keyMod):
             firstNode = max(nodes, key=attrgetter('py')) # Get the node with the maximum y position value
             nodes.sort(key=attrgetter('py')) # Sort nodes by y position
             nodes.reverse()
-            fpos = firstNode.py - firstNode.sy # Get first position
+            fpos = firstNode.py # Get first position
         else:
             firstNode = min(nodes, key=attrgetter('py')) # Get the node with the minimum y position value
             nodes.sort(key=attrgetter('py')) # Sort nodes by y position
@@ -74,7 +74,7 @@ def DistributeNodes(nodeMaster, keyMod):
         if i != 0: # Not first node
             s = nodes[i].sy # Get node length
             if (keyMod == "Alt+Shift") or (keyMod == "Alt"):
-                r = r - gap - helper # Calculate node position
+                r = r - gap - s # Calculate node position
             else:
                 r = r + gap + helper # Calculate node position
             helper = s # Set helper

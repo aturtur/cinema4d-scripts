@@ -51,7 +51,7 @@ def DistributeNodes(nodeMaster, keyMod):
             firstNode = max(nodes, key=attrgetter('px')) # Get the node with the maximum x position value
             nodes.sort(key=attrgetter('px')) # Sort nodes by x position
             nodes.reverse()
-            fpos = firstNode.px - firstNode.sx # Get first position
+            fpos = firstNode.px# Get first position
         else:
             firstNode = min(nodes, key=attrgetter('px')) # Get the node with the minimum x position value
             nodes.sort(key=attrgetter('px')) # Sort nodes by x position
@@ -74,7 +74,7 @@ def DistributeNodes(nodeMaster, keyMod):
         if i != 0: # Not first node
             s = nodes[i].sx # Get node length
             if (keyMod == "Alt+Shift") or (keyMod == "Alt"):
-                r = r - gap - helper # Calculate node position
+                r = r - s - gap
             else:
                 r = r + gap + helper # Calculate node position
             helper = s # Set helper

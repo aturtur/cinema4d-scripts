@@ -83,7 +83,7 @@ def CreateUserDataString(obj, name, link, parentGroup=None, shortname=None):
     bc[c4d.DESC_ANIMATE] = c4d.DESC_ANIMATE_OFF
     bc[c4d.DESC_SHADERLINKFLAG] = True
     if parentGroup is not None:
-        bc[c4d.DESC_PARENTGROUP] = parentGroup  
+        bc[c4d.DESC_PARENTGROUP] = parentGroup
     element = obj.AddUserData(bc)
     obj[element] = link
     return element
@@ -96,9 +96,9 @@ def CreateUserDataInteger(obj, name, val=0, parentGroup=None, unit=c4d.DESC_UNIT
     bc[c4d.DESC_DEFAULT] = val
     bc[c4d.DESC_ANIMATE] = c4d.DESC_ANIMATE_OFF
     bc[c4d.DESC_UNIT] = unit
-    bc[c4d.DESC_STEP] = 1      
+    bc[c4d.DESC_STEP] = 1
     if parentGroup is not None:
-        bc[c4d.DESC_PARENTGROUP] = parentGroup  
+        bc[c4d.DESC_PARENTGROUP] = parentGroup
     element = obj.AddUserData(bc)
     obj[element] = val
     return element
@@ -118,7 +118,7 @@ def CreateUserDataCycle(obj, name, link, cycle, parentGroup=None, shortname=None
     bc[c4d.DESC_ANIMATE] = c4d.DESC_ANIMATE_OFF
     bc[c4d.DESC_SHADERLINKFLAG] = True
     if parentGroup is not None:
-        bc[c4d.DESC_PARENTGROUP] = parentGroup  
+        bc[c4d.DESC_PARENTGROUP] = parentGroup
     element = obj.AddUserData(bc)
     obj[element] = link
     return element
@@ -187,7 +187,7 @@ def saveSettings(name, color, protect, separator, icon, layer, customColor):
         else: # If line is false
             optionsArray.append(0) # Add 0 to the array
     f.close() # Close the file
-    
+
     options = {
         'setName'     : optionsArray[0],
         'setColor'    : optionsArray[1],
@@ -218,7 +218,7 @@ def BuildHierarchyPath(obj): # Build hierarchy path for object
         path.append(obj) # Add object to path list
         if obj.GetUp() is not None: # If can go up in Object Manager
             obj = obj.GetUp() # Going up
-    path.reverse() # Reverse path list 
+    path.reverse() # Reverse path list
     return path # Return hierarchy path
 
 def BuildHierarchy(): # Build hierarchy dictionary
@@ -248,7 +248,7 @@ def FindRoot(data): # Find object's root
     if dataType == "list": # If data is list do following
         lst = data # Data is list
         collection = [] # Initialize empty list for root object(s)
-        for obj in lst: # Loop through objects in 
+        for obj in lst: # Loop through objects in
             while obj: # Infinite loop
                 if obj.GetUp() == None: # If can't go up in hierarchy
                     collection.append(obj) # Add object to collection list
@@ -377,7 +377,7 @@ def main():\n\
     nameStr = op.GetObject()[c4d.ID_USERDATA,1]\n\
     newName = check(baseWeight, insert_string(baseStr, nameStr))\n\
     op.GetObject().SetName(newName)"
-      
+
     # Choose color and icon
     randRed     = random.random()
     randGreen   = random.random()
@@ -411,7 +411,7 @@ def main():\n\
 
     color = colors[selColor] # Get selected color
     icon = icons[selIcon] # Get selected icon
-    
+
     # Null object
     null = c4d.BaseObject(c4d.Onull) # Initialize a null object
     null.SetName(name) # Set null object's name
@@ -421,7 +421,7 @@ def main():\n\
     null[c4d.ID_BASEOBJECT_USECOLOR] = 2 # Display Color: On
     null[c4d.ID_BASEOBJECT_COLOR] = color
     null[c4d.ID_BASELIST_ICON_COLOR] = color
-    
+
     # Protection tag
     if selProtect == True:
         protectionTag = c4d.BaseTag(5629) # Initialize a protection tag
@@ -530,7 +530,7 @@ class Dialog(GeDialog):
         self.AddChild(FOL_COLORCB, COL_YELLOW, "Yellow")
         self.AddChild(FOL_COLORCB, COL_DARK, "Dark")
         self.AddChild(FOL_COLORCB, COL_BRIGHT, "Bright")
-        # 
+        #
         self.GroupEnd() # End 'Main' group
         self.GroupBegin(GRP_ALT, c4d.BFH_FIT | c4d.BFH_LEFT, 4, 1, "") # Begin 'Alt' group
         #self.GroupBorderSpace(5, 0, 5, 5)
@@ -560,8 +560,8 @@ class Dialog(GeDialog):
         self.SetInt32(FOL_COLORCB,    int(settings['setColor']))
         self.SetInt32(FOL_ICONCB,     int(settings['setIcon']))
         self.SetInt32(FOL_LAYERCB,    int(settings['setLayer']))
-        self.SetBool(FOL_PROTECT,    bool(settings['setProtect']))
-        self.SetBool(FOL_SEPARATOR,  bool(settings['setSeparator']))
+        self.SetBool(FOL_PROTECT,    int(settings['setProtect']))
+        self.SetBool(FOL_SEPARATOR,  int(settings['setSeparator']))
 
         cRGB = str(settings['setCustom']).split(",")
         customColor = c4d.Vector(float(cRGB[0]), float(cRGB[1]), float(cRGB[2]))

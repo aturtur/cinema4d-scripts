@@ -159,8 +159,6 @@ def AddTriplanar(nodeMaster, keyMod):
         else:
             connections[0][0].Connect(imageXPort)
             triplanarOut.Connect(connections[0][1])
-        
-
 
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active document

@@ -4,13 +4,14 @@ AR_AxisToCenter
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_AxisToCenter
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Puts axis to center of the object(s). If non-editable object is selected, tries to move object to center of the children.
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
 Change log:
+1.0.2 (12.03.2021) - Support for nested objects
 1.0.1 (23.10.2020) - Major bug fix
 """
 # Libraries
@@ -98,15 +99,27 @@ def main():
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
     try: # Try to execute following script
-        selection = doc.GetActiveObjects(0) # Get active objects
+        selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN) # Get active objects
         for obj in selection: # Loop through selection
+            
+            childrenMat = [] # Initialize list for children matrices
+            children = obj.GetChildren() # Get object's children
+            for child in children: # Iterate through children
+                childMat = child.GetMg() # Get child's matrix
+                childrenMat.append(childMat) # Add matrix to the matrices list
+            
             if (obj.GetType() != 5100) and (obj.GetType() != 5101): # If selected object is non-editable
                 doc.AddUndo(c4d.UNDOTYPE_CHANGE, obj) # Add undo command for making changes to object
                 CenterNull(obj) # Move null
                 clean()
             else: # Otherwise
                 doc.AddUndo(c4d.UNDOTYPE_CHANGE, obj) # Add undo command for making changes to object
+                                
                 CenterAxis(obj) # Center object's axis
+                
+            for i, child in enumerate(children): # Iterate through children
+                child.SetMg(childrenMat[i]) # Reset matrix
+                
     except: # If something goes wront
         pass # Do nothing
     doc.EndUndo() # Stop recording undos

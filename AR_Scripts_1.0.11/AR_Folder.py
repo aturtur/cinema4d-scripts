@@ -11,6 +11,7 @@ Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
 Change log:
+1.0.3 (14.03.2021) - Cinema 4D R23 support for separator python tag
 1.0.2 (12.03.2021) - Big update, a lot of changes and new features
 1.0.1 (07.11.2020) - Added support for Esc and Enter keys
 """
@@ -339,7 +340,7 @@ def check(baseWeight, string):\n\
 \n\
 def insert_string(org_string, string, pos=None):\n\
     if pos is None:\n\
-        pos = len(org_string) / 2\n\
+        pos = int(len(org_string) / 2)\n\
     return org_string[:pos] + ' ' + string + ' ' + org_string[pos:]\n\
 \n\
 def getWeight(st): # Unit\n\

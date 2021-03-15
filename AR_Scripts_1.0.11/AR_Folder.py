@@ -4,13 +4,14 @@ AR_Folder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_Folder
-Version: 1.0.2
+Version: 1.0.4
 Description-US: Creates a folder null that keeps your project tidy
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
 Change log:
+1.0.4 (15.03.2021) - Added and autolayer python tag and some kind of support for R20
 1.0.3 (14.03.2021) - Cinema 4D R23 support for separator python tag
 1.0.2 (12.03.2021) - Big update, a lot of changes and new features
 1.0.1 (07.11.2020) - Added support for Esc and Enter keys
@@ -24,7 +25,7 @@ from c4d.gui import GeDialog
 
 # Global variables
 hierarchy = {} # Initialize hierarchy dictionary
-level = 0 # Initialize level variable (how deep object is in hierarchy)
+level     = 0  # Initialize level variable (how deep object is in hierarchy)
 
 GRP_MEGA        = 1000
 GRP_MAIN        = 1001
@@ -66,6 +67,7 @@ LAY_FOLDER      = 6001
 LAY_ADD         = 6002
 LAY_OVER        = 6003
 LAY_NONE        = 6004
+LAY_AUTOTAG     = 6005
 
 BTN_OK          = 7001
 BTN_CANCEL      = 7002
@@ -74,6 +76,12 @@ customColor     = c4d.Vector(0,0,0)
 
 
 # Functions
+def GetC4DVersion():
+    c4dversion = c4d.GetC4DVersion()
+    releaseVersion = int(str(c4dversion)[:2])
+    buildVersion = int(str(c4dversion)[:2])
+    return releaseVersion, buildVersion
+
 def CreateUserDataString(obj, name, link, parentGroup=None, shortname=None):
     if obj is None: return False
     if shortname is None: shortname = name
@@ -279,11 +287,9 @@ def FindChildren(start, targetLevel=0, addRest=False): # Find children of the ob
                     if c > l: # If child of the selected object
                         if targetLevel != 0: # If there is custom target level
                             if addRest:
-                                #print addRest, l+targetLevel
                                 if c >= l + targetLevel: # If level match
                                     collection.append(i) # Add object to collection
                             else:
-                                #print addRest, l+targetLevel
                                 if c == l + targetLevel: # If level match
                                     collection.append(i) # Add object to collection
                         else: # If there is no target level (default)
@@ -379,6 +385,41 @@ def main():\n\
     newName = check(baseWeight, insert_string(baseStr, nameStr))\n\
     op.GetObject().SetName(newName)"
 
+    autoLayerTagCode = "import c4d\n\
+def FindParent(op, parent):\n\
+    while op.GetUp() is not None:\n\
+        op = op.GetUp()\n\
+        if op == parent:\n\
+            return op\n\
+    return op\n\
+\n\
+def GetNext(op):\n\
+    if op is None: return None\n\
+    if op.GetDown():\n\
+        return op.GetDown()\n\
+    while not op.GetNext() and op.GetUp():\n\
+        op = op.GetUp()\n\
+    return op.GetNext()\n\
+\n\
+def CollectAllChildren(op):\n\
+    root = op\n\
+    if op is None: return\n\
+    collected = []\n\
+    while op:\n\
+        if FindParent(op, root) == root:\n\
+            collected.append(op)\n\
+        op = GetNext(op)\n\
+    return collected\n\
+\n\
+def main():\n\
+    obj = op.GetObject()\n\
+    children = obj.GetChildren()\n\
+    layer = obj[c4d.ID_LAYER_LINK]\n\
+    if layer is None: return False\n\
+    allChildren = CollectAllChildren(obj)\n\
+    for child in allChildren:\n\
+        child[c4d.ID_LAYER_LINK] = layer"
+
     # Choose color and icon
     randRed     = random.random()
     randGreen   = random.random()
@@ -414,14 +455,21 @@ def main():\n\
     icon = icons[selIcon] # Get selected icon
 
     # Null object
+    c4dver, c4dbuild = GetC4DVersion()
+
     null = c4d.BaseObject(c4d.Onull) # Initialize a null object
     null.SetName(name) # Set null object's name
     null[c4d.NULLOBJECT_DISPLAY] = 14 # Display: None
-    null[c4d.ID_BASELIST_ICON_FILE] = icon # Folder icon
-    null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Icon Color: Custom
+
+    if (c4dver > 20):
+        null[c4d.ID_BASELIST_ICON_FILE] = icon # Folder icon
+        null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Icon Color: Custom
+        null[c4d.ID_BASELIST_ICON_COLOR] = color
+    else:
+        null[c4d.NULLOBJECT_ICONCOL] = True
+
     null[c4d.ID_BASEOBJECT_USECOLOR] = 2 # Display Color: On
     null[c4d.ID_BASEOBJECT_COLOR] = color
-    null[c4d.ID_BASELIST_ICON_COLOR] = color
 
     # Protection tag
     if selProtect == True:
@@ -439,13 +487,13 @@ def main():\n\
 
     # Separator tag
     if selSeparator == True:
-        pythonTag = c4d.BaseTag(1022749) # Initialize a python tag
-        pythonTag[c4d.TPYTHON_CODE] = separatorTagCode
-        null.InsertTag(pythonTag) # Put the tag to the null
+        separatorTag = c4d.BaseTag(1022749) # Initialize a python tag
+        separatorTag[c4d.TPYTHON_CODE] = separatorTagCode
+        null.InsertTag(separatorTag) # Put the tag to the null
         CreateUserDataString(null, "Name", name) # Crete user data string input
         CreateUserDataCycle(null, "Style", 0, ['-', '=', '_', '~']) # Create user data cycle data
         CreateUserDataInteger(null, "Width", 40) # Create user data integer stuff
-        pythonTag[c4d.ID_BASELIST_NAME] = "Separator"
+        separatorTag[c4d.ID_BASELIST_NAME] = "Separator"
 
     # Other stuff
     doc.AddUndo(c4d.UNDOTYPE_NEW, null) # Add undo command for creating a new object
@@ -480,9 +528,14 @@ def main():\n\
                 for child in children:
                     child[c4d.ID_LAYER_LINK] = layer # Set layer to the object
 
+    # Auto layer python tag
+    if (selLayer == LAY_AUTOTAG):
+        autoLayerTag = c4d.BaseTag(1022749) # Initialize a python tag
+        autoLayerTag[c4d.TPYTHON_CODE] = autoLayerTagCode
+        null.InsertTag(autoLayerTag) # Put the tag to the null
+        autoLayerTag[c4d.ID_BASELIST_NAME] = "Auto Layer"
 
     null.SetBit(c4d.BIT_ACTIVE) # Select null
-
     doc.EndUndo() # Stop recording undos
     c4d.EventAdd() # Refresh Cinema 4D
 
@@ -495,25 +548,31 @@ class Dialog(GeDialog):
     # Create Dialog
     def CreateLayout(self):
         global customColor
+        c4dver, c4dbuild = GetC4DVersion()
+
         self.SetTitle("Create Folder Null") # Set dialog title
         # ----------------------------------------------------------------------------------------
         self.GroupBegin(GRP_MEGA, c4d.BFH_CENTER, 1, 2) # Begin 'Mega1' group
         self.GroupBorderSpace(5, 5, 5, 5)
         # ----------------------------------------------------------------------------------------
         # Inputs
-        self.GroupBegin(GRP_MAIN, c4d.BFH_LEFT, 3, 1, "") # Begin 'Main' group
+        if (c4dver > 20):
+            self.GroupBegin(GRP_MAIN, c4d.BFH_LEFT, 3, 1, "") # Begin 'Main' group
+        else:
+            self.GroupBegin(GRP_MAIN, c4d.BFH_LEFT, 2, 1, "") # Begin 'Main' group
         self.GroupBorderSpace(5, 3, 5, 3)
         #self.GroupBorderNoTitle(c4d.BORDER_GROUP_IN)
         self.AddEditText(FOL_NAMEINPUT, c4d.BFH_LEFT, initw=250, inith=0)
 
         # Icon
-        self.AddComboBox(FOL_ICONCB, c4d.BFH_LEFT, 50, 13)
-        self.AddChild(FOL_ICONCB, ICO_FOLDER, " &i1052837&") # Closed folder
-        self.AddChild(FOL_ICONCB, ICO_OPEN, " &i1052838&") # Open folder
-        self.AddChild(FOL_ICONCB, ICO_CIRCLE, " &i17106&") # Circle
-        self.AddChild(FOL_ICONCB, ICO_STAR, " &i170141&") # Start
-        self.AddChild(FOL_ICONCB, ICO_NULL, " &i5140&") # Null
-        self.AddChild(FOL_ICONCB, ICO_BIN, " &i12109&") # Thrash can
+        if (c4dver > 20):
+            self.AddComboBox(FOL_ICONCB, c4d.BFH_LEFT, 50, 13)
+            self.AddChild(FOL_ICONCB, ICO_FOLDER, " &i1052837&") # Closed folder
+            self.AddChild(FOL_ICONCB, ICO_OPEN, " &i1052838&") # Open folder
+            self.AddChild(FOL_ICONCB, ICO_CIRCLE, " &i17106&") # Circle
+            self.AddChild(FOL_ICONCB, ICO_STAR, " &i170141&") # Start
+            self.AddChild(FOL_ICONCB, ICO_NULL, " &i5140&") # Null
+            self.AddChild(FOL_ICONCB, ICO_BIN, " &i12109&") # Thrash can
 
         # Color
         self.AddComboBox(FOL_COLORCB, c4d.BFH_LEFT, 80, 13)
@@ -551,15 +610,18 @@ class Dialog(GeDialog):
         self.AddChild(FOL_LAYERCB, LAY_FOLDER, "Folder Only")
         self.AddChild(FOL_LAYERCB, LAY_ADD, "Add Layer")
         self.AddChild(FOL_LAYERCB, LAY_OVER, "Overwrite Layer")
+        self.AddChild(FOL_LAYERCB, LAY_AUTOTAG, "Autolayer Tag")
         self.GroupEnd() # End 'Alt' group
         self.GroupEnd() # End 'Alt' group
-
 
         # Set default options
         settings = loadSettings()
         self.SetString(FOL_NAMEINPUT, str(settings['setName']))
         self.SetInt32(FOL_COLORCB,    int(settings['setColor']))
-        self.SetInt32(FOL_ICONCB,     int(settings['setIcon']))
+        
+        if (c4dver > 20):
+            self.SetInt32(FOL_ICONCB,     int(settings['setIcon']))
+
         self.SetInt32(FOL_LAYERCB,    int(settings['setLayer']))
         self.SetBool(FOL_PROTECT,    int(settings['setProtect']))
         self.SetBool(FOL_SEPARATOR,  int(settings['setSeparator']))
@@ -581,13 +643,19 @@ class Dialog(GeDialog):
     # Processing
     def Command(self, paramid, msg): # Handling commands (pressed button etc.)
         global customColor
+        c4dver, c4dbuild = GetC4DVersion()
         bc = c4d.BaseContainer() # Initialize a base container
 
         name        = str(self.GetString(FOL_NAMEINPUT)) # Get name
         color       = int(self.GetInt32(FOL_COLORCB)) # Get color
         protect     = int(self.GetBool(FOL_PROTECT)) # Get protected
         separator   = int(self.GetBool(FOL_SEPARATOR)) # Get separator
-        icon        = int(self.GetInt32(FOL_ICONCB)) # Get icon
+
+        if (c4dver > 20):
+            icon    = int(self.GetInt32(FOL_ICONCB)) # Get icon
+        else:
+            icon    = int(5005)
+
         layer       = int(self.GetInt32(FOL_LAYERCB)) # Get layer option
 
         # Actions here

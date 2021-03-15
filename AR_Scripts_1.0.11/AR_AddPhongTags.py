@@ -23,6 +23,14 @@ def GetNextObject(op):
     while not op.GetNext() and op.GetUp():
         op = op.GetUp()
     return op.GetNext()
+ 
+def IterateHierarchy(op, doc):
+    if op is None:
+        return
+    while op:
+        CheckPhong(op, doc) # Check phong tag
+        op = GetNextObject(op) # Get next object
+    return True
 
 def CheckPhong(op, doc):
     phongFound = 0 # Initialize phongFound variable
@@ -40,15 +48,6 @@ def CheckPhong(op, doc):
             phongTag[c4d.PHONGTAG_PHONG_USEEDGES] = 1 # Set use edge breaks
             op.InsertTag(phongTag) # Insert phong tag to object
             doc.AddUndo(c4d.UNDOTYPE_NEW, phongTag)
- 
-def IterateHierarchy(op, doc):
-    doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
-    if op is None:
-        return
-    while op:
-        CheckPhong(op, doc) # Check phong tag
-        op = GetNextObject(op) # Get next object
-    return True
 
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document

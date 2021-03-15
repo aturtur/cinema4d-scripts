@@ -363,16 +363,16 @@ def main():\n\
 \n\
     if style == 0:\n\
         char = '-'\n\
-        baseStr = char*width\n\
+        baseStr = char*int(width)\n\
     elif style == 1:\n\
         char = '='\n\
-        baseStr = char*((width+8)/2)\n\
+        baseStr = char*int(((width+8)/2))\n\
     elif style == 2:\n\
         char = '_'\n\
-        baseStr = char*(width-3)\n\
+        baseStr = char*int((width-3))\n\
     elif style == 3:\n\
         char = '~'\n\
-        baseStr = char*((width+8)/2)\n\
+        baseStr = char*int(((width+8)/2))\n\
 \n\
     baseWeight = getWeight(baseStr)\n\
     nameStr = op.GetObject()[c4d.ID_USERDATA,1]\n\

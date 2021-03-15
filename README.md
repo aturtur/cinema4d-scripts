@@ -94,11 +94,6 @@ Copy selected tag(s) to selected object(s).
 ### ![AR_CreateControlNulls](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateControlNulls.png) AR_CreateControlNulls.py
 Create control null objects from selected point(s). Control nulls have frozen PSR by default.
 
-### ![AR_CreateFolderNull](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateFolderNull.png) AR_CreateFolderNull.py
-Creates a folder null for easier organizing. I use this when I'm not using my Separator Null. Requires C4D R21. If there are selection, selected objects will be grouped under to the folder null.
-**Shift:** Assign folder null's layer to selected objects. Doesn't overwrite existing layers.
-**Ctrl:** Assign folder null's layer to selected objects. Overwrites old layer.
-
 ### ![AR_CreateGuide](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateGuide.png) AR_CreateGuide.py.py
 Creates a guide object from two selected objects or two selected points.
 
@@ -156,6 +151,10 @@ _Note: Do not use any special charactes in your objects names, do not even use a
 
 ### ![AR_ExtractUserTracks](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExtractUserTracks.png) AR_ExtractUserTracks.py
 Extracts 2D user tracks from selected motion tracker to null objects.
+
+### ![AR_Folder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Folder.png) AR_Folder.py
+Creates a folder null for easier organizing. If there are selection, selected objects will be grouped under to the folder null.
+When you run the script it opens a dialog where you can change different options: Name, icon (R21=<), color, layer and more.
 
 ### ![AR_ImportImageFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportImageFolder.png) AR_ImportImageFolder.py
 **Default:** Import image folder to materials.

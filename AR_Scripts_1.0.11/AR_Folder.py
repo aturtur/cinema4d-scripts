@@ -618,7 +618,7 @@ class Dialog(GeDialog):
         settings = loadSettings()
         self.SetString(FOL_NAMEINPUT, str(settings['setName']))
         self.SetInt32(FOL_COLORCB,    int(settings['setColor']))
-        
+
         if (c4dver > 20):
             self.SetInt32(FOL_ICONCB,     int(settings['setIcon']))
 
@@ -684,4 +684,4 @@ class Dialog(GeDialog):
         return True # Everything is fine
 
 dlg = Dialog() # Create dialog object
-dlg.Open(c4d.DLG_TYPE_MODAL_RESIZEABLE, 0, -2, -2, 100, 50) # Open dialog
+dlg.Open(c4d.DLG_TYPE_MODAL_RESIZEABLE, 0, -1, -1, 0, 0) # Open dialog

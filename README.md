@@ -3,9 +3,10 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
-Latest version **: 1.0.13** _(Updated 08.04.2021)_
+Latest version **: 1.0.14** _(Updated 28.04.2021)_
 
 ## Change Log
+- _28.04.2021_ **Updated bunch of scripts**
 - _15.03.2021_ **AR_ToggleTintedBorder.py:** Cinema 4D R23 support, SHIFT option modified to have color picker and slider.
 - _15.03.2021_ **AR_Folder.py:** Added and autolayer python tag and some kind of support for R20.
 - _14.03.2021_ **AR_Folder.py:** Cinema 4D R23 support for separator python tag.

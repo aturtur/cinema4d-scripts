@@ -73,7 +73,7 @@ def GetKeys(keyMod):
         if curve is None:
             continue
         keys = []
-        for key_id in xrange(curve.GetKeyCount()):
+        for key_id in range(curve.GetKeyCount()):
             key = curve.GetKey(key_id)
             if keyMod == "None":
                 if key.GetNBit(c4d.NBIT_TL1_SELECT): # If key is selected in timeline

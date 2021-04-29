@@ -52,7 +52,7 @@ def MoGraphSelectionFromRange(obj, keyMod):
     for x in baseList: # Loop through list items
         rng = x.split("-") # Split range value (e.g. 5-15)
         if len(rng)>1:
-            for i in xrange(int(rng[0]),int(rng[1])+1):
+            for i in range(int(rng[0]),int(rng[1])+1):
                 add.append(i)
     fullList = baseList+add
     for f in fullList:

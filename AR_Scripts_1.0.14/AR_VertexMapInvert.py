@@ -21,7 +21,7 @@ def main():
         if s.GetType() == 5682: # If Vertex Map Tag
             doc.AddUndo(c4d.UNDOTYPE_CHANGE, s) # Record undo
             data = s.GetAllHighlevelData() # Get Vertex Map data
-            for i in xrange(0, len(data)): # Loop through data values
+            for i in range(0, len(data)): # Loop through data values
                 data[i] = 1 - data[i] # Invert value
             s.SetAllHighlevelData(data) # Set Vertex Map data
     doc.EndUndo() # End recording undos

@@ -27,7 +27,7 @@ def MgSelTagsFromSelectedClones(obj):
     for k in tags: # Loop through reversed list of tags
         if k.GetName().split("_")[0] == prefix:
             x = x + 1 # Increase iteration variable
-    for i in xrange(0,cnt): # Loop through reversed list of clones
+    for i in range(0,cnt): # Loop through reversed list of clones
         if selection.IsSelected(i) == True:
             t = c4d.BaseTag(1021338) # Initialize MoGraph selection tag
             t[c4d.ID_BASELIST_NAME] = prefix+sep+str(x) # Set tag name

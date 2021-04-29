@@ -4,8 +4,13 @@ AR_ExportSplineSeq
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ExportSplineSeq
+Version: 1.0.1
 Description-US: DEFAULT: Exports selected spline objects to Adobe Illustrator-sequence. Preview range will determine which frames will be exported. SHIFT: Export objects to separated folders.
 Written for Maxon Cinema 4D R20.057
+
+Change log:
+1.0.1 (28.04.2021) - Support for R23
+
 """
 # Libraries
 import c4d, os
@@ -97,7 +102,7 @@ def main():
         SetExporter(doc) # Set exporter settings
 
         selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_0) # Get selected objects
-        for i in xrange(0, len(selection)): # Loop through selected objects
+        for i in range(0, len(selection)): # Loop through selected objects
             sketchTags.append(c4d.BaseTag(1011012)) # Insert 'Sketch Style' tag to sketchTags list
             sketchTags[i][c4d.OUTLINEMAT_LINE_DEFAULT_MAT_V] = sketchMat # Put sketch material to sketch tag
             sketchTags[i][c4d.OUTLINEMAT_LINE_SPLINES] = 1 # Enable splines
@@ -122,7 +127,7 @@ def main():
 
         # Handle selected objects
         selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_0) # Get selected objects
-        for i in xrange(0, len(selection)): # Loop through selected objects
+        for i in range(0, len(selection)): # Loop through selected objects
             #sketchTags.append(c4d.BaseTag(1011012)) # Insert 'Sketch Style' tag to sketchTags list
             sketchTag = c4d.BaseTag(1011012) # Initialize a sketch tag
             sketchTag[c4d.OUTLINEMAT_LINE_DEFAULT_MAT_V] = sketchMat # Put sketch material to sketch tag

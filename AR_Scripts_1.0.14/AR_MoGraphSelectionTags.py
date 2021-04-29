@@ -21,7 +21,7 @@ def MgSelTagForEveryClone(obj):
     try: # Try to execute following
         md = mo.GeGetMoData(obj) # Get MoGraph data
         cnt = md.GetCount() # Get clone count
-        for i in xrange(0, cnt): # Loop through clones
+        for i in range(0, cnt): # Loop through clones
             tag = c4d.BaseTag(1021338) # Initialize MoGraph selection tag
             tag[c4d.ID_BASELIST_NAME] = "ms_"+str(i)
             s = c4d.BaseSelect() # Initialize BaseSelect

@@ -71,7 +71,7 @@ def GetKeys(keyMod):
         if curve is None:
             continue
 
-        for i, key_id in enumerate(xrange(curve.GetKeyCount())):
+        for i, key_id in enumerate(range(curve.GetKeyCount())):
             key = curve.GetKey(key_id)
             if keyMod == "None":
               if key.GetNBit(c4d.NBIT_TL1_SELECT):

@@ -96,7 +96,7 @@ def CenterAxis(obj): # Center object's axis
     center = obj.GetMp() # Get Object's bounding box center in local space
     difference = axis - (axis + center) # Calculate difference
     if difference != c4d.Vector(0): # If there is a difference
-        for i in xrange(pointCount): # Loop through object's points
+        for i in range(pointCount): # Loop through object's points
             obj.SetPoint(i, points[i] + difference) # Set new point position
         obj.Message(c4d.MSG_UPDATE) # Send update message
         obj.SetMg(c4d.Matrix((matrix * center),

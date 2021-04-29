@@ -103,7 +103,7 @@ def GetGlobalPoint(obj):
     pnt = obj.GetAllPoints()
     pnt_cnt = obj.GetPointCount()
 
-    for id in xrange (pnt_cnt):
+    for id in range (pnt_cnt):
         pnt[id] = mg.__mul__(pnt[id])
     return pnt
 
@@ -113,7 +113,7 @@ def GetLocalPoint(pnt, obj):
     if type(pnt) != list: return
     mg = obj.GetMg()
     inv_mg = mg.__invert__()
-    for id in xrange(len (pnt)):
+    for id in range(len (pnt)):
         pnt[id] = inv_mg.__mul__(pnt[id])
     return pnt
 

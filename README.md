@@ -84,7 +84,7 @@ Boole multiple objects with a single click. Creates intances of one 'booler' wit
 Creates a boole setup from two selected objects that creates a piece effect.
 **Shift:** Uses instances.
 
-### ![AR_CloneTagsHierarchy.py](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CloneTagsHierarchy.py.png) AR_CloneTagsHierarchy.py.py
+### ![AR_CloneTagsHierarchy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CloneTagsHierarchy.png) AR_CloneTagsHierarchy.py
 Clones tags from one object hierarchy to another one. Object hierarchies have to be indentical.
 
 ### ![AR_ConsolidateMaterialTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ConsolidateMaterialTags.png) AR_ConsolidateMaterialTags.py

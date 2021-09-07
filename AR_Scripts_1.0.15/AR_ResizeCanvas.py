@@ -4,7 +4,7 @@ AR_ResizeCanvas
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ResizeCanvas
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Resizes canvas without changing the perspective.
 Changes active render settings resolution and selected/active camera's sensor size (film gate) and possibly also film offsets.
 NOTE! If you don't have custom camera active or selected, script will modify default viewport camera's settings!
@@ -14,7 +14,9 @@ Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
 Change log:
+1.0.2 (28.08.2021) - Bug fix (Film aspect ratio)
 1.0.1 (07.10.2020) - Supports now non perspective camera projections (e.g. parallel, isometric etc.)
+
 """
 # Libraries
 import c4d
@@ -100,8 +102,10 @@ def resizeComposition(anchor, newWidth, newHeight):
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_X] = getFilmAnchor(oldWidth, newWidth, oldFilmOffsetX) + getFilmOffset(oldWidth, newWidth, "Left")
         camera[c4d.CAMERAOBJECT_FILM_OFFSET_Y] = getFilmAnchor(oldHeight, newHeight, oldFilmOffsetY) + getFilmOffset(oldHeight, newHeight, "Up")
 
-    renderData[c4d.RDATA_XRES] = newWidth
-    renderData[c4d.RDATA_YRES] = newHeight
+    renderData[c4d.RDATA_XRES]       = newWidth
+    renderData[c4d.RDATA_YRES]       = newHeight
+    renderData[c4d.RDATA_FILMASPECT] = float(newWidth) / float(newHeight)
+
     doc.SetActiveRenderData(renderData)
     doc.EndUndo() # Stop recording undos
     return True

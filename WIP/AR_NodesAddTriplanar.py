@@ -5,7 +5,7 @@ Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodesAddTriplanar
 Version: 1.0
-Description-US: Adds triplanar node between selected nodes. Only for Redshift
+Description-US: Adds triplanar node between selected nodes (Redshift).
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14

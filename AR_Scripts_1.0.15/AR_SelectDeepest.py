@@ -1,18 +1,17 @@
 """
-AR_SelectChildren
+AR_SelectDeepest
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_SelectChildren
+Name-US: AR_SelectDeepest
 Version: 1.0
-Description-US: DEFAULT: Select children of selected object(s). SHIFT: Keeps original selection. CTRL: Select children from given level. ALT: Select siblings from given level.
+Description-US: DEFAULT: Select children of selected object(s) that are the most deep in hierarchy. SHIFT: Keep original selection.
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 """
 # Libraries
 import c4d
-from c4d import gui
 
 # Global variables
 hierarchy = {} # Initialize hierarchy dictionary
@@ -69,7 +68,7 @@ def BuildHierarchyPath(obj): # Build hierarchy path for object
 
 def BuildHierarchy(): # Build hierarchy dictionary
     global level # Access to global variable (level)
-    global hieararchy # Access to global dictionary (hierarchy)
+    global hierarchy # Access to global dictionary (hierarchy)
     doc = c4d.documents.GetActiveDocument()
     op = doc.GetFirstObject()
     #hierarchy = {} # Initialize empty dictionary
@@ -110,30 +109,19 @@ def FindRoot(data): # Find object's root
                 break # Break the loop
             obj = obj.GetUp() # Get up
 
-def FindChildren(start, targetLevel=0, addRest=False): # Find children of the object
-    global level # Access to global variable (level)
-    global hieararchy # Access to global dictionary (hierarchy)
-    collection = [] # Initialize empty list for children
-    for h in hierarchy: # Loop through hierarchy
-        if start == hierarchy[h]['object']: # Starting position in hierarchy
-            l = hierarchy[h]['level'] # Starting level
-    for counter, item in hierarchy.items(): # Loop through items in hierarchy dictionary
-        for p in item['path']: # Loop through objects' paths
-            if p == start: # Starting position in hierarchy
-                for c, i in enumerate(item['path']): # Loop through object's path
-                    if c > l: # If child of the selected object
-                        if targetLevel != 0: # If there is custom target level
-                            if addRest:
-                                print addRest, l+targetLevel
-                                if c >= l + targetLevel: # If level match
-                                    collection.append(i) # Add object to collection
-                            else:
-                                print addRest, l+targetLevel
-                                if c == l + targetLevel: # If level match
-                                    collection.append(i) # Add object to collection
-                        else: # If there is no target level (default)
-                            collection.append(i) # Add object to collection
-    return collection # Return collection of children
+def FindDeepest(start): # Find deepest level item(s)
+    global hierarchy # Access to global dictionary (hierarchy)
+    collection = [] # Initialize empty list
+    sortedcollection = [] # Initialize empty list
+    for counter, item in hierarchy.items(): # Loop through hierarchy items
+        for p in item['path']: # Loop through paths
+            if p == start: # Starting point
+                collection.append([item['level'], item['path'][-1]])
+    maximum = max(collection)[0] # Maximum level of the collection
+    for item in collection: # Loop through collection
+        if item[0] == maximum: # If object is deepest
+            sortedcollection.append(item[1]) # Add object to list
+    return sortedcollection # Return list of deepest children
 
 def Select(data): # Select object(s)
     dataType = type(data).__name__ # Get incoming data type name
@@ -154,7 +142,7 @@ def Deselect(data): # Deselect object(s)
     # List (data)
     if dataType == "list": # If data is list do following
         lst = data # Data is list
-        for obj in lst: # Data is list
+        for obj in lst: # Loop through list
             doc.AddUndo(c4d.UNDOTYPE_BITS, obj) # Add undo command for changing bits
             obj.DelBit(c4d.BIT_ACTIVE) # Deselect object in Object Manager
     # Single object (data)
@@ -166,35 +154,18 @@ def Deselect(data): # Deselect object(s)
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
-    global hieararchy # Access to global dictionary (hierarchy)
+    global hierarchy # Access to global dictionary (hierarchy)
     hierarchy = BuildHierarchy()
-    selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_SELECTIONORDER)
     keyMod = GetKeyMod() # Get keymodifier
+    selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_SELECTIONORDER)   
 
     if keyMod == "None":
         for obj in selection: # Loop through selection
             Deselect(obj) # Deselect selected object
-            Select(FindChildren(obj, 0, True)) # Select chldren object(s)
+            Select(FindDeepest(obj)) # Select deepest chldren object(s)
     elif keyMod == "Shift":
         for obj in selection: # Loop through selection
-            Select(FindChildren(obj, 0, True))
-    elif keyMod == "Ctrl":
-        inp = int(gui.InputDialog('Child level', "2"))
-        for obj in selection: # Loop through selection
-            Deselect(obj) # Deselect selected object
-            Select(FindChildren(obj, inp, True))
-    elif keyMod == "Ctrl+Shift":
-        inp = int(gui.InputDialog('Child level', "2"))
-        for obj in selection: # Loop through selection
-            Select(FindChildren(obj, inp, True))
-    elif keyMod == "Alt":
-        inp = int(gui.InputDialog('Child level', "2"))
-        for obj in selection: # Loop through selection
-            Select(FindChildren(obj, inp, False))
-    elif keyMod == "Alt+Shift":
-        inp = int(gui.InputDialog('Child level', "2"))
-        for obj in selection: # Loop through selection
-            Select(FindChildren(obj, inp, False))
+            Select(FindDeepest(obj)) # Select deepest chldren object(s)
 
     doc.EndUndo() # Stop recording undos
     c4d.EventAdd() # Refresh Cinema 4D

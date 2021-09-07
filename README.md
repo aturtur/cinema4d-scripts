@@ -3,9 +3,12 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
-Latest version **: 1.0.14** _(Updated 28.04.2021)_
+Latest version **: 1.0.15** _(Updated 07.09.2021)_
 
 ## Change Log
+- _07.09.2021 **AR_CloneTagsHierarchy.py:** New script.
+- _06.09.2021 **AR_ImportFspyCamera.py:** New script.
+- _06.09.2021_ **AR_ResizeCanvas.py:** Fixed film aspect bug. Added new buttons.
 - _28.04.2021_ **Updated bunch of scripts**
 - _15.03.2021_ **AR_ToggleTintedBorder.py:** Cinema 4D R23 support, SHIFT option modified to have color picker and slider.
 - _15.03.2021_ **AR_Folder.py:** Added and autolayer python tag and some kind of support for R20.
@@ -31,7 +34,7 @@ Latest version **: 1.0.14** _(Updated 28.04.2021)_
 - _07.10.2020_ **AR_ToggleTintedBorder.py:** ALT-modifier, change border color with hex color code
 
 ## How to use
-In this section I go through how you install AR_Scripts to your Cinema 4D. These scripts are written for Maxon Cinema 4D R21.207 using Python version 2.7.14. Scripts are tested using Microsoft Windows. All of the script might not work with Mac.
+In this section I go through how you install AR_Scripts to your Cinema 4D. These scripts are written for Maxon Cinema 4D R21.207 using Python version 2.7.14. Scripts are tested using Microsoft Windows 10. All of the script might not work with Mac OS.
 
 _Use at your own risk!_
 
@@ -42,7 +45,7 @@ Download this [repo](https://github.com/aturtur/cinema4d-scripts/archive/master.
 #### Windows
 `C:\Users\<USER>\AppData\Roaming\MAXON\Maxon Cinema 4D RXX\library\scripts`
 
-#### OSX
+#### Mac OS
 `/Applications/MAXON/CINEMA 4D RXX/library/scripts`
 
 Other way to find folder for installing scripts is to opening C4D and opening preferences (Ctrl+E / Cmd+E) and pressing 'Open Preferences Folder...' -button and navigating to library > scripts.
@@ -80,6 +83,9 @@ Boole multiple objects with a single click. Creates intances of one 'booler' wit
 ### ![AR_BooleSplit](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BooleSplit.png) AR_BooleSplit.py
 Creates a boole setup from two selected objects that creates a piece effect.
 **Shift:** Uses instances.
+
+### ![AR_CloneTagsHierarchy.py](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CloneTagsHierarchy.py.png) AR_CloneTagsHierarchy.py.py
+Clones tags from one object hierarchy to another one. Object hierarchies have to be indentical.
 
 ### ![AR_ConsolidateMaterialTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ConsolidateMaterialTags.png) AR_ConsolidateMaterialTags.py
 Consolidates different polygon selections together that uses same materials. Messes up with material projection. Uses object selection.
@@ -158,8 +164,11 @@ Extracts 2D user tracks from selected motion tracker to null objects.
 Creates a folder null for easier organizing. If there are selection, selected objects will be grouped under to the folder null.
 When you run the script it opens a dialog where you can change different options: Name, icon (R21=<), color, layer and more.
 
+### ![AR_ImportFspyCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportFspyCamera.png) AR_ImportFspyCamera.py
+Imports fSpy JSON-file and creates a camera object fron it. Y-axis up. You might need to scale the project as you like.
+
 ### ![AR_ImportImageFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportImageFolder.png) AR_ImportImageFolder.py
-**Default:** Import image folder to materials.
+**Default:** Imports image folder to materials.
 **Shift:** Generates image planes.
 
 ### ![AR_ImportOBJFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportOBJFolder.png) AR_ImportOBJFolder.py

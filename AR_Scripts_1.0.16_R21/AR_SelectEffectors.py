@@ -73,7 +73,6 @@ def SelectEffectors(op, obj): # Iterate objects
         if obj.GetType() == generators[gen]:
             isGenerator = True
 
-    print isGenerator
     if op is None: return
     while op:
         if isGenerator == True:

@@ -4,17 +4,22 @@ AR_Folder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_Folder
-Version: 1.0.4
+Version: 1.0.5
 Description-US: Creates a folder null that keeps your project tidy
 
 Written for Maxon Cinema 4D R21.207
 Python version 2.7.14
 
 Change log:
+1.0.5 (07.09.2021) - Added color option 'None' (No color, just default settings)
 1.0.4 (15.03.2021) - Added and autolayer python tag and some kind of support for R20
 1.0.3 (14.03.2021) - Cinema 4D R23 support for separator python tag
 1.0.2 (12.03.2021) - Big update, a lot of changes and new features
 1.0.1 (07.11.2020) - Added support for Esc and Enter keys
+
+To Do:
+> Shift modifier: Modify Folder Null, change color and name ... 
+
 """
 # Libraries
 import c4d
@@ -55,6 +60,7 @@ COL_PURPLEHEART = 4011
 COL_RANDOM      = 4012
 COL_CUSTOM      = 4013
 COL_SEP         = 4014
+COL_NONE        = 4015
 
 ICO_FOLDER      = 5001
 ICO_OPEN        = 5002
@@ -439,7 +445,8 @@ def main():\n\
         COL_DARKBLUE:    c4d.Vector(float(63.0/255.0), float(81.0/255.0), float(181.0/255.0)),  # Dark Blue
         COL_PURPLEHEART: c4d.Vector(float(103.0/255.0), float(58.0/255.0), float(183.0/255.0)), # Purple Heart
         COL_RANDOM:      randomColor, # Random color
-        COL_CUSTOM:      customColor  # Custom color
+        COL_CUSTOM:      customColor, # Custom color
+        COL_NONE:        None         # No color
     }
 
     icons = {
@@ -463,13 +470,20 @@ def main():\n\
 
     if (c4dver > 20):
         null[c4d.ID_BASELIST_ICON_FILE] = icon # Folder icon
-        null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Icon Color: Custom
-        null[c4d.ID_BASELIST_ICON_COLOR] = color
+        if color != None:
+            null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Icon Color: Custom
+            null[c4d.ID_BASELIST_ICON_COLOR] = color
+        else:
+            pass
     else:
-        null[c4d.NULLOBJECT_ICONCOL] = True
+        if color != None:
+            null[c4d.NULLOBJECT_ICONCOL] = True
+        else:
+            pass
 
-    null[c4d.ID_BASEOBJECT_USECOLOR] = 2 # Display Color: On
-    null[c4d.ID_BASEOBJECT_COLOR] = color
+    if color != None:
+        null[c4d.ID_BASEOBJECT_USECOLOR] = 2 # Display Color: On
+        null[c4d.ID_BASEOBJECT_COLOR] = color
 
     # Protection tag
     if selProtect == True:
@@ -480,7 +494,8 @@ def main():\n\
         layerRoot = doc.GetLayerObjectRoot() # Get layer object root
         layer = c4d.documents.LayerObject() # Initialize a layer object
         layer.SetName(name) # Set layer's name
-        layer[c4d.ID_LAYER_COLOR] = color # Set layer's color
+        if color != None:
+            layer[c4d.ID_LAYER_COLOR] = color # Set layer's color
         layer.InsertUnder(layerRoot) # Insert layer to layer root
         doc.AddUndo(c4d.UNDOTYPE_NEW, layer) # Record undo for creating a new layer
         null[c4d.ID_LAYER_LINK] = layer # Set layer to the null
@@ -576,6 +591,7 @@ class Dialog(GeDialog):
 
         # Color
         self.AddComboBox(FOL_COLORCB, c4d.BFH_LEFT, 80, 13)
+        self.AddChild(FOL_COLORCB, COL_NONE, "None") # No Color
         self.AddChild(FOL_COLORCB, COL_CUSTOM, "Custom") # Custom
         self.AddChild(FOL_COLORCB, COL_RANDOM, "Random") # Random
         self.AddChild(FOL_COLORCB, COL_SEP, "") # Separator line

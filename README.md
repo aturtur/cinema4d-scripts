@@ -3,11 +3,15 @@
 
 My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
 
-Latest version **: 1.0.15** _(Updated 07.09.2021)_
+> I switched to Cinema 4D R25 and I'm updating (slowly) my scripts to support R25 with new icons. You can check **R25 Early Access** directory to get newest scripts very first before the big launch.
+
+Latest version: **1.0.16** _(Updated 09.09.2021)_
 
 ## Change Log
-- _07.09.2021 **AR_CloneTagsHierarchy.py:** New script.
-- _06.09.2021 **AR_ImportFspyCamera.py:** New script.
+- _09.09.2021_ **AR_ResizeCanvas.py:** Added 'Add' button, instead of setting the exact resolution you can add or substract from the current values
+- _09.09.2021_ **AR_SelectGenerators.py:** Fixed generator's effector list checking.
+- _07.09.2021_ **AR_CloneTagsHierarchy.py:** New script.
+- _06.09.2021_ **AR_ImportFspyCamera.py:** New script.
 - _06.09.2021_ **AR_ResizeCanvas.py:** Fixed film aspect bug. Added new buttons.
 - _28.04.2021_ **Updated bunch of scripts**
 - _15.03.2021_ **AR_ToggleTintedBorder.py:** Cinema 4D R23 support, SHIFT option modified to have color picker and slider.

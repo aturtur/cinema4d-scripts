@@ -29,8 +29,14 @@ def main():
             closestS = sObj
             closestT = tObj
 
+        mgS = closestS.GetMg()
+        mgT = closestT.GetMg()
+        
+        mat = ~mgS * mgS * mgT
+        
         doc.AddUndo(c4d.UNDOTYPE_CHANGE, closestT)
         closestT.InsertUnder(closestS)
+        closestT.SetMg(mat)
 
     doc.EndUndo() # Stop recording undos
     c4d.EventAdd()

@@ -1,7 +1,5 @@
 # Aturtur's Cinema 4D Scripts
-![AR_Scripts](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/CoverImage.jpg)
-
-(816px leveä kuva)
+![AR_Scripts](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/ar_scripts_cover.jpg)
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 

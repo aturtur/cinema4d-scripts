@@ -117,7 +117,7 @@ def CheckFiles():
     filePath = os.path.join(folder, fileName) # File path
     if not os.path.isfile(filePath): # If file doesn't exist
         f = open(filePath,"w+")
-        f.write("1.0\0\0\0") # Default settings
+        f.write("1.0\n0\n0\n0") # Default settings
         f.close()
     return filePath
 

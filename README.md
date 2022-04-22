@@ -232,7 +232,7 @@ Does not support subfields or tags!
 ## Node Tools
 ### ![AR_NodeAdd](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAdd.png) AR_NodeAdd.py
 **Default:** Adds node between selected nodes.  
-Works only with Redshift. Make sure the Redshift material is selected when using the script!  
+>Works only with Redshift. Make sure the Redshift material is selected when using the script!  
 
 ### ![AR_NodeAlignH](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAlignH.png) AR_NodeAlignH.py
 Aligns selected graph nodes horizontally.  
@@ -242,7 +242,8 @@ Aligns selected graph nodes horizontally.
 **Alt:** The rightmost node rules. Pivot is in the middle.  
 **Alt+Shift:** The rightmost node rules. Pivot is in the top.  
 **Alt+Ctrl:** The rightmost node rules. Pivot is in the bottom.  
-Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 
 ### ![AR_NodeAlignV](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAlignV.png) AR_NodeAlignV.py
 Aligns selected graph nodes vertically.  
@@ -252,46 +253,54 @@ Aligns selected graph nodes vertically.
 **Alt:** The lowest node rules. Pivot is in the middle.  
 **Alt+Shift:** The lowest node rules. Pivot is in the left.  
 **Alt+Ctrl:** The lowest node rules. Pivot is in the right.  
-Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 
 ### ![AR_NodeCon](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeCon.png) AR_NodeCon.py
 **Default:** Connects two selected nodes, if possible. Starting from the top.  
 **Shift:** Custom input to connect OUT and IN port.  
 **Ctrl:** Connects two selected nodes, if possible. Starting from the bottom.  
-Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 
 ### ![AR_NodeDiscon](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeDiscon.png) AR_NodeDiscon.py
 **Default:** Disconnect all connection(s) of selected node or connection(s) between selected nodes.  
-Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 
 ### ![AR_NodeDstrbH](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeDstrbH.png) AR_NodeDstrbH.py
 **Default:** Distributes selected nodes horizontally.  
-Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 
 ### ![AR_NodeDstrbV](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeDstrbV.png) AR_NodeDstrbV.py
 **Default:** Distributes selected nodes vertically.  
-Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 
 ### ![AR_NodeLineUpH](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeLineUpH.png) AR_NodeLineUpH.py
 **Default:** Lines up selected graph nodes horizontally.  
 **Shift:** Lines up selected graph nodes horizontally with a custom gap.  
 **Alt:** Reversed direction.  
 **Shift+Alt:** Reversed direction with a custom gap.  
-Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 
 ### ![AR_NodeLineUpV](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeLineUpV.png) AR_NodeLineUpV.py
 **Default:** Lines up selected graph nodes vertically.  
 **Shift:** Lines up selected graph nodes vartically with a custom gap.  
 **Alt:** Reversed direction.  
 **Shift+Alt:** Reversed direction with a custom gap.  
-Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 
 ### ![AR_NodeTexPSR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeTexPSR.png) AR_NodeTexPSR.py
 **Default:** Creates individual scale, offset and rotate control nodes for Redshift texture and triplanar nodes.  
 **Shift:** Add only scale controller.  
 **Ctrl:** Add only offset controller.  
 **Alt:** Add only rotation controller.  
-Works only with Redshift. Notice: Make sure the Redshift material is selected when using the script!  
+Works only with Redshift.  
+>Notice: Make sure the Redshift material is selected when using the script!  
 
 ## Object Manager
 ### ![AR_CopyToChild](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CopyToChild.png) AR_CopyToChild.py

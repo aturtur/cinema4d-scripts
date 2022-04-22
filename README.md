@@ -135,7 +135,7 @@ Preview range will determine the frame range that will be exported.
 ## Materials
 ### ![AR_MatConsolidateTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatConsolidateTags.png) AR_MatConsolidateTags.py
 **Default:** Consolidates different polygon selections together that uses same materials.  
-Messes up material projections! Select object(s) and run the script.  
+>Note: Messes up material projections! Select object(s) and run the script.  
 
 ### ![AR_MatMerge](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatMerge.png) AR_MatMerge.py
 **Default:** Merges materials that has the same name.  
@@ -162,6 +162,7 @@ Currently does not support objects with exposed normal tags.
 ### ![AR_DynaMesh](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DynaMesh.png) AR_DynaMesh.py
 **Default:** Remeshes selected object with ZRemesher.  
 **Shift:** Dialog to set different options. Options will be saved.  
+>Note: Requires Cinema 4D S26 or newer!
 
 ### ![AR_FlipIt](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FlipIt.png) AR_FlipIt.py
 **Default:** Flips selected object(s) (multiplies specific axis by -1).  
@@ -226,7 +227,7 @@ Does not support subfields or tags!
 
 ### ![AR_MoSelectionMerge](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoSelectionMerge.png) AR_MoSelectionMerge.py
 **Default:** Merges selected MoGraph Selection Tags into one tag.  
-Note: If you have nested MoGraph Generators, disable parent generators before running this script.  
+>Note: If you have nested MoGraph Generators, disable parent generators before running this script.  
 
 ## Node Tools
 ### ![AR_NodeAdd](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAdd.png) AR_NodeAdd.py
@@ -422,7 +423,6 @@ The folder has to exsist. Does not support all of the tokens!
 **Default:** Prints info about selected objects, tags, materials, Xpresso nodes and Redshift nodes.  
 
 ### ![AR_TglEnable](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TglEnable.png) AR_TglEnable.py
-_Highly recommended to assign this script to a keyboard shortcut!_  
 **Default:** Toggle selected generator object (enable / disable).  
 **Shift:** Toggle next found parent generator object from the default list.  
 **Ctrl:** Toggle the root generator object.  
@@ -431,6 +431,7 @@ _Highly recommended to assign this script to a keyboard shortcut!_
 **Alt+Ctrl:** Force enable.  
 **Shift+Ctrl:** Toggle from custom list.  
 **Alt+Ctrl+Shift:** Open textfile to modify custom. You can use hashtag '#' separating comments. Put each generator to separate line!.  
+>Highly recommended to assign this script to a keyboard shortcut!  
 
 ## Viewport
 ### ![AR_ReferenceViewport](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ReferenceViewport.png) AR_ReferenceViewport.py
@@ -442,7 +443,7 @@ The script requires and enables 'Full Animation Redraw' in Preferences/View.
 ### ![AR_Safeframes](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Safeframes.png) AR_Safeframes.py
 **Default:** Toggle opacity of safeframes in viewport.  
 **Shift:** Set a custom value and color.  
-Notice: The color pickers in modal dialogs are currently broken in C4D R25, hopefully Maxon will fix this bug someday...  
+>Note: The color pickers in modal dialogs are currently broken in C4D R25, hopefully Maxon will fix this bug someday...  
 
 ### ![AR_TglGrid](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TglGrid.png) AR_TglGrid.py
 **Default:** Toggle groun grid visibility in the active viewport.  

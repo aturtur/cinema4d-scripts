@@ -1,50 +1,25 @@
 # Aturtur's Cinema 4D Scripts
 ![AR_Scripts](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/CoverImage.jpg)
 
-My collection of Maxon Cinema 4D scripts. Made by [@aturtur](https://twitter.com/aturtur). Almost all scripts are commented to make learning Python scripting for Cinema 4D easier, faster and nicer. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) like: Generators, Effectors, Xpresso rigs etc. I share here scripts that I have wrote mainly for **myself**. Some scripts are for really specific tasks, some might be a bit old and obsolete and some are quite weird and experimental. Nonetheless, all scripts are done for learning purposes and having fun (and to help day to day work).
+(816px leveä kuva)
 
-> I switched to Cinema 4D R25 and I'm updating (slowly) my scripts to support R25 with new icons. You can check **R25 Early Access** directory to get newest scripts very first before the big launch.
+My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.0.16** _(Updated 09.09.2021)_
+Latest version: **1.58** _(Updated 22.04.2022)_
 
 ## Change Log
-- _09.09.2021_ **AR_ResizeCanvas.py:** Added 'Add' button, instead of setting the exact resolution you can add or substract from the current values
-- _09.09.2021_ **AR_SelectGenerators.py:** Fixed generator's effector list checking.
-- _07.09.2021_ **AR_CloneTagsHierarchy.py:** New script.
-- _06.09.2021_ **AR_ImportFspyCamera.py:** New script.
-- _06.09.2021_ **AR_ResizeCanvas.py:** Fixed film aspect bug. Added new buttons.
-- _28.04.2021_ **Updated bunch of scripts**
-- _15.03.2021_ **AR_ToggleTintedBorder.py:** Cinema 4D R23 support, SHIFT option modified to have color picker and slider.
-- _15.03.2021_ **AR_Folder.py:** Added and autolayer python tag and some kind of support for R20.
-- _14.03.2021_ **AR_Folder.py:** Cinema 4D R23 support for separator python tag.
-- _12.03.2021_ **AR_Folder.py:** (Old AR_CreateFolderNull). Big Update, lots of features.
-- _12.03.2021_ **AR_AxisToCenter.py:** Supports now nested objects, some fixes.
-- _17.02.2021_ **AR_NodesAlignHorizontally.py, AR_NodesAlignVertically.py, AR_NodesLineUpHorizontally.py, AR_NodesLineUpVertically.py:** Alt modifier: The rightmost or the lowest node rules.
-- _21.11.2020_ **AR_ToggleEnable.py:** Added support for many different generators that were missed..
-- _14.11.2020_ **AR_ExtractUserTracks.py:** New script.
-- _13.11.2020_ **AR_ToggleEnable.py:** Added support for alembic generators.
-- _12.11.2020_ **AR_CreateSpline.py:** Alt + multiple selection: create a spline based on object manager order, Alt+Shift + multiple selection create: Tracer setup based on selection order, Ctrl+Alt  + multiple selection create: Tracer setup based on object manager order.
-- _08.11.2020_ **AR_ToggleEnable.py:** Added Alt+Shift and Alt+Ctrl shortcuts to force disable and enable. Added also Ctrl+Shift and Alt+Ctrl+Shift for toggling generators based on custom list and for editing custom list.
-- _07.11.2020_ **AR_CreateFolderNull:** Added support for Esc and Enter keys.
-- _04.11.2020_ **AR_MaterialsToObjectsWithSameName:** New script.
-- _04.11.2020_ **AR_AddPhongTags:** New script.
-- _04.11.2020_ **AR_ToggleEnable:** Support for Redshift objects (lights, proxy, sky, environment)
-- _27.10.2020_ **AR_Scripts folder versioning**
-- _27.10.2020_ **AR_BakeCameras.py, AR_BakeObjectPLA.py, AR_BakeObjectPSR.py:** Fixed setTime bug.
-- _23.10.2020_ **AR_ViewportGradients.py:** Wrong version fix.
-- _23.10.2020_ **AR_AxisToCenter.py:** Major bug fix.
-- _09.10.2020_ **AR_EasePaste.py:** Major bug fix.
-- _07.10.2020_ **AR_ResizeCanvas.py:** Added support for non-perspective projections (e.g. parallel, isometric etc.)
-- _07.10.2020_ **AR_ToggleTintedBorder.py:** ALT-modifier, change border color with hex color code
+- _22.04.2022_ New script: AR_PyTagShowIfCorrectCam
+- _21.04.2022_ New scripts: AR_FlipIt, AR_PyTagAlignToSpline
+- _20.04.2022_ New script: AR_DynaMesh (requires C4D 26)
+- _15.04.2022_ **Initial version of AR_Sripts for R25**
 
 ## How to use
-In this section I go through how you install AR_Scripts to your Cinema 4D. These scripts are written for Maxon Cinema 4D R21.207 using Python version 2.7.14. Scripts are tested using Microsoft Windows 10. All of the script might not work with Mac OS.
+In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for Maxon Cinema 4D R25.117 and Python 3.9.1. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.
 
-_Use at your own risk!_
+_Use these scripts with your own risk!_
 
 ### Installation
-Scripts should be installed to the folder where scripts have priviledges to write files, since some takes advantages for that.
-Download this [repo](https://github.com/aturtur/cinema4d-scripts/archive/master.zip) and put AR_Scripts folder to following path:
+Download this [repo](https://github.com/aturtur/cinema4d-scripts/archive/master.zip) and put AR_Scripts_#.##\_R25 folder to following path:
 
 #### Windows
 `C:\Users\<USER>\AppData\Roaming\MAXON\Maxon Cinema 4D RXX\library\scripts`
@@ -54,385 +29,428 @@ Download this [repo](https://github.com/aturtur/cinema4d-scripts/archive/master.
 
 Other way to find folder for installing scripts is to opening C4D and opening preferences (Ctrl+E / Cmd+E) and pressing 'Open Preferences Folder...' -button and navigating to library > scripts.
 
-### Using scripts
-When you have installed AR_Scripts you have to reboot Cinema 4D if it is already running. On start up Cinema 4D will scan scripts and you can find those under Extensions -> User Scripts -> AR_Scripts (R21). Script can also be found in commander (Shift+C).
+#### Addendum 
+Some of the scripts will make a txt-files in the aturtur folder under the C4D's prefs folder to save the previous settings of the script.
+`C:\Users\<USER>\AppData\Roaming\MAXON\Maxon Cinema 4D RXX\prefs\aturtur`
+If/when you want to uninstall AR_Scripts completely, remove that folder too.
 
-You run the script simply by clicking it. Some scripts have multiple functions and you can use those with key modifiers (Alt / Ctrl / Shift) and different combinations.
+### Using scripts
+When you have installed AR_Scripts you have to reboot Cinema 4D if it is already running. On start up Cinema 4D will scan and load all of the scripts. Scripts are located under Extensions -> User Scripts -> AR_Scripts_#.##\_R25. Scripts can be used with the commander (Shift+C) too.
+
+You run the script by clicking it. Some of the scripts have multiple functions and you can use those with key modifiers (Alt / Ctrl / Shift) and different combinations. Some of the scripts requires a certain item selection or mode to be active. If you don't know what the script does you can either open the script in the script editor and read the description or search the info of the specific script on this page.
 
 ## Script descriptions
 
-### ![AR_AddPhongTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AddPhongTags.png) AR_AddPhongTags.py
-Adds phong tags to objects if missing, but only if really needed. Supports object selection.
+### Animation
+### ![AR_BakeCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BakeCam.png) AR_BakeCam.py
+**Default:** Bakes selected camera(s) to world space.
+**Shift:** Keeps render engine tags if any.
 
-### ![AR_AxisToCenter](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AxisToCenter.png) AR_AxisToCenter.py
-Puts axis to center of the selected object(s) (works only with editable objects). If non-editable object is selected, tries to move the object to center of the children (does not support render instances).
+### ![AR_BakePLA](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BakePLA.png) AR_BakePLA.py
+**Default:** Bakes object to Point Level Animation (PLA).
+To bake spline object correctly, bake them first to alembic and then use this script to bake the alembic file to PLA spline object.
+It's important that 'Intermediate Points' is set to 'Uniform'! The script does not support that the point number is changing over time.
 
-### ![AR_BakeCameras](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BakeCameras.png) AR_BakeCameras.py
-Bakes selected cameras to world space. It might feel that when running the script Cinema 4D freezes, but the script is just calculating. Give it some time. Preview range determines the baking range.
+### ![AR_BakePSR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BakePSR.png) AR_BakePSR.py
+**Default:** Bakes selected object(s) to PSR animation in the world space.
+**Shift:** Bakes selected object(s) to PSR animation in the local space.
 
-### ![AR_BakeObjectPLA](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BakeObjectPLA.png) AR_BakeObjectPLA.py
-Bakes selected object(s) to point level animation (PLA) in world space. Preview range determines the baking range.
-
-### ![AR_BakeObjectPSR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BakeObjectPSR.png) AR_BakeObjectPSR.py
-**Default:** Bakes selected object(s) to PSR animation in world space.
-**Shift:** Bakes selected object(s) to PSR animation in local space.
-Preview range determines the baking range.
-
-### ![AR_BooleMuch](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BooleMuch.png) AR_BooleMuch.py
-Boole multiple objects with a single click. Creates intances of one 'booler' with PSR-constraint.
-**Default:** First selected object is booler.
-**Ctrl:** Last selected object is booler.
-**Shift:** Creates a huge booler cube.
-
-### ![AR_BooleSplit](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BooleSplit.png) AR_BooleSplit.py
-Creates a boole setup from two selected objects that creates a piece effect.
-**Shift:** Uses instances.
-
-### ![AR_CloneTagsHierarchy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CloneTagsHierarchy.png) AR_CloneTagsHierarchy.py
-Clones tags from one object hierarchy to another one. Object hierarchies have to be indentical.
-
-### ![AR_ConsolidateMaterialTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ConsolidateMaterialTags.png) AR_ConsolidateMaterialTags.py
-Consolidates different polygon selections together that uses same materials. Messes up with material projection. Uses object selection.
-
-### ![AR_CopyTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CopyTags.png) AR_CopyTags.py
-Copy selected tag(s) to selected object(s).
-
-### ![AR_CopyToChild](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CopyToChild.png) AR_CopyToChild.py
-**Default:** Creates a copy from the first selected object to the child of the rest of the selected objects.
-**Shift:** Creates a copy from the last selected object to the child of the rest of the selected objects.
-**Ctrl:** Creates an instance from the first selected object to the child of the rest of the selected objects.
-**Ctrl+Shift:** Creates an instance from the last selected object to the child of the rest of the selected objects.
-
-### ![AR_CreateControlNulls](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateControlNulls.png) AR_CreateControlNulls.py
-Create control null objects from selected point(s). Control nulls have frozen PSR by default.
-
-### ![AR_CreateGuide](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateGuide.png) AR_CreateGuide.py.py
-Creates a guide object from two selected objects or two selected points.
-
-### ![AR_CreateOwnMaterials](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateOwnMaterials.png) AR_CreateOwnMaterials.py
-Creates (clones) own materials for selected object(s) from existing materials.
-
-### ![AR_CreateSpline](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateSpline.png) AR_CreateSpline.py
-Creates a spline(s) multiple different ways. Sometimes also with dynamics!
-#### No any object selection:
-**Default:** Creates a simple two point spline on Z-axis.
-**Shift:** Creates a simple two point spline on Y-axis.
-**Ctrl:** Creates a simple two point spline on X-axis.
-#### One or multiple spline object(s) selected:
-**Default:** Creates a dynamic spline from a static spline with controllers on both ends (user input for subdivision).
-**Shift:** Creates a dynamic spline from a static spline with controllers for every spline point (user input for subdivision).
-#### Multiple objects selected:
-**Default:** Creates a one static spline from selected objects' positions.
-**Shift:** Creates multiple static splines betweeen selected objects.
-**Ctrl:** Creates a one dynamic spline from selected objects (user input for subdivision). 
-**Alt:** Create a spline from selected objects based on object manager order.
-**Ctrl+Shift:** Creates multiple dynamic splines from selected objects (user input for subdivision).
-**Alt+Shift:** Creates a tracer setup based on object selection order.
-**Alt+Ctrl:** Creates a tracer setup based on object manager object order.
-
-### ![AR_CreateStickyNulls](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateStickyNulls.png) AR_CreateStickyNulls.py
-Creates null object(s) with constraint tag (clamp) from selected point(s) or creates null objects with constraint tag (PSR) from selected object(s).
-
-### ![AR_CreateVertexMap](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CreateVertexMap.png) AR_CreateVertexMap.py
-**Default:** Creates a vertex map tag for selected object(s)
-**Shift:** Creates a vertex map tag with linear field object.
-
-### ![AR_DistributeKeys.py](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DistributeKeys.png) AR_DistributeKeys.py
+### ![AR_KeysDistribute](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysDistribute.png) AR_KeysDistribute.py
 **Default:** Distributes selected keyframes evenly.
-**Shift:** Give step (in frames) to distribute (user input).
+**Shift:** Distributes selected keyframes by given step (in frames).
+Requires at least three (3) selected keyframes to correctly function. Use in dope sheet editor, does not work in f-curve editor.
 
-### ![AR_DoomThisTagType](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DoomThisTagType.png) AR_DoomThisTagType.py
-Removes selected tag type from selected objects. If there is no object selection, selected tag type will be doomed in whole project.
+### ![AR_KeysMoveL](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysMoveL.png) AR_KeysMoveL.py
+**Default:** Move selected keyframe(s) 1 frame to the left.
+**Shift:** Move selected keyframe(s) by given amount (in frames) to the left.
+**Ctrl:** Move selected keyframe(s) 10 frames to the left.
+Use in dope sheet editor, does not work in f-curve editor.
 
-### ![AR_EaseCopy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_EaseCopy.png) AR_EaseCopy.py
-**Default:** Copies easing of selected keyframes in Timeline editor.
-**Shift:** Copies easing of selected keyframes in F-Curve editor.
+### ![AR_KeysMoveR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysMoveR.png) AR_KeysMoveR.py
+**Default:** Move selected keyframe(s) 1 frame to the right.
+**Shift:** Move selected keyframe(s) by given amount (in frames) to the right.
+**Ctrl:** Move selected keyframe(s) 10 frames to the right.
+Use in dope sheet editor, does not work in f-curve editor.
 
-### ![AR_EasePaste](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_EasePaste.png) AR_EasePaste.py
-**Default:** Pastes copied easing to selected keyframes in Timeline editor.
-**Shift:** Pastes copied easing to selected keyframes in F-Curve editor.
+### ![AR_TracksRemap](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TracksRemap.png) AR_TracksRemap.py
+Adds special track: Time for selected track(s) for time remapping.
+**Default:** Time track is set to absolute.
+**Shift:** time track is set to relative.
+Use in dope sheet editor, does not work in f-curve editor.
 
-### ![AR_ExportOBJs](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportOBJs.png) AR_ExportOBJs.py
-Exports top level objects individually to OBJ file. Does not export animation.
+### ![AR_TracksSequence](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TracksSequence.png) AR_TracksSequence.py
+**Default:** Sequences selected animation tracks.
+**Shift:** Sequences selected animation tracks with a given gap (in frames).
+**Ctrl:** Sequencing is reversed.
+**Shift+Ctrl:** Reversed sequencing with a given gap.
+Requires at least two (2) selected tracks to correctly function. Use in dope sheet editor, does not work in f-curve editor.
 
-### ![AR_ExportSplineSeq](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportSplineSeq.png) AR_ExportSplineSeq.py
-Exports selected spline objects to Adobe Illustrator file sequence. Preview range will determine which frames will be exported. Don't use very complex shapes.
-Check my After Effects script to import file sequence to Masks or Shape Objects.
-**Shift:** Export objects to separated folders.
-_Note: Do not use any special charactes in your objects names, do not even use a dot (.)._
+### Camera
+### ![AR_AspectRatioGuide](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AspectRatioGuide.png) AR_AspectRatioGuide.py
+**Default:** Creates an aspect ratio guide for selected camera(s).
+Requires at least one (1) selected camera object to correctly function.
 
-### ![AR_ExtractUserTracks](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExtractUserTracks.png) AR_ExtractUserTracks.py
-Extracts 2D user tracks from selected motion tracker to null objects.
-
-### ![AR_Folder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Folder.png) AR_Folder.py
-Creates a folder null for easier organizing. If there are selection, selected objects will be grouped under to the folder null.
-When you run the script it opens a dialog where you can change different options: Name, icon (R21=<), color, layer and more.
-
-### ![AR_ImportFspyCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportFspyCamera.png) AR_ImportFspyCamera.py
-Imports fSpy JSON-file and creates a camera object fron it. Y-axis up. You might need to scale the project as you like.
-
-### ![AR_ImportImageFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportImageFolder.png) AR_ImportImageFolder.py
-**Default:** Imports image folder to materials.
-**Shift:** Generates image planes.
-
-### ![AR_ImportOBJFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportOBJFolder.png) AR_ImportOBJFolder.py
-Imports OBJ-files from selected folder to the active document.
-
-### ![AR_MaterialsToObjectsWithSameName](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MaterialsToObjectsWithSameName.png) AR_MaterialsToObjectsWithSameName.py
-Puts materials to objects that has same name. Supports object selection.
-
-### ![AR_MergeSelectionTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MergeSelectionTags.png) AR_MergeSelectionTags
-Merges selection tags from selected objects. You can also select only tags that you want to merge together. Tags have to be same type.
-
-### ![AR_MoGraphSelectionTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoGraphSelectionTags.png) AR_MoGraphSelectionTags
-Creates MoGraph Selection Tag for every single clone.
-_Note: If you have nested MoGraph generator, disable parent generator(s) before running this script._
-
-### ![AR_MoGraphSelectionTagsFromSelectedClones](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoGraphSelectionTagsFromSelectedClones.png) AR_MoGraphSelectionTagsFromSelectedClones.py
-Creates MoGraph Selection Tag for every single clone that are selected.
-
-### ![AR_MoGraphSelectionTagsRange](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoGraphSelectionTagsRange.png ) AR_MoGraphSelectionTagsRange.py
-**Default:** Create MoGraph Selection Tags from given range (user input).
-**Shift:** Create one MoGraph Selection Tag from given range (user input).
-
-### ![AR_NodesAlignHorizontally](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesAlignHorizontally.png) AR_NodesAlignHorizontally.py
-Aligns selected graph nodes horizontally. Works in Xpresso graph and in Redshift material graph.
-Xpresso tag or Redshift material has to be selected before running the script.
-
-### ![AR_NodesAlignVertically](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesAlignVertically.png) AR_NodesAlignVertically.py
-Aligns selected graph nodes vertically. Works in Xpresso graph and in Redshift material graph.
-Xpresso tag or Redshift material has to be selected before running the script.
-
-### ![AR_NodesConnect](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesConnect.png) AR_NodesConnect.py
-**Default:** Connect nodes, if possible. Priorities empty ports. Works with multiple node selections. The node that are located the most left is the node that is outputting connections.
-**Shift:** User input - which port is outputting to which port.
-**Ctrl:** Same as the default function, but start at the last port.
-Works in Xpresso graph and in Redshift material graph. Xpresso tag or Redshift material has to be selected before running the script.
-
-### ![AR_NodesDisconnect](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesDisconnect.png) AR_NodesDisconnect.py
-Disconnect all connection(s) of selected node or connection(s) between selected nodes. Works in Xpresso graph and in Redshift material graph. Xpresso tag or Redshift material has to be selected before running the script.
-
-### ![AR_NodesDistributeHorizontally](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesDistributeHorizontally.png) AR_NodesDistributeHorizontally.py
-Distributes selected nodes horizontally. Works in Xpresso graph and in Redshift material graph. Xpresso tag or Redshift material has to be selected before running the script.
-
-### ![AR_NodesDistributeVertically](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesDistributeVertically.png) AR_NodesDistributeVertically.py
-Distributes selected nodes vertically. Works in Xpresso graph and in Redshift material graph. Xpresso tag or Redshift material has to be selected before running the script.
-
-### ![AR_NodesLineUpHorizontally](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesLineUpHorizontally.png) AR_NodesLineUpHorizontally.py
-**Default:** Lines up selected graph nodes horizontally.
-**Shift:** Lines up selected graph nodes horizontally by given amount (user input).
-Works in Xpresso graph and in Redshift material graph. Xpresso tag or Redshift material has to be selected before running the script.
-
-### ![AR_NodesLineUpVertically](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesLineUpVertically.png) AR_NodesLineUpVertically.py
-**Default:** Lines up selected graph nodes vertically.
-**Shift:** Lines up selected graph nodes vertically by given amount (user input).
-Works in Xpresso graph and in Redshift material graph. Xpresso tag or Redshift material has to be selected before running the script.
-
-### ![AR_NodesRSQuickMatte](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesRSQuickMatte.png) AR_NodesRSQuickMatte.py
-Adds quickly Redshift matte AOV to selected material(s) and object(s) and material tag(s). Requires Redshift. Make sure that you have already set Redshift as your render engine for the document.
-
-### ![AR_NodesTextureControllers](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodesTextureControllers.png) AR_NodesTextureControllers.py
-Creates shared scale, offset and rotate control nodes for selected Redshift texture and triplanar node(s). Requires Redshift. Redshift material has to be selected before running the script.
-
-### ![AR_ObjectToSpline](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ObjectToSpline.png) AR_ObjectToSpline.py
-Converts selected object(s) to splines.
-
-### ![AR_OpenProjectFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenProjectFolder.png) AR_OpenProjectFolder.py
-Opens the folder in explorer where the project is saved.
-
-### ![AR_OpenRenderFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenRenderFolder.png) AR_OpenRenderFolder.py
-Opens the folder in explorer where the project is rendered. Supports some tokens, but not all. Supported tokes: $prj, $res, $camera, $take, $fps. Supports folder variables: './../'.
-
-### ![AR_PixeurToMaterials](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PixeurToMaterials.png) AR_PixeurToMaterials.py
-Create materials from Pixeur color palette file.
-
-### ![AR_PrintType](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PrintType.png) AR_PrintType.py
-Prints selected object(s) type (ID) to console. Script for scripting.
-
-### ![AR_RandomColors](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RandomColors.png) AR_RandomColors.py
-**Default:** Sets random display color to selected object(s).
-**Shift:** Sets random grey value to selected object(s).
-**Alt:** Resets display colors to selected object(s).
-
-### ![AR_RandomizeOrder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RandomizeOrder.png) AR_RandomizeOrder.py
-**Default:** Randomize order of selected objects in Object Manager.
-**Shift:** Sort selected objects in alphabetical order (A-Z).
-**Ctrl:** Sort selected objects in reversed alphabetical order (Z-A).
-Objects have to be in same level in the hierarchy.
-
-### ![AR_ReferenceViewport](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ReferenceViewport.png) AR_ReferenceViewport.py
-**Default:** Creates a reference view port for helping to animate stuff.
-**Shift:** Create reference background.
-**Ctrl:** Delete reference setups.
-_Note 1: You have to enable 'Full Animation Redraw' in Preferences/View._
-_Note 2: If you cant see the reference plane, try to change 'View Clipping' settings in 'Project Settings'._
-
-### ![AR_RemoveEmptySelectionTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RemoveEmptySelectionTags.png) AR_RemoveEmptySelectionTags.py
-Removes empty selection tags from selected object(s) or if no selection all possible ones in the whole project.
-
-### ![AR_RemoveMissingTextureTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RemoveMissingTextureTags.png) AR_RemoveMissingTextureTags.py
-**Default:** Removes texture tags that does not have assigned material.
-**Shift:** Remove texture tags with missing selection tags.
-
-### ![AR_RemoveTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RemoveTags.png) AR_RemoveTags.py
-Removes all tags. If object(s) selected removes tags only from selected object(s).
-
-### ![AR_RemoveTextureTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RemoveTextureTags.png) AR_RemoveTextureTags.py
-If there is no selected objects, script will remove every texture tags in the whole project. If there is selected object(s), script will remove texture tags from selected object(s).
-
-### ![AR_ReplaceObjects](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ReplaceObjects.png) AR_ReplaceObjects.py
-Replace objects with instance/copies of first/last selected object.
-**Default:** Replace objects with instances of the first selected object.
-**Shift:** Replace objects with instances of the last selected object.
-**Ctrl:** Replace objects with copies of the first selected object.
-**Ctrl+Shift:** Replace objects with copies of the last selected object.
+### ![AR_CropToIRR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CropToIRR.png) AR_CropToIRR.py
+**Default:** Crops the canvas to Interactive Render Region.
+Changes active render settings resolution and selected/active camera's sensor size (film gate) and possibly also film offsets.
 
 ### ![AR_ResizeCanvas](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ResizeCanvas.png) AR_ResizeCanvas.py
-Resizes canvas without changing the perspective. Changes active render settings resolution and selected/active camera's sensor size (film gate) and possibly also film offsets. 
-_Note: If you don't have custom camera active or selected, script will modify default viewport camera's settings. You can reset default viewport camera with "View -> Frame Default"._
+**Default:** Resizes the canvas without changing the perspective.
+Changes active render settings resolution and selected/active camera's sensor size or focal length and possibly also film offsets.
 
 ### ![AR_SelectActiveCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectActiveCamera.png) AR_SelectActiveCamera.py
-Selects the active camera in the object manager.
+**Default:** Selects the active camera in the object manager.
+
+### Export
+### ![AR_ExportAISeq](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportAISeq.png) AR_ExportAISeq.py
+**Default:** Exports selected spline objects to Adobe Illustrator-sequence.
+**Shift:** Export selected spline objects to separated folders (separated sequences).
+Preview range will determine the frame range that will be exported.
+
+### ![AR_ExportC4D](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportC4D.png) AR_ExportC4D.py
+**Default:** Exports top level objects individually to C4D-file. Supports object selection.
+
+### ![AR_ExportOBJ](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportOBJ.png) AR_ExportOBJ.py
+**Default:** Exports top level objects individually to OBJ-file. Supports object selection.
+
+### Import
+### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py
+**Default:** Creates a camera from fSpy JSON-file and Background object from a Image-file.
+
+### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py
+**Default:** Imports an image folder into materials.
+**Shift:** Generates also plane objects for each material with correct proportion of the image.
+
+### ![AR_ImportOBJFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportOBJFolder.png) AR_ImportOBJFolder.py
+**Default:** Merges OBJ-files from selected folder into the active document.
+
+### ![AR_ImportPixeur](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportPixeur.png) AR_ImportPixeur.py
+**Default:** Creates materials from Pixeur color palette file.
+
+### ![AR_ImportPSD](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportPSD.png) AR_ImportPSD.py
+**Default:** Imports PSD-file's layers into separate materials.
+**Shift:** Generates also plane-objects for each layer.
+
+### ![AR_ImportSound](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportSound.png) AR_ImportSound.py
+**Default:** Imports sound-file and places it to the current time.
+
+### Materials
+### ![AR_MatConsolidateTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatConsolidateTags.png) AR_MatConsolidateTags.py
+**Default:** Consolidates different polygon selections together that uses same materials.
+Messes up material projections! Select object(s) and run the script.
+
+### ![AR_MatMerge](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatMerge.png) AR_MatMerge.py
+**Default:** Merges materials that has the same name.
+Case sensitive. Supports Cinema 4D's naming conventions. The first material in the material manager overrides the other ones (with the same name).
+
+### ![AR_MatOwn](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatOwn.png) AR_MatOwn.py
+**Default:** Creates own materials for every object from existing materials.
+Supports object selection.
+
+### ![AR_MatToObjects](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatToObjects.png) AR_MatToObjects.py
+**Default:** Puts material to object if they have a same name.
+
+### Modeling
+### ![AR_AxisToOrigin](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AxisToOrigin.png) AR_AxisToOrigin.py
+**Default:** Sets object's axis to world origin.
+Currently does not support objects with exposed normal tags.
+
+### ![AR_BooleSplit](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BooleSplit.png) AR_BooleSplit.py
+**Default:** Splits selected objects in half.
+
+### ![AR_DropToFloor](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DropToFloor.png) AR_DropToFloor.py
+**Default:** Places the object on the floor.
+
+### ![AR_DynaMesh](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DynaMesh.png) AR_DynaMesh.py
+**Default:** Remeshes selected object with ZRemesher.
+**Shift:** Dialog to set different options. Options will be saved.
+
+### ![AR_FlipIt](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FlipIt.png) AR_FlipIt.py
+**Default:** Flips selected object(s) (multiplies specific axis by -1).
+**Shift:** Dialog to set different options, like space, which axis to flip and make a copy of the original object. Options will be saved.
+
+### ![AR_Guide](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Guide.png) AR_Guide.py
+**Default:** Creates a guide object from two selected objects, points or edge.
+
+### ![AR_NullsControl](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NullsControl.png) AR_NullsControl.py
+**Default:** Creates null(s) from selected point(s) that can control the original geometry.
+
+### ![AR_NullsSticky](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NullsSticky.png) AR_NullsSticky.py
+**Default:** If point selection: Creates null(s) with constraint tag(s) (clamp) from selected point(s).
+**Default:** If object selection: Creates null(s) with constraint tag(s) (PSR) from selected object(s).
+
+### ![AR_ObjectReplace](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ObjectReplace.png) AR_ObjectReplace.py
+**Default:** Replaces objects with instance of the first selected object.
+**Shift:** Replace objects with instances of the last selected object.
+**Ctrl:** Replace objects with copies of the first selected object.
+**Shift+Ctrl:** Replace objects with copies of the last selected object.
+
+### ![AR_ObjectToSpline](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ObjectToSpline.png) AR_ObjectToSpline.py
+**Default:** Converts selected object(s) to splines.
+**Shift:** Keep the original object(s).
+
+### ![AR_PlaceNull](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PlaceNull.png) AR_PlaceNull.py
+Creates null to current axis matrix.
+**Default:** Selects the new null object and deselects the old selection.
+**Shift:** Does not change the current selection.
+
+### ![AR_PointCloud](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PointCloud.png) AR_PointCloud.py
+**Default:** Creates a point cloud (polygon object with only points) from selected objects' positions.
+
+### ![AR_PolySplit](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PolySplit.png) AR_PolySplit.py
+**Default:** Splits the object into pieces by polygon selection tag(s).
+
+### ![AR_Swap](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Swap.png) AR_Swap.py
+**Default:** Swaps selected objects between each other (transformation).
+**Shift:** Generates a dialog where you can pick specifically what properties to swap.
+**Ctrl:** Swaps selected objects only in the object manager.
+Requires just two (2) selected objects.
+
+### ![AR_VertexMapCreate](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_VertexMapCreate.png) AR_VertexMapCreate.py
+**Default:** Creates a vertex map tag for selected object(s).
+**Shift:** Creates also linear falloff field to control the vertex map.
+
+### ![AR_VertexMapInvert](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_VertexMapInvert.png) AR_VertexMapInvert.py
+**Default:** Inverts selected Vertex Map tag's data.
+
+### MoGraph
+### ![AR_FindEffectors](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FindEffectors.png) AR_FindEffectors.py
+**Default:** Selects MoGraph Effector(s) that use(s) selected Field object. Selects MoGraph Effector(s) that are used in selected Generator object.
+Does not support subfields or tags!
+
+### ![AR_FindGenerators](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FindGenerators.png) AR_FindGenerators.py
+**Default:** Selects MoGraph generator(s) that use(s) selected effector. Prints info also to console.
+
+### ![AR_MoSelection](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoSelection.png) AR_MoSelection.py
+**Default:** Creates MoGraph selection for every clone.
+**Shift:** Shared tag for given IDs.
+**Ctrl:** Individual tags for given IDs.
+
+### ![AR_MoSelecteionMerge](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoSelecteionMerge.png) AR_MoSelecteionMerge.py
+**Default:** Merges selected MoGraph Selection Tags into one tag.
+Note: If you have nested MoGraph Generators, disable parent generators before running this script.
+
+### Node Tools
+### ![AR_NodeAdd](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAdd.png) AR_NodeAdd.py
+**Default:** Adds node between selected nodes.
+Works only with Redshift. Make sure the Redshift material is selected when using the script!
+
+### ![AR_NodeAlignH](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAlignH.png) AR_NodeAlignH.py
+Aligns selected graph nodes horizontally.
+**Default:** The leftmost node rules. Pivot is in the middle.
+**Shift:** The leftmost node rules. Pivot is in the top.
+**Ctrl:** The leftmost node rules. Pivot is in the bottom.
+**Alt:** The rightmost node rules. Pivot is in the middle.
+**Alt+Shift:** The rightmost node rules. Pivot is in the top.
+**Alt+Ctrl:** The rightmost node rules. Pivot is in the bottom.
+Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
+
+### ![AR_NodeAlignV](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAlignV.png) AR_NodeAlignV.py
+Aligns selected graph nodes vertically.
+**Default:** The topmost node rules. Pivot is in the middle.
+**Shift:** The topmost node rules. Pivot is in the left.
+**Ctrl:** The topmost node rules. Pivot is in the right.
+**Alt:** The lowest node rules. Pivot is in the middle.
+**Alt+Shift:** The lowest node rules. Pivot is in the left.
+**Alt+Ctrl:** The lowest node rules. Pivot is in the right.
+Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
+
+### ![AR_NodeCon](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeCon.png) AR_NodeCon.py
+**Default:** Connects two selected nodes, if possible. Starting from the top.
+**Shift:** Custom input to connect OUT and IN port.
+**Ctrl:** Connects two selected nodes, if possible. Starting from the bottom.
+Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
+
+### ![AR_NodeDiscon](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeDiscon.png) AR_NodeDiscon.py
+**Default:** Disconnect all connection(s) of selected node or connection(s) between selected nodes.
+Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
+
+### ![AR_NodeDstrbH](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeDstrbH.png) AR_NodeDstrbH.py
+**Default:** Distributes selected nodes horizontally.
+Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
+
+### ![AR_NodeDstrbV](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeDstrbV.png) AR_NodeDstrbV.py
+**Default:** Distributes selected nodes vertically.
+Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
+
+### ![AR_NodeLineUpH](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeLineUpH.png) AR_NodeLineUpH.py
+**Default:** Lines up selected graph nodes horizontally.
+**Shift:** Lines up selected graph nodes horizontally with a custom gap.
+**Alt:** Reversed direction.
+**Shift+Alt:** Reversed direction with a custom gap.
+Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
+
+### ![AR_NodeLineUpV](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeLineUpV.png) AR_NodeLineUpV.py
+**Default:** Lines up selected graph nodes vertically.
+**Shift:** Lines up selected graph nodes vartically with a custom gap.
+**Alt:** Reversed direction.
+**Shift+Alt:** Reversed direction with a custom gap.
+Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
+
+### ![AR_NodeTexPSR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeTexPSR.png) AR_NodeTexPSR.py
+**Default:** Creates individual scale, offset and rotate control nodes for Redshift texture and triplanar nodes.
+**Shift:** Add only scale controller.
+**Ctrl:** Add only offset controller.
+**Alt:** Add only rotation controller.
+Works only with Redshift. Notice: Make sure the Redshift material is selected when using the script!
+
+### Object Manager
+### ![AR_CopyToChild](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CopyToChild.png) AR_CopyToChild.py
+Creates a copy from object to the rest of the selected objects.
+**Default:** Copy the first selected object.
+**Shift:** Copy the last selected object.
+**Ctrl:** Instance the first selected object.
+**Shift+Ctrl:** Instance the last selected object.
+
+### ![AR_FindSource](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FindSource.png) AR_FindSource.py
+**Default:** Selects the source object.
+Supports Instance, Connect, MoInstance, MoSpline, Cloner and Matrix objects.
+
+### ![AR_MergeSelectionTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MergeSelectionTags.png) AR_MergeSelectionTags.py
+**Default:** Merges selection tags.
+Supports object and tag selections.
+
+### ![AR_RandomColors](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RandomColors.png) AR_RandomColors.py
+**Default:** Gives a random display color to selected object(s).
+**Shift:** Gives a random grayscale display color to selected object(s).
+**Ctrl:** Cycles predefined colors and assigns them to selected object(s).
+**Alt:** Reset color.
+
+### ![AR_RemoveEmptySelectionTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RemoveEmptySelectionTags.png) AR_RemoveEmptySelectionTags.py
+**Default:** Removes empty selection tags from selected object(s) or from all objects if no selection.
 
 ### ![AR_SelectByVisibility](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectByVisibility.png) AR_SelectByVisibility.py
-**Default:** Select objects that are visible in editor.
-**Shift:** Select objects that are visible in render.
-**Alt:** Select objects that are invisible in editor.
-**Alt+Shift:** Select objects that are invisible in render.
-**Ctrl:** Deselect objects that are visible in editor.
-**Alt+Ctrl:** Deselect objects that are invisible in editor.
-**Ctrl+Shift:** Deselect objects that are visible in render.
-**Alt+Strl+Shift:** Deselect objects that are invisible in render.
+**Default:** Selects objects by visibility.
 
 ### ![AR_SelectChildren](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectChildren.png) AR_SelectChildren.py
 **Default:** Select children of selected object(s).
-**Shift:** Keeps also original selection selected.
-**Ctrl:** Select children from given level _(+Shift: Keep old selection)._
-**Alt:** Select siblings from given level _(+Shift: Keep old selection)._
+**Shift:** Keeps original selection.
+**Ctrl:** Select children from custom level.
+**Alt:** Select siblings from given level (ignore their children).
 
 ### ![AR_SelectCousins](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectCousins.png) AR_SelectCousins.py
-**Default:** Selects the object's Cousins.
-**Ctrl:** Deselect original selection.
+**Default:** Selects the object's cousins.
+**Ctrl:** Selects the object's cousins and deselects the original selection.
 
 ### ![AR_SelectDeepest](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectDeepest.png) AR_SelectDeepest.py
 **Default:** Select children of selected object(s) that are the most deep in hierarchy.
 **Shift:** Keep the original selection.
 
 ### ![AR_SelectDown](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectDown.png) AR_SelectDown.py
-**Default:** Selects the first child object(s).
+**Default:** Goes down one hierarchy level.
 **Shift:** Keeps the old selection.
-**Ctrl:** Safe mode (keeps the last selected if next not found).
-
-### ![AR_SelectEffectors](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectEffectors.png) AR_SelectEffectors.py
-Selects MoGraph Effector(s) that use(s) selected Field. Selects MoGraph Effector(s) that are used in selected Generator. Does not support subfields or tags.
-
-### ![AR_SelectEveryNth](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectEveryNth.png) AR_SelectEveryNth.py
-**Default:** Selects every odd object in the object manager.
-**Shift:** Select every even object in the object manager.
-**Ctrl:** Select every nth object in the object manager (user input).
-**Alt:** Select reversed nth object in the object manager (user input).
-Supports object selections.
-
-### ![AR_SelectGenerators](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectGenerators.png) AR_SelectGenerators.py
-Selects MoGraph generator(s) that use(s) selected effector. Prints info also to console.
 
 ### ![AR_SelectNext](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectNext.png) AR_SelectNext.py
-**Default:** Selects the next object(s).
+**Default:** Selects the next object.
 **Shift:** Keeps the old selection.
-**Ctrl:** Safe mode (keeps the last selected if next not found).
 
-### ![AR_SelectObject](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectObject.png) AR_SelectObject.py
-**Default:** Select tag(s) object(s).
-**Shift:** Keeps the old selection.
+### ![AR_SelectNth](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectNth.png) AR_SelectNth.py
+**Default:** Selects every even object.
+**Shift:** Selects every odd object.
+**Ctrl:** Selects every nth object.
+**Alt:** Selects every nth object inverted.
+**Shift+Ctrl:** Keep random n.
 
 ### ![AR_SelectPrev](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectPrev.png) AR_SelectPrev.py
-**Default:** Selects the previous object(s).
-**Ctrl:** Deselect original selection.
-
-### ![AR_SelectRoots](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectRoots.png) AR_SelectRoots.py
-**Default:** Selects the root object(s).
+**Default:** Selects the previous object.
 **Shift:** Keeps the old selection.
 
-### ![AR_SelectSameColor](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectSameColor.png) AR_SelectSameColor.py
-Selects object(s) with the same diplay color that the active object has.
+### ![AR_SelectRoot](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectRoot.png) AR_SelectRoot.py
+**Default:** Selects the root object of the object.
+**Shift:** Keeps the old selection.
 
 ### ![AR_SelectSiblings](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectSiblings.png) AR_SelectSiblings.py
 **Default:** Selects the object's siblings.
-**Shift:** Keeps the old selection.
-**Ctrl:** Safe mode (keeps the last selected if next not found).
-
-### ![AR_SelectSourceObject](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectSourceObject.png) AR_SelectSourceObject.py
-**Default:** Selects the source object. Supports Instance, Connect, MoInstance, MoSpline, Cloner and Matrix objects.
-**Shift:** Keeps also original selection.
-
-### ![AR_SelectTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectTags.png) AR_SelectTags.py
-**Default:** Select object(s) tag(s).
-**Shift:** Keeps the old selection.
+**Ctrl:** Selects the object's siblings and deselects the original selection.
 
 ### ![AR_SelectUp](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectUp.png) AR_SelectUp.py
-**Default:** Selects the parent object(s).
+**Default:** Selects the parent object.
 **Shift:** Keeps the old selection.
-**Ctrl:** Safe mode (keeps the last selected if next not found).
 
-### ![AR_SequenceTracks](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SequenceTracks.png) AR_SequenceTracks.py
-**Default:** Sequences selected animation tracks.
-**Shift:** Set custom gap (frames) (values can be negative and positive).
-**Ctrl:** Sequences selected animation tracks in ascending order.
-**CtrlShift:** Ascending order + set custom gap.
-_Note: Select whole tracks, not just keyframes!_
+### ![AR_TagsClone](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsClone.png) AR_TagsClone.py
+**Default:** Clone selected tag(s) to selected object(s).
 
-### ![AR_SetMoGraphWeightMap](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SetMoGraphWeightMap.png) AR_SetMoGraphWeightMap.py
-Sets current MoGraph weights to new MoGraph weight map tag.
+### ![AR_TagsCloneHierarchy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsCloneHierarchy.png) AR_TagsCloneHierarchy.py
+**Default:** Clones specific tags from first selected hierarchy to second selected hierarchy.
+Hierarcies has to be indetical!
 
-### ![AR_ShiftSelectedTag](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ShiftSelectedTag.png) AR_ShiftSelectedTag.py
-**Default:** Shifts selected tag(s) one step to the right.
-**Shift:** Shifts selected tag(s) one step to the left.
+### ![AR_TagsDelete](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsDelete.png) AR_TagsDelete.py
+**Default:** Removes selected tag type from selected objects. If no object selection. Selected tag type will be removed from all objects.
 
-### ![AR_SplitByPolySelection](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SplitByPolySelection.png) AR_SplitByPolySelection.py
-Splits object to individual objects by polygon selection tags.
+### ![AR_TagsSelect](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsSelect.png) AR_TagsSelect.py
+**Default:** Select tag(s) of selected object(s).
+**Shift:*** Add to the selection.
+**Ctrl:** Remove from the selection.
 
-### ![AR_SwapObjects](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SwapObjects.png) AR_SwapObjects.py
-**Default:** Swaps selected objects between each other.
-**Shift:** Swaps also objects place in the hierarchy.
+### ![AR_TagsShift](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsShift.png) AR_TagsShift.py
+Shifts selected tag(s).
+**Default:** Shifts selected tag(s) to the right.
+**Shift:** Shifts selected tag(s) to the left.
 
-### ![AR_TargetSniper_beta](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TargetSniper_beta.png) AR_TargetSniper_beta.py
-Shoots ray from the selected camera(s) and creates a focus null(s) to closest hitting point. Not recommended with heavy scenes. Very experimental script.
+### Python Tags
+### ![AR_PyTagAlignToSpline](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagAlignToSpline.png) AR_PyTagAlignToSpline.py
+**Default:** Adds a custom python tag for selected object(s) that works like C4D's Align To Spline tag but this one works also with deformed spline.
+
+### ![AR_PyTagKeepOnFloor](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagKeepOnFloor.png) AR_PyTagKeepOnFloor.py
+**Default:** Adds a custom python tag for selected object(s) that keeps the object on the floor.
+
+### ![AR_PyTagShowIfActive](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfActive.png) AR_PyTagShowIfActive.py
+**Default:** Adds a custom python tag for selected object(s) that shows the object only if it is active.
+
+### ![AR_PyTagShowIfCorrectCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfCorrectCam.png) AR_PyTagShowIfCorrectCam.py
+**Default:** Adds a custom python tag for selected object(s) that shows and hides object based on assigned camera.
+
+### ![AR_PyTagShowWhenAnimated](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowWhenAnimated.png) AR_PyTagShowWhenAnimated.py
+**Default:** Adds a custom python tag for selected object(s) that shows the object only when it is animated.
+
+### Tracking
+### ![AR_Extract2DTracks](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Extract2DTracks.png) AR_Extract2DTracks.py
+Extracts 2D tracks from selected motion tracker to null objects.
+**Default:** Extracts only manual tracks.
+**Shift:** Extracts only auto tracks.
+
+### Utility
+### ![AR_Folder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Folder.png) AR_Folder.py
+**Default:** Creates a folder null that keeps your project nice and tidy.
+
+### ![AR_OpenBugReportsFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenBugReportsFolder.png) AR_OpenBugReportsFolder.py
+**Default:** Opens the bug reports folder.
+
+### ![AR_OpenRenderFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenRenderFolder.png) AR_OpenRenderFolder.py
+**Default:** Opens the folder where project is rendered.
+The folder has to exsist. Does not support all of the tokens!
+
+### ![AR_PrintType](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PrintType.png) AR_PrintType.py
+**Default:** Prints info about selected objects, tags, materials, Xpresso nodes and Redshift nodes.
 
 ### ![AR_ToggleEnable](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ToggleEnable.png) AR_ToggleEnable.py
-Meant to be a replacement for the default 'Q' (Toggle Parent Generator) command.
-**Default:** Enables or disables every possible selected generator.
-**Shift:** Toggle next parent generator that is in the specific generator list.
-**Ctrl:** Toggle root generator that is in the specific generator list.
-**Alt:** Toggle generator family that are in the specific generator list.
-**Alt+Shift:** Force enable.
-**Alt+Ctrl:** Force disable.
-**Ctrl+Shift:** Toggle generators, custom list.
-**Alt+Ctrl+Shift:** Edit custom list.
-_To make the script work like it is meant to be assing Q, Shift+Q, Ctrl+Q, Alt+Q... shorcuts to the script in 'Customize Commands...' editor!_
+_Highly recommended to assign this script to a keyboard shortcut!_
+**Default:** Toggle selected generator object (enable / disable).
+**Shift:** Toggle next found parent generator object from the default list.
+**Ctrl:** Toggle the root generator object.
+**Alt:** Toggle all parent generators from common list.
+**Alt+Shift:** Force disable.
+**Alt+Ctrl:** Force enable.
+**Shift+Ctrl:** Toggle from custom list.
+**Alt+Ctrl+Shift:** Open textfile to modify custom. You can use hashtag '#' separating comments. Put each generator to separate line!.
 
-### ![AR_ToggleGrid](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ToggleGrid.png) AR_ToggleGrid.py
-Toggle grid visibility in viewport.
+### Viewport
+### ![AR_ReferenceViewport](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ReferenceViewport.png) AR_ReferenceViewport.py
+**Default:** Creates a viewport for animation reference.
+**Shift:** Create only background.
+**Ctrl:** Delete existing setup.
+The script requires and enables 'Full Animation Redraw' in Preferences/View.
 
-### ![AR_ToggleTintedBorder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ToggleTintedBorder.png) AR_ToggleTintedBorder.py
-**Default:** Toggle opacity of tinted border in viewport.
-**Shift:** Set the custom opacity value.
-**Ctrl:** Toggle tinted border, but leave guide lines.
-**Alt:** Set custom border color with hex color code.
+### ![AR_Safeframes](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Safeframes.png) AR_Safeframes.py
+**Default:** Toggle opacity of safeframes in viewport.
+**Shift:** Set a custom value and color.
+Notice: The color pickers in modal dialogs are currently broken in C4D R25, hopefully Maxon will fix this bug someday...
 
-### ![AR_VertexMapInvert](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_VertexMapInvert.png) AR_VertexMapInvert.py
-Inverts selected Vertex Map tag's data.
+### ![AR_TglGrid](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TglGrid.png) AR_TglGrid.py
+**Default:** Toggle groun grid visibility in the active viewport.
+**Shift:** Toggle in all viewports.
 
-### ![AR_ViewportGradients](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ViewportGradients.png) AR_ViewportGradients.py
-**Default:** Cycles through different background gradients for viewport. 
-**Shift:** Default gradient (R21).
-**Ctrl:** Dark gradient theme.
-**Alt:** Cycles through user gradients.
-**Alt+Ctrl:** Set gradient by name (user input).
-**Alt+Ctrl+Shift:** Open txt-file for saving user gradients. Use hex color codes (#0000, #FFFFFF).
-Basic gradients: Houdini, Maya, Dark, Old Cinema 4D (legacy), New Cinema 4D.
-_Note: Change is permanent._
-
-## Support me
-If you find these scripts useful, consider to supporting me. It helps me to do more of these scripts and keeps my blog running. Make a tiny donation: [Tip jar](https://paypal.me/aturtur)
+## Support the project
+If you find these scripts useful, consider to supporting the project and keeping it up and running: [Tip jar](https://paypal.me/aturtur).
 
 If you have any script ideas, you can DM me at [Twitter](https://twitter.com/aturtur).

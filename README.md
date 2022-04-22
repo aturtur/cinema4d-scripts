@@ -224,7 +224,7 @@ Does not support subfields or tags!
 **Shift:** Shared tag for given IDs.
 **Ctrl:** Individual tags for given IDs.
 
-### ![AR_MoSelecteionMerge](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoSelecteionMerge.png) AR_MoSelecteionMerge.py
+### ![AR_MoSelectionMerge](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoSelectionMerge.png) AR_MoSelectionMerge.py
 **Default:** Merges selected MoGraph Selection Tags into one tag.
 Note: If you have nested MoGraph Generators, disable parent generators before running this script.
 
@@ -421,7 +421,7 @@ The folder has to exsist. Does not support all of the tokens!
 ### ![AR_PrintType](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PrintType.png) AR_PrintType.py
 **Default:** Prints info about selected objects, tags, materials, Xpresso nodes and Redshift nodes.
 
-### ![AR_ToggleEnable](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ToggleEnable.png) AR_ToggleEnable.py
+### ![AR_TglEnable](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TglEnable.png) AR_TglEnable.py
 _Highly recommended to assign this script to a keyboard shortcut!_
 **Default:** Toggle selected generator object (enable / disable).
 **Shift:** Toggle next found parent generator object from the default list.

@@ -37,9 +37,9 @@ When you have installed AR_Scripts you have to reboot Cinema 4D if it is already
 
 You run the script by clicking it. Some of the scripts have multiple functions and you can use those with key modifiers (Alt / Ctrl / Shift) and different combinations. Some of the scripts requires a certain item selection or mode to be active. If you don't know what the script does you can either open the script in the script editor and read the description or search the info of the specific script on this page.
 
-## Script descriptions
+# Script descriptions
 
-### Animation
+## Animation
 ### ![AR_BakeCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BakeCam.png) AR_BakeCam.py
 **Default:** Bakes selected camera(s) to world space.
 **Shift:** Keeps render engine tags if any.
@@ -83,7 +83,7 @@ Use in dope sheet editor, does not work in f-curve editor.
 **Shift+Ctrl:** Reversed sequencing with a given gap.
 Requires at least two (2) selected tracks to correctly function. Use in dope sheet editor, does not work in f-curve editor.
 
-### Camera
+## Camera
 ### ![AR_AspectRatioGuide](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AspectRatioGuide.png) AR_AspectRatioGuide.py
 **Default:** Creates an aspect ratio guide for selected camera(s).
 Requires at least one (1) selected camera object to correctly function.
@@ -99,7 +99,7 @@ Changes active render settings resolution and selected/active camera's sensor si
 ### ![AR_SelectActiveCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectActiveCamera.png) AR_SelectActiveCamera.py
 **Default:** Selects the active camera in the object manager.
 
-### Export
+## Export
 ### ![AR_ExportAISeq](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportAISeq.png) AR_ExportAISeq.py
 **Default:** Exports selected spline objects to Adobe Illustrator-sequence.
 **Shift:** Export selected spline objects to separated folders (separated sequences).
@@ -111,7 +111,7 @@ Preview range will determine the frame range that will be exported.
 ### ![AR_ExportOBJ](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportOBJ.png) AR_ExportOBJ.py
 **Default:** Exports top level objects individually to OBJ-file. Supports object selection.
 
-### Import
+## Import
 ### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py
 **Default:** Creates a camera from fSpy JSON-file and Background object from a Image-file.
 
@@ -132,7 +132,7 @@ Preview range will determine the frame range that will be exported.
 ### ![AR_ImportSound](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportSound.png) AR_ImportSound.py
 **Default:** Imports sound-file and places it to the current time.
 
-### Materials
+## Materials
 ### ![AR_MatConsolidateTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatConsolidateTags.png) AR_MatConsolidateTags.py
 **Default:** Consolidates different polygon selections together that uses same materials.
 Messes up material projections! Select object(s) and run the script.
@@ -148,7 +148,7 @@ Supports object selection.
 ### ![AR_MatToObjects](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatToObjects.png) AR_MatToObjects.py
 **Default:** Puts material to object if they have a same name.
 
-### Modeling
+## Modeling
 ### ![AR_AxisToOrigin](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AxisToOrigin.png) AR_AxisToOrigin.py
 **Default:** Sets object's axis to world origin.
 Currently does not support objects with exposed normal tags.
@@ -211,7 +211,7 @@ Requires just two (2) selected objects.
 ### ![AR_VertexMapInvert](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_VertexMapInvert.png) AR_VertexMapInvert.py
 **Default:** Inverts selected Vertex Map tag's data.
 
-### MoGraph
+## MoGraph
 ### ![AR_FindEffectors](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FindEffectors.png) AR_FindEffectors.py
 **Default:** Selects MoGraph Effector(s) that use(s) selected Field object. Selects MoGraph Effector(s) that are used in selected Generator object.
 Does not support subfields or tags!
@@ -228,7 +228,7 @@ Does not support subfields or tags!
 **Default:** Merges selected MoGraph Selection Tags into one tag.
 Note: If you have nested MoGraph Generators, disable parent generators before running this script.
 
-### Node Tools
+## Node Tools
 ### ![AR_NodeAdd](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAdd.png) AR_NodeAdd.py
 **Default:** Adds node between selected nodes.
 Works only with Redshift. Make sure the Redshift material is selected when using the script!
@@ -292,7 +292,7 @@ Supports Xpresso and Redshift. Notice: Make sure the Xpresso tag or the Redshift
 **Alt:** Add only rotation controller.
 Works only with Redshift. Notice: Make sure the Redshift material is selected when using the script!
 
-### Object Manager
+## Object Manager
 ### ![AR_CopyToChild](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CopyToChild.png) AR_CopyToChild.py
 Creates a copy from object to the rest of the selected objects.
 **Default:** Copy the first selected object.
@@ -385,7 +385,7 @@ Shifts selected tag(s).
 **Default:** Shifts selected tag(s) to the right.
 **Shift:** Shifts selected tag(s) to the left.
 
-### Python Tags
+## Python Tags
 ### ![AR_PyTagAlignToSpline](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagAlignToSpline.png) AR_PyTagAlignToSpline.py
 **Default:** Adds a custom python tag for selected object(s) that works like C4D's Align To Spline tag but this one works also with deformed spline.
 
@@ -401,13 +401,13 @@ Shifts selected tag(s).
 ### ![AR_PyTagShowWhenAnimated](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowWhenAnimated.png) AR_PyTagShowWhenAnimated.py
 **Default:** Adds a custom python tag for selected object(s) that shows the object only when it is animated.
 
-### Tracking
+## Tracking
 ### ![AR_Extract2DTracks](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Extract2DTracks.png) AR_Extract2DTracks.py
 Extracts 2D tracks from selected motion tracker to null objects.
 **Default:** Extracts only manual tracks.
 **Shift:** Extracts only auto tracks.
 
-### Utility
+## Utility
 ### ![AR_Folder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Folder.png) AR_Folder.py
 **Default:** Creates a folder null that keeps your project nice and tidy.
 
@@ -432,7 +432,7 @@ _Highly recommended to assign this script to a keyboard shortcut!_
 **Shift+Ctrl:** Toggle from custom list.
 **Alt+Ctrl+Shift:** Open textfile to modify custom. You can use hashtag '#' separating comments. Put each generator to separate line!.
 
-### Viewport
+## Viewport
 ### ![AR_ReferenceViewport](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ReferenceViewport.png) AR_ReferenceViewport.py
 **Default:** Creates a viewport for animation reference.
 **Shift:** Create only background.

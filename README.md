@@ -145,7 +145,7 @@ Case sensitive. Supports Cinema 4D's naming conventions. The first material in t
 **Default:** Creates own materials for every object from existing materials.
 Supports object selection.
 
-### ![AR_MatToObjects](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatToObjects.png) AR_MatToObjects.py
+### ![AR_MatToObject](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatToObject.png) AR_MatToObject.py
 **Default:** Puts material to object if they have a same name.
 
 ## Modeling

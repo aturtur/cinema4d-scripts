@@ -115,7 +115,7 @@ Preview range will determine the frame range that will be exported.
 ### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py
 **Default:** Creates a camera from fSpy JSON-file and Background object from a Image-file.
 
-### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py
+### ![AR_ImportImageFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportImageFolder.png) AR_ImportImageFolder.py
 **Default:** Imports an image folder into materials.
 **Shift:** Generates also plane objects for each material with correct proportion of the image.
 

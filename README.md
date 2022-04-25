@@ -3,9 +3,11 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.58** _(Updated 22.04.2022)_
+Latest version: **1.59** _(Updated 22.04.2022)_
 
 ## Change Log
+_ _25.04.2022_ Minor fix: AR_OpenBugReportsFolder
+_ _25.04.2022_ New scripts: AR_DeleteARPrefs, AR_SortABC, AR_SortRandom
 - _22.04.2022_ New script: AR_PyTagShowIfCorrectCam
 - _21.04.2022_ New scripts: AR_FlipIt, AR_PyTagAlignToSpline
 - _20.04.2022_ New script: AR_DynaMesh (requires C4D 26)
@@ -375,6 +377,15 @@ Supports object and tag selections.
 **Default:** Selects the parent object.  
 **Shift:** Keeps the old selection.  
 
+### ![AR_SortABC](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SortABC.png) AR_SortABC.py
+**Default:** Sorts selected objects order alphabetically (descending) in the object manager.  
+**Shift:** Sorts selected objects order alphabetically (ascending) in the object manager.  
+Note: Objects has to in same level in the object manager.  
+
+### ![AR_SortRandom](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SortRandom.png) AR_SortRandom.py
+**Default:** Randomizes selected objects order in the object manager.  
+Note: Objects has to in same level in the object manager.
+
 ### ![AR_TagsClone](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsClone.png) AR_TagsClone.py
 **Default:** Clone selected tag(s) to selected object(s).  
 
@@ -418,6 +429,10 @@ Extracts 2D tracks from selected motion tracker to null objects.
 **Shift:** Extracts only auto tracks.  
 
 ## Utility
+### ![AR_DeleteARPrefs](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DeleteARPrefs.png) AR_DeleteARPrefs.py
+**Default:** Deletes aturtur folder inside prefs folder, where some of scripts saves user's custom settings.
+**Shift:** Opens the folder location. 
+
 ### ![AR_Folder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Folder.png) AR_Folder.py
 **Default:** Creates a folder null that keeps your project nice and tidy.  
 

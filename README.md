@@ -446,7 +446,7 @@ Extracts 2D tracks from selected motion tracker to null objects.
 
 ### ![AR_OpenRenderFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenRenderFolder.png) AR_OpenRenderFolder.py
 **Default:** Opens the folder where the project is rendered.  
->The folder has to exsist already! Does not support all of the tokens!  
+>The folder must exist already! Does not support all of the tokens!  
 
 ### ![AR_PrintType](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PrintType.png) AR_PrintType.py
 **Default:** Prints info about selected objects, tags, materials, Xpresso nodes and Redshift nodes.  

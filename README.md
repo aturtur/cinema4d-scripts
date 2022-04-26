@@ -3,10 +3,11 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.60** _(Updated 26.04.2022)_
+Latest version: **1.61** _(Updated 26.04.2022)_
 
 ## Change Log
-- _26.04.2022_ Bug fix: AR_TracksRemap
+- _26.04.2022_ New script: AR_OpenProjectFolder.py
+- _26.04.2022_ Bug fixes: AR_TracksRemap, AR_OpenRenderFolder.py
 - _25.04.2022_ Minor fix: AR_OpenBugReportsFolder
 - _25.04.2022_ New scripts: AR_DeleteARPrefs, AR_SortABC, AR_SortRandom
 - _22.04.2022_ New script: AR_PyTagShowIfCorrectCam
@@ -440,9 +441,12 @@ Extracts 2D tracks from selected motion tracker to null objects.
 ### ![AR_OpenBugReportsFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenBugReportsFolder.png) AR_OpenBugReportsFolder.py
 **Default:** Opens the bug reports folder.  
 
+### ![AR_OpenProjectFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenProjectFolder.png) AR_OpenProjectFolder.py
+**Default:** Opens the folder where the project file is saved.  
+
 ### ![AR_OpenRenderFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenRenderFolder.png) AR_OpenRenderFolder.py
-**Default:** Opens the folder where project is rendered.  
-The folder has to exsist. Does not support all of the tokens!  
+**Default:** Opens the folder where the project is rendered.  
+>The folder has to exsist already! Does not support all of the tokens!  
 
 ### ![AR_PrintType](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PrintType.png) AR_PrintType.py
 **Default:** Prints info about selected objects, tags, materials, Xpresso nodes and Redshift nodes.  

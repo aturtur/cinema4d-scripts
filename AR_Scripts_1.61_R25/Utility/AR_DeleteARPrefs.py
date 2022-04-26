@@ -5,7 +5,7 @@ Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_DeleteARPrefs
 Version: 1.0.1
-Description-US: Deletes aturtur folder in prefs location
+Description-US: Deletes aturtur folder in prefs location.
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1

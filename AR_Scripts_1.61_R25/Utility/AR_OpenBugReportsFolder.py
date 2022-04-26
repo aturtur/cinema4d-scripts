@@ -26,7 +26,7 @@ def main():
     folder = storage.GeGetC4DPath(c4d.C4D_PATH_PREFS) # Get preference folder path
     folder = os.path.dirname(r''+folder+'') # Go up
     folder = os.path.join(folder, '_bugreports') # Bug reports folder
-    storage.ShowInFinder(folder, True) # Open folder
+    storage.ShowInFinder(folder, True) # Open the folder
 
 # Execute main()
 if __name__=='__main__':

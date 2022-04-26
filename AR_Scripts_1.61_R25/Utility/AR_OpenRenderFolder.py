@@ -4,7 +4,7 @@ AR_OpenRenderFolder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_OpenRenderFolder
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Opens folder where project is rendered.
 NOTE: Does not support all of the tokens!
 
@@ -12,22 +12,17 @@ Written for Maxon Cinema 4D R25.010
 Python version 3.9.1
 
 Change log:
+1.0.2 (26.04.2022) - Bug fix and cleaning the code
 1.0.1 (11.01.2022) - MacOS support
 """
 # Libraries
 import c4d
 import os
-import subprocess
 import re
+import storage
 
 
 # Functions
-def GetFolderSeparator():
-    if c4d.GeGetCurrentOS() == c4d.OPERATINGSYSTEM_WIN: # If operating system is Windows
-        return "\\"
-    else: # If operating system is Mac or Linux
-        return "/"
-
 def CheckFolders(path):
     separator = GetFolderSeparator()
     folders = path.split(".."+separator)
@@ -63,7 +58,7 @@ def main():
     tokenTake   = str(take.replace(" ", s))
     tokenCamera = str(camera.replace(" ", s))
 
-    renderPath = renderPath.replace("/","\\")
+    renderPath = renderPath.replace("\\","/")
 
     path = renderPath.replace("$prj", tokenPrj) # Solve project name ($prj) token
     path = path.replace("$res", tokenRes) # Solve esolution ($res) token
@@ -71,10 +66,8 @@ def main():
     path = path.replace("$take", tokenTake) # Solve take ($take) token
     path = path.replace("$camera", tokenCamera) # Solve camera ($camera) token
 
-    path = CheckFolders(path)
     path = os.path.dirname(path)
-
-    subprocess.Popen(r'explorer "'+path+'"') # Open project folder
+    storage.ShowInFinder(path, True) # Open the folder
 
 # Execute main()
 if __name__=='__main__':

@@ -3,9 +3,10 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.59** _(Updated 22.04.2022)_
+Latest version: **1.60** _(Updated 26.04.2022)_
 
 ## Change Log
+- _26_04.2022_ Bug fix: AR_TracksRemap
 - _25.04.2022_ Minor fix: AR_OpenBugReportsFolder
 - _25.04.2022_ New scripts: AR_DeleteARPrefs, AR_SortABC, AR_SortRandom
 - _22.04.2022_ New script: AR_PyTagShowIfCorrectCam

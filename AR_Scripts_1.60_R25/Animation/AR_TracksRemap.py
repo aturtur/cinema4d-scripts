@@ -4,12 +4,15 @@ AR_TracksRemap
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_TracksRemap
-Version: 1.0
+Version: 1.0.1
 Description-US: Adds Time track for selected tracks for time remapping
 
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
+
+Change log:
+1.0.1 (26.04.2022) - Bug fix
 """
 
 # Libraries
@@ -119,7 +122,7 @@ def SequenceTimeRemap(keyMod):
         tracks[i][c4d.ID_CTRACK_TIME] = timeTrack
         if keyMod == "None":
             tracks[i][c4d.ID_CTRACK_TIME_RELATIVE] = False
-        elif keyMod == "Shift"
+        elif keyMod == "Shift":
             tracks[i][c4d.ID_CTRACK_TIME_RELATIVE] = True
 
 def main():

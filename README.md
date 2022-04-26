@@ -6,7 +6,7 @@ My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.
 Latest version: **1.60** _(Updated 26.04.2022)_
 
 ## Change Log
-- _26_04.2022_ Bug fix: AR_TracksRemap
+- _26.04.2022_ Bug fix: AR_TracksRemap
 - _25.04.2022_ Minor fix: AR_OpenBugReportsFolder
 - _25.04.2022_ New scripts: AR_DeleteARPrefs, AR_SortABC, AR_SortRandom
 - _22.04.2022_ New script: AR_PyTagShowIfCorrectCam

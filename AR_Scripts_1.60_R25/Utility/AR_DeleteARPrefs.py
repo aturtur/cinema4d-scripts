@@ -4,11 +4,14 @@ AR_DeleteARPrefs
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_DeleteARPrefs
-Version: 1.0.0
+Version: 1.0.1
 Description-US: Deletes aturtur folder in prefs location
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
+
+Change log:
+1.0.1 (26.04.2022) - Minor fix
 """
 
 # Libraries
@@ -56,10 +59,7 @@ def main():
                 shutil.rmtree(arFolder) # Remove the folder
                 gui.MessageDialog("Settings folder for AR_Scripts\nis now removed!")
         elif keyMod == "Shift":
-            if c4d.GeGetCurrentOS() == c4d.OPERATINGSYSTEM_WIN: # If operating system is Windows
-                os.startfile(arFolder)
-            else: # If operating system is Mac
-                os.system('open "%s"' % arFolder)
+            storage.ShowInFinder(arFolder, True) # Open folder
 
     else: # Otherwise
         gui.MessageDialog("No settings folder found\nfor AR_Scripts!")

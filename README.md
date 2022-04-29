@@ -3,9 +3,11 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.61** _(Updated 26.04.2022)_
+Latest version: **1.62** _(Updated 29.04.2022)_
 
 ## Change Log
+- _29.04.2022_ New scripts: AR_KeysAlign.py, AR_KeysValueAdd, AR_KeysValueSub, AR_NodeResize
+- _29.04.2022_ Updated: AR_KeysMoveL.py, AR_KeysMoveL.py (saves custom step and sets it as default value), AR_BakePLA.py
 - _26.04.2022_ New script: AR_OpenProjectFolder.py
 - _26.04.2022_ Bug fixes: AR_TracksRemap, AR_OpenRenderFolder.py
 - _25.04.2022_ Minor fix: AR_OpenBugReportsFolder
@@ -62,16 +64,32 @@ It's important that 'Intermediate Points' is set to 'Uniform'! The script does n
 **Shift:** Distributes selected keyframes by given step (in frames).  
 Requires at least three (3) selected keyframes to correctly function. Use in dope sheet editor, does not work in f-curve editor.  
 
+### ![AR_KeysAlign](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysAlign.png) AR_KeysAlign.py
+**Default:** Aligns selected keyframes to the closest whole frame.  
+Use in dope sheet editor, does not work in f-curve editor.  
+
 ### ![AR_KeysMoveL](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysMoveL.png) AR_KeysMoveL.py
-**Default:** Move selected keyframe(s) 1 frame to the left.  
-**Shift:** Move selected keyframe(s) by given amount (in frames) to the left.  
-**Ctrl:** Move selected keyframe(s) 10 frames to the left.  
+**Default:** Move selected keyframe(s) to the left.  
+**Shift:** Set custom value as default (shared with AR_KeysMoveR).  
+**Ctrl:** Move selected keyframe(s) by the set value multiplied by 2 to the left.  
 Use in dope sheet editor, does not work in f-curve editor.  
 
 ### ![AR_KeysMoveR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysMoveR.png) AR_KeysMoveR.py
-**Default:** Move selected keyframe(s) 1 frame to the right.  
-**Shift:** Move selected keyframe(s) by given amount (in frames) to the right.  
-**Ctrl:** Move selected keyframe(s) 10 frames to the right.  
+**Default:** Move selected keyframe(s) to the right.  
+**Shift:** Set custom value as default (shared with AR_KeysMoveL).  
+**Ctrl:** Move selected keyframe(s) by the set value multiplied by 2 to the right.  
+Use in dope sheet editor, does not work in f-curve editor.  
+
+### ![AR_KeysValueAdd](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysValueAdd.png) AR_KeysValueAdd.py
+**Default:** Increases selected keyframe(s) value.  
+**Shift:** Set custom value as default (shared with AR_KeysValueSub).  
+**Ctrl:** Increases selected keyframe(s) value times 2.  
+Use in dope sheet editor, does not work in f-curve editor.  
+
+### ![AR_KeysValueSub](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysValueSub.png) AR_KeysValueSub.py
+**Default:** Decreases selected keyframe(s) value.  
+**Shift:** Set custom value as default (shared with AR_KeysValueSub).  
+**Ctrl:** Decreases selected keyframe(s) value times 2.  
 Use in dope sheet editor, does not work in f-curve editor.  
 
 ### ![AR_TracksRemap](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TracksRemap.png) AR_TracksRemap.py
@@ -295,6 +313,11 @@ Supports Xpresso and Redshift.
 **Shift:** Lines up selected graph nodes vartically with a custom gap.  
 **Alt:** Reversed direction.  
 **Shift+Alt:** Reversed direction with a custom gap.  
+Supports Xpresso and Redshift.  
+>Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
+
+### ![AR_NodeResize](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeResize.png) AR_NodeResize.py
+**Default:** Resizes selected nodes by given width and height values.  
 Supports Xpresso and Redshift.  
 >Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!  
 

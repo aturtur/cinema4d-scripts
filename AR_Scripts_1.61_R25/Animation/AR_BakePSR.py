@@ -4,13 +4,14 @@ AR_BakePSR
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_BakePSR
-Version: 1.0.2
+Version: 1.0.3
 Description-US: Bakes object to PSR animation in world space. Shift: In local space
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
+1.0.3 (29.04.2022) - Removes 'Time Track' if there's any
 1.0.2 (10.10.2021) - Updated to R25
 1.0.1 (27.10.2020) - Fixed setTime bug
 """
@@ -96,6 +97,7 @@ def CleanKeys(obj):
     """ Removes unnecessary keyframes """
     ctracks = obj.GetCTracks() # Get object's CTracks
     for ctrack in ctracks: # Iterate through CTracks
+        ctrack[c4d.ID_CTRACK_TIME] = None # Remove 'Time Track' if there was any
         curve = ctrack.GetCurve() # Get Curve (keyframe holder)
         keyCount = curve.GetKeyCount() # Get Keyframe count
         keysToDelete = [] # Initialize an array for kayframes that can be deleted

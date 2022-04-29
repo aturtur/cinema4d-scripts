@@ -24,6 +24,7 @@ from c4d import utils as u
 from c4d import gui
 from c4d.gui import GeDialog
 
+# Variables
 GRP_MEGA        = 1000
 GRP_MAIN        = 1001
 GRP_BTNS        = 1002

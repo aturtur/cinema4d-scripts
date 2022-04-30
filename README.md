@@ -88,7 +88,7 @@ Use in dope sheet editor, does not work in f-curve editor.
 
 ### ![AR_KeysValueSub](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysValueSub.png) AR_KeysValueSub.py
 **Default:** Decreases selected keyframe(s) value.  
-**Shift:** Set custom value as default (shared with AR_KeysValueSub).  
+**Shift:** Set custom value as default (shared with AR_KeysValueAdd).  
 **Ctrl:** Decreases selected keyframe(s) value times 2.  
 Use in dope sheet editor, does not work in f-curve editor.  
 

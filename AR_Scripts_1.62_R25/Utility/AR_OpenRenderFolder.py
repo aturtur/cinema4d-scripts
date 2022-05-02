@@ -19,7 +19,7 @@ Change log:
 import c4d
 import os
 import re
-import storage
+from c4d import storage
 
 
 # Functions

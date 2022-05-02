@@ -4,13 +4,14 @@ AR_AspectRatioGuide
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_AspectRatioGuide
-Version: 1.0.0
+Version: 1.0.1
 Description-US: Creates an aspect ratio guide for selected camera(s)
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
+1.0.1 (02.05.2022) - Added scale parameter
 1.0.0 (05.04.2022) - First version
 """
 
@@ -126,6 +127,7 @@ def CreateAspectRatioGuide(cam):
     CreateUserDataLink(pyTag, "Camera", None)
     CreateUserDataCycle(pyTag, "Presets", "9:16,3:5,2:3,4:5,1:1,5:4,4:3,5:3,16:9,1.85,21:9,2.35,2.39")
     CreateUserDataFloat(pyTag, "Aspect Ratio", 1.778)
+    CreateUserDataFloat(pyTag, "Scale", 1.0)
     CreateUserDataStaticText(pyTag, "Width")
     CreateUserDataStaticText(pyTag, "Height")
     btnGroup = CreateUserDataGroup(pyTag, "Buttons", None, 2) #c4d.DescID(0)
@@ -228,14 +230,14 @@ def message(id, data):\n\
                 elif preset == 12:\n\
                      op[c4d.ID_USERDATA,3] = 2.39\n\
 \n\
-            if userDataId == 7: # Get current aspect ratio\n\
+            if userDataId == 8: # Get current aspect ratio\n\
                 doc.StartUndo()\n\
                 doc.AddUndo(c4d.UNDOTYPE_CHANGE, op)\n\
                 op[c4d.ID_USERDATA,3] = renderData[c4d.RDATA_FILMASPECT]\n\
                 doc.EndUndo()\n\
                 c4d.EventAdd()\n\
 \n\
-            if userDataId == 8: # Crop\n\
+            if userDataId == 9: # Crop\n\
                 resizeComposition(op[c4d.ID_USERDATA,1], op[c4d.ID_USERDATA,4], op[c4d.ID_USERDATA,5])\n\
                 c4d.EventAdd()\n\
 \n\
@@ -249,6 +251,7 @@ def main():\n\
     cam     = op[c4d.ID_USERDATA,1]\n\
     if cam == None: return False\n\
     new_ar  = op[c4d.ID_USERDATA,3]\n\
+    scale   = op[c4d.ID_USERDATA,4]\n\
     fov_ver = cam[c4d.CAMERAOBJECT_FOV_VERTICAL]\n\
     fov_hor = cam[c4d.CAMERAOBJECT_FOV]\n\
     zoom    = cam[c4d.CAMERA_ZOOM]\n\
@@ -268,8 +271,8 @@ def main():\n\
     if old_ar > new_ar:\n\
         w2 = h * new_ar\n\
         h2 = h\n\
-        new_w = round((height * new_ar),2)\n\
-        new_h = round(height * 1, 2)\n\
+        new_w = round((height * new_ar * scale),2)\n\
+        new_h = round(height * 1 * scale, 2)\n\
 \n\
     elif old_ar < new_ar:\n\
         w2 = w\n\
@@ -280,14 +283,14 @@ def main():\n\
     else:\n\
         w2 = w\n\
         h2 = h\n\
-        new_w = round(width * 1, 2)\n\
-        new_h = round(height * 1, 2)\n\
+        new_w = round(width * 1 * scale, 2)\n\
+        new_h = round(height * 1 * scale, 2)\n\
 \n\
-    op[c4d.ID_USERDATA,4] = str(new_w)\n\
-    op[c4d.ID_USERDATA,5] = str(new_h)\n\
+    op[c4d.ID_USERDATA,5] = str(round(new_w * scale, 2))\n\
+    op[c4d.ID_USERDATA,6] = str(round(new_h * scale, 2))\n\
 \n\
-    obj[c4d.PRIM_RECTANGLE_HEIGHT] = h2\n\
-    obj[c4d.PRIM_RECTANGLE_WIDTH]  = w2\n\
+    obj[c4d.PRIM_RECTANGLE_HEIGHT] = h2 * scale\n\
+    obj[c4d.PRIM_RECTANGLE_WIDTH]  = w2 * scale\n\
 \n\
     obj[c4d.ID_BASEOBJECT_REL_POSITION,c4d.VECTOR_X] = pos_x\n\
     obj[c4d.ID_BASEOBJECT_REL_POSITION,c4d.VECTOR_Y] = pos_y\n\
@@ -295,7 +298,6 @@ def main():\n\
     pass"
 
     # -------------------------------------------------------
-
 
     pyTag.SetBit(c4d.BIT_ACTIVE)
 

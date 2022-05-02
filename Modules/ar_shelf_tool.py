@@ -218,7 +218,7 @@ def AddToList(asset, target):
 def Import(path=None):
 
     if path == None:
-        print("No path found")
+        print("No path found!")
         return False
 
     doc = documents.GetActiveDocument() # Get active document

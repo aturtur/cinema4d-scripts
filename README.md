@@ -3,9 +3,12 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.62** _(Updated 29.04.2022)_
+Latest version: **1.63** _(Updated 29.04.2022)_
 
 ## Change Log
+- _02.05.2022_ Updated: AR_AspectRatioGuide.py
+- _02.05.2022_ Major bug fix: AR_OpenRenderFolder.py
+- _02.05.2022_ New scripts: AR_Dot.py, AR_PyTagShowGivenFrames.py
 - _29.04.2022_ New scripts: AR_KeysAlign.py, AR_KeysValueAdd, AR_KeysValueSub, AR_NodeResize
 - _29.04.2022_ Updated: AR_KeysMoveL.py, AR_KeysMoveL.py (saves custom step and sets it as default value), AR_BakePLA.py
 - _26.04.2022_ New script: AR_OpenProjectFolder.py
@@ -438,6 +441,11 @@ Shifts selected tag(s).
 ### ![AR_PyTagKeepOnFloor](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagKeepOnFloor.png) AR_PyTagKeepOnFloor.py
 **Default:** Adds a custom python tag for selected object(s) that keeps the object on the floor.  
 
+### ![AR_PyTagShowGivenFrames](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowGivenFrames.png) AR_PyTagShowGivenFrames.py
+**Default:** Adds a custom python tag for selected object(s) that toggles object's visibility by given frames.  
+There's some variables you can use: **start** and **end** for global start and end frames, **prevstart** and **prevend** for preview range start end end frames.  
+Set frame range with dash (-) and separate different frames and ranges with a comma (,).  
+
 ### ![AR_PyTagShowIfActive](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfActive.png) AR_PyTagShowIfActive.py
 **Default:** Adds a custom python tag for selected object(s) that shows the object only if it is active.  
 
@@ -457,6 +465,9 @@ Extracts 2D tracks from selected motion tracker to null objects.
 ### ![AR_DeleteARPrefs](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DeleteARPrefs.png) AR_DeleteARPrefs.py
 **Default:** Deletes aturtur folder inside prefs folder, where some of scripts saves user's custom settings.
 **Shift:** Opens the folder location. 
+
+### ![AR_Dot](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Dot.png) AR_Dot.py
+**Default:** Creates a dark null that has no name.
 
 ### ![AR_Folder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Folder.png) AR_Folder.py
 **Default:** Creates a folder null that keeps your project nice and tidy.  

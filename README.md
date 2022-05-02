@@ -3,7 +3,7 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.63** _(Updated 29.04.2022)_
+Latest version: **1.63** _(Updated 02.05.2022)_
 
 ## Change Log
 - _02.05.2022_ Updated: AR_AspectRatioGuide.py

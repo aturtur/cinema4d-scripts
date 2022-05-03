@@ -3,9 +3,11 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.63** _(Updated 02.05.2022)_
+Latest version: **1.64** _(Updated 03.05.2022)_
 
 ## Change Log
+- _03.05.2022_ New Script: AR_AbsRenderPaths.py
+- _03.05.2022_ Bug fix: AR_AspectRatioGuide.py
 - _02.05.2022_ Updated: AR_AspectRatioGuide.py
 - _02.05.2022_ Major bug fix: AR_OpenRenderFolder.py
 - _02.05.2022_ New scripts: AR_Dot.py, AR_PyTagShowGivenFrames.py
@@ -462,12 +464,16 @@ Extracts 2D tracks from selected motion tracker to null objects.
 **Shift:** Extracts only auto tracks.  
 
 ## Utility
+### ![AR_AbsRenderPaths](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AbsRenderPaths.png) AR_AbsRenderPaths.py
+**Default:** Converts relative render paths to absolute paths.  
+For example: Cinema 4D's native Render Queue does not work with relative render paths, so this scripts helps to convert render paths.  
+
 ### ![AR_DeleteARPrefs](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DeleteARPrefs.png) AR_DeleteARPrefs.py
-**Default:** Deletes aturtur folder inside prefs folder, where some of scripts saves user's custom settings.
-**Shift:** Opens the folder location. 
+**Default:** Deletes aturtur folder inside prefs folder, where some of scripts saves user's custom settings.  
+**Shift:** Opens the folder location.  
 
 ### ![AR_Dot](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Dot.png) AR_Dot.py
-**Default:** Creates a dark null that has no name.
+**Default:** Creates a dark null that has no name.  
 
 ### ![AR_Folder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Folder.png) AR_Folder.py
 **Default:** Creates a folder null that keeps your project nice and tidy.  

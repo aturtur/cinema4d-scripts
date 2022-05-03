@@ -4,13 +4,14 @@ AR_AspectRatioGuide
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_AspectRatioGuide
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Creates an aspect ratio guide for selected camera(s)
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
+1.0.2 (03.05.2022) - Bug fix (cropping)
 1.0.1 (02.05.2022) - Added scale parameter
 1.0.0 (05.04.2022) - First version
 """

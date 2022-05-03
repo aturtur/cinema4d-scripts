@@ -238,7 +238,7 @@ def message(id, data):\n\
                 c4d.EventAdd()\n\
 \n\
             if userDataId == 9: # Crop\n\
-                resizeComposition(op[c4d.ID_USERDATA,1], op[c4d.ID_USERDATA,4], op[c4d.ID_USERDATA,5])\n\
+                resizeComposition(op[c4d.ID_USERDATA,1], op[c4d.ID_USERDATA,5], op[c4d.ID_USERDATA,6])\n\
                 c4d.EventAdd()\n\
 \n\
 def main():\n\

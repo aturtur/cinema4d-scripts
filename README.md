@@ -410,11 +410,11 @@ Supports object and tag selections.
 ### ![AR_SortABC](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SortABC.png) AR_SortABC.py
 **Default:** Sorts selected objects order alphabetically (descending) in the object manager.  
 **Shift:** Sorts selected objects order alphabetically (ascending) in the object manager.  
-Note: Objects has to in same level in the object manager.  
+Note: Objects has to be in the same level in the object manager.  
 
 ### ![AR_SortRandom](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SortRandom.png) AR_SortRandom.py
 **Default:** Randomizes selected objects order in the object manager.  
-Note: Objects has to in same level in the object manager.
+Note: Objects has to be in the same level in the object manager.  
 
 ### ![AR_TagsClone](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsClone.png) AR_TagsClone.py
 **Default:** Clone selected tag(s) to selected object(s).  
@@ -515,7 +515,7 @@ The script requires and enables 'Full Animation Redraw' in Preferences/View.
 >Note: The color pickers in modal dialogs are currently broken in C4D R25, hopefully Maxon will fix this bug someday...  
 
 ### ![AR_TglGrid](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TglGrid.png) AR_TglGrid.py
-**Default:** Toggle groun grid visibility in the active viewport.  
+**Default:** Toggle ground grid visibility in the active viewport.  
 **Shift:** Toggle in all viewports.  
 
 ## Support the project

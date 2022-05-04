@@ -1,10 +1,10 @@
 """
-Shelf Tool script for Cinema 4D
+Shelf Tool Script for Cinema 4D
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 
-Version: 1.0.0
+Version: 1.0.1
 
 Installation path: C:/Users/[USER]]/AppData/Roaming/MAXON/Maxon Cinema 4D R2X_XXXXXXXX/python39/libs
 
@@ -12,8 +12,8 @@ Written for Maxon Cinema 4D R25.010
 Python version 3.9.1
 
 Change log:
+1.0.1 (04.05.2022) - Added support to change icon and icon color
 1.0.0 (08.04.2022) - Initial release
-
 """
 
 # Libraries
@@ -215,8 +215,9 @@ def AddToList(asset, target):
                 target[c4d.FIELDS] = fieldList
     return
 
-def Import(path=None):
+def Import(path=None, icon=None, color=None, matsOnly=False):
 
+    # Check path
     if path == None:
         print("No path found!")
         return False
@@ -232,49 +233,57 @@ def Import(path=None):
     c4d.documents.MergeDocument(tempDoc, path, flags) # Merge asset to active project
     asset = tempDoc.GetFirstObject() # Get the imported asset
     texTags, materials = GetMaterials(asset) # Get all materials
-                
+
+    # Set the icon and the color for the asset
+    if icon != None:
+        asset[c4d.ID_BASELIST_ICON_FILE] = icon # Set icon path
+    if color != None:
+        asset[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Set Icon Color to 'Custom'
+        asset[c4d.ID_BASELIST_ICON_COLOR] = color # Set icon color
+
     for m in materials: # Iterate through collected materials
         doc.InsertMaterial(m, checknames=True)
         doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, m)
 
-    if len(selection) != 0:
-        if keyMod != "None":
-            for s in selection: # Iterate through selected objects
-                clone = asset.GetClone()
-                if keyMod == "Shift": # Insert to child
-                    doc.AddUndo(c4d.UNDOTYPE_BITS, s)
-                    if s.GetNBit(c4d.NBIT_OM1_FOLD) == False:
-                            s.ChangeNBit(c4d.NBIT_OM1_FOLD, c4d.NBITCONTROL_TOGGLE)
-                    doc.InsertObject(clone, parent=s, checknames=True)
+    if not matsOnly:
+        if len(selection) != 0:
+            if keyMod != "None":
+                for s in selection: # Iterate through selected objects
+                    clone = asset.GetClone()
+                    if keyMod == "Shift": # Insert to child
+                        doc.AddUndo(c4d.UNDOTYPE_BITS, s)
+                        if s.GetNBit(c4d.NBIT_OM1_FOLD) == False:
+                                s.ChangeNBit(c4d.NBIT_OM1_FOLD, c4d.NBITCONTROL_TOGGLE)
+                        doc.InsertObject(clone, parent=s, checknames=True)
+                        doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, clone)
+                    elif keyMod == "Alt": # Insert to parent
+                        doc.AddUndo(c4d.UNDOTYPE_CHANGE, s)
+                        mat = s.GetMg()
+                        parent = CheckParent(s)
+                        pred = CheckPred(s)
+                        doc.InsertObject(clone, parent=parent, pred=pred, checknames=True)
+                        clone.SetMg(mat)
+                        s.InsertUnder(clone)
+                        doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, clone)
+                        s.SetMg(mat)
+                    elif keyMod == "Ctrl": # Insert next
+                        doc.InsertObject(clone, pred=s, checknames=True)
+                        clone.SetMg(s.GetMg())
                     doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, clone)
-                elif keyMod == "Alt": # Insert to parent
-                    doc.AddUndo(c4d.UNDOTYPE_CHANGE, s)
-                    mat = s.GetMg()
-                    parent = CheckParent(s)
-                    pred = CheckPred(s)
-                    doc.InsertObject(clone, parent=parent, pred=pred, checknames=True)
-                    clone.SetMg(mat)
-                    s.InsertUnder(clone)
-                    doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, clone)
-                    s.SetMg(mat)
-                elif keyMod == "Ctrl": # Insert next
-                    doc.InsertObject(clone, pred=s, checknames=True)
-                    clone.SetMg(s.GetMg())
-                doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, clone)
-                AddToList(clone, s) # Try to add asset to generator
-            asset.Remove() # Delete original
+                    AddToList(clone, s) # Try to add asset to generator
+                asset.Remove() # Delete original
+            else:
+                doc.InsertObject(asset, checknames=True)
+                doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, asset)
+                for s in selection: # Iterate through selected objects
+                    AddToList(asset, s) # Try to add asset to generator
         else:
             doc.InsertObject(asset, checknames=True)
             doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, asset)
-            for s in selection: # Iterate through selected objects
-                AddToList(asset, s) # Try to add asset to generator
-    else:
-        doc.InsertObject(asset, checknames=True)
-        doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, asset)
-    
-    for s in selection:
-        s.DelBit(c4d.BIT_ACTIVE)
-        doc.AddUndo(c4d.UNDOTYPE_BITS, s)
+        
+        for s in selection:
+            s.DelBit(c4d.BIT_ACTIVE)
+            doc.AddUndo(c4d.UNDOTYPE_BITS, s)
     
     documents.KillDocument(tempDoc) # Kill the temp document
     c4d.EventAdd() # Refresh Cinema 4D

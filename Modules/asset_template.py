@@ -11,16 +11,12 @@ import ar_shelf_tool as st
 
 # Functions
 def main():
-    # Parsing the file path for the icon
-    scriptPath = __file__
-    iconPath = scriptPath.rsplit('.', 1)[0]+".tif"
-
     # File path of the asset
     assetPath = ""
 
     # Import the asset
     st.Import(path=assetPath, # Asset path
-              icon=iconPath,  # Icon path
+              icon=__file__,  # Icon path
               color=None,     # Color in c4d.Vector() format
               matsOnly=False) # If 'True' imports only materials from asset file
 

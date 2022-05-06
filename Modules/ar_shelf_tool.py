@@ -215,6 +215,11 @@ def AddToList(asset, target):
                 target[c4d.FIELDS] = fieldList
     return
 
+def GetIconPath(scriptPath):
+    # Parsing the file path for the icon
+    iconPath = scriptPath.rsplit('.', 1)[0]+".tif"
+    return iconPath
+
 def Import(path=None, icon=None, color=None, matsOnly=False):
 
     # Check path
@@ -236,6 +241,7 @@ def Import(path=None, icon=None, color=None, matsOnly=False):
 
     # Set the icon and the color for the asset
     if icon != None:
+        icon = GetIconPath(icon) # Get icon path
         asset[c4d.ID_BASELIST_ICON_FILE] = icon # Set icon path
     if color != None:
         asset[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Set Icon Color to 'Custom'

@@ -4,13 +4,16 @@ AR_NodeAdd
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodeAdd
-Version: 1.0
+Version: 1.0.1
 Description-US: Adds node between selected nodes (Only for Redshift).
 
 Notice: Make sure the Redshift material is selected when using the script!
 
 Written for Maxon Cinema 4D R25.010
 Python version 3.9.1
+
+Change log:
+1.0.1 (06.05.2022) - Added Change Range node
 """
 
 # Libraries
@@ -34,15 +37,16 @@ GRP_COL         = 1004
 PORTNUM         = 2001
 NODETYPE        = 2002
 
-NODE_RAMP       = 3001
-NODE_TRIPLANAR  = 3002
-NODE_COLORCORR  = 3003
-NODE_SCALARRAMP = 3004
-NODE_COLORLAYER = 3005
-NODE_COLORAOV   = 3006
-NODE_COLORRANGE = 3007
-NODE_BUMPMAP    = 3008
+NODE_RAMP         = 3001
+NODE_TRIPLANAR    = 3002
+NODE_COLORCORR    = 3003
+NODE_SCALARRAMP   = 3004
+NODE_COLORLAYER   = 3005
+NODE_COLORAOV     = 3006
+NODE_COLORRANGE   = 3007
+NODE_BUMPMAP      = 3008
 NODE_DISPLACEMENT = 3009
+NODE_CHANGERANGE  = 3010
 
 BTN_OK          = 7001
 BTN_CANCEL      = 7002
@@ -91,15 +95,16 @@ class Dialog(GeDialog):
 
         self.AddComboBox(NODETYPE, c4d.BFH_LEFT, 200, 13)
 
-        self.AddChild(NODETYPE, NODE_RAMP, "Ramp")
-        self.AddChild(NODETYPE, NODE_TRIPLANAR, "Triplanar")
-        self.AddChild(NODETYPE, NODE_COLORCORR, "Color Correct")
-        self.AddChild(NODETYPE, NODE_COLORRANGE, "Color Range")
-        self.AddChild(NODETYPE, NODE_SCALARRAMP, "Scalar Ramp")
-        self.AddChild(NODETYPE, NODE_COLORLAYER, "Color Layer")
-        self.AddChild(NODETYPE, NODE_BUMPMAP, "Bump Map")
+        self.AddChild(NODETYPE, NODE_RAMP,         "Ramp")
+        self.AddChild(NODETYPE, NODE_TRIPLANAR,    "Triplanar")
+        self.AddChild(NODETYPE, NODE_COLORCORR,    "Color Correct")
+        self.AddChild(NODETYPE, NODE_CHANGERANGE,  "Change Range")
+        self.AddChild(NODETYPE, NODE_COLORRANGE,   "Color Range")
+        self.AddChild(NODETYPE, NODE_SCALARRAMP,   "Scalar Ramp")
+        self.AddChild(NODETYPE, NODE_COLORLAYER,   "Color Layer")
+        self.AddChild(NODETYPE, NODE_BUMPMAP,      "Bump Map")
         self.AddChild(NODETYPE, NODE_DISPLACEMENT, "Displacement")
-        self.AddChild(NODETYPE, NODE_COLORAOV, "Store Color to AOV")
+        self.AddChild(NODETYPE, NODE_COLORAOV,     "Store Color to AOV")
 
         self.SetInt32(NODETYPE, 3001) # Set default node type
 
@@ -224,9 +229,18 @@ def AddNode(nodeMaster):
             bcd = bsc.GetContainerInstance(c4d.ID_OPERATORCONTAINER) # Get operator container
             sy  = bcd.SetReal(109, 100) # Get y scale
 
-        elif options[1] == NODE_COLORRANGE:
+        elif options[1] == NODE_CHANGERANGE:
             newNode[c4d.GV_REDSHIFT_SHADER_META_CLASSNAME] = "RSColorRange" # Set to Color Change Range node
             newNode[c4d.ID_GVBASE_COLOR] = c4d.Vector(0.788, 0.557, 0.537) # Set node color
+            inputPort = newNode.GetInPort(0) # (in port)
+            bc  = newNode.GetDataInstance() # Get base container
+            bsc = bc.GetContainerInstance(c4d.ID_SHAPECONTAINER) # Get shape container
+            bcd = bsc.GetContainerInstance(c4d.ID_OPERATORCONTAINER) # Get operator container
+            sy  = bcd.SetReal(109, 100) # Get y scale
+
+        elif options[1] == NODE_COLORRANGE:
+            newNode[c4d.GV_REDSHIFT_SHADER_META_CLASSNAME] = "RSMathRange" # Set to Change Range node
+            newNode[c4d.ID_GVBASE_COLOR] = c4d.Vector(0.537, 0.71, 0.569) # Set node color
             inputPort = newNode.GetInPort(0) # (in port)
             bc  = newNode.GetDataInstance() # Get base container
             bsc = bc.GetContainerInstance(c4d.ID_SHAPECONTAINER) # Get shape container

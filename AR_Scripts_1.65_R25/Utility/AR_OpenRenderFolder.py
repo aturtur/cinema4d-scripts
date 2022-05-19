@@ -4,7 +4,7 @@ AR_OpenRenderFolder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_OpenRenderFolder
-Version: 1.0.3
+Version: 1.0.4
 Description-US: Opens folder where project is rendered.
 
 NOTE: Does not support all of the tokens!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R26.014
 Python version 3.9.1
 
 Change log:
+1.0.4 (18.05.2022) - Some custom tokens added
 1.0.3 (02.05.2022) - Bug fixes and support for some tokens added
 1.0.2 (26.04.2022) - Bug fix and cleaning the code
 1.0.1 (11.01.2022) - MacOS support
@@ -52,6 +53,31 @@ def GetRendererName():
     else:
         return "Standard"
 
+def GetVersion(filePath, delimiter):
+    """ Get version number from a file path"""
+    versionList = re.findall(delimiter+"\\d+",filePath) # Search delimiter+digits (e.g. _v001) string in file path and store those in a [list]
+    if len(versionList) == 0: # If no versions found
+        return None, None
+    rawVersion = re.compile(delimiter).split(versionList[len(versionList)-1])[1] # Version number with zero padding [string]
+    version = str(int(rawVersion)) # Version number without zero padding [integer]
+    return version, rawVersion # (e.g. 1, 001)
+
+def GetProjectVersion(name, delimiter):
+    """ Project Version """
+    ver, rawVer = GetVersion(name, delimiter)
+    if ver == None:
+        return ""
+    else:
+        return rawVer
+
+def GetCleanProjectName(name, delimiter):
+    """ Clean project name """
+    name = name.rsplit(delimiter, 1)[0]
+    if name == None:
+        return ""
+    else:
+        return name
+
 def CheckTokens(path):
     """ Convert tokens in the path to absolute format """
 
@@ -67,7 +93,9 @@ def CheckTokens(path):
     camera = bd.GetSceneCamera(doc).GetName()           # Render camera name
 
     s = "_"
+    d = "_v"
 
+    # Native tokens
     tokenPrj    = os.path.splitext(doc.GetDocumentName())[0]
     tokenPrj    = str(tokenPrj.replace(" ", s))
     tokenRes    = str(int(width))+"x"+str(int(height))
@@ -82,11 +110,15 @@ def CheckTokens(path):
     tokenHeight = str(int(height))
     tokenPC     = str(GetComputerName().replace(" ", s))
     tokenUser   = str(GetUserName().replace(" ", s))
-
     tokenAuthor = str(doc[c4d.DOCUMENT_INFO_AUTHOR])
     if tokenAuthor != "":
         tokenAuthor = tokenAuthor.replace(" ", s)
 
+    # Custom tokes
+    tokenAprj   = str(GetCleanProjectName(tokenPrj, d))
+    tokenVer    = str(GetProjectVersion(tokenPrj, d))
+
+    # Modify the path
     path = path.replace("$prj", tokenPrj)       # Solve project name ($prj) token
     path = path.replace("$res", tokenRes)       # Solve esolution ($res) token
     path = path.replace("$fps", tokenFps)       # Solve frame rate ($fps) token
@@ -102,6 +134,9 @@ def CheckTokens(path):
     path = path.replace("$rs", tokenRS)         # Solve render settings ($rs) token
     path = path.replace("$author", tokenAuthor) # Solve project author ($author) token
 
+    path = path.replace("$aprj", tokenAprj)     # Solve clean project name ($aprj) token (CUSTOM)
+    path = path.replace("$ver", tokenVer)       # Solve project version ($ver) token (CUSTOM)
+
     return path
 
 def main():
@@ -112,6 +147,8 @@ def main():
     path = os.path.abspath(renderPath)          # Get absolute path
     path = os.path.dirname(path)                # Get folder path
     path = CheckTokens(path)                    # Convert tokens to absolute
+    
+    print(path)
 
     storage.ShowInFinder(path, True)            # Open the folder
 

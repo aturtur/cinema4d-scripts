@@ -3,9 +3,11 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.64** _(Updated 03.05.2022)_
+Latest version: **1.65** _(Updated 19.05.2022)_
 
 ## Change Log
+- _19.05.2022_ New Script: AR_NodeTexToMat.py
+- _06.05.2022_ Updated: AR_NodeAdd.py, added Change Range node
 - _03.05.2022_ New Script: AR_AbsRenderPaths.py
 - _03.05.2022_ Bug fix: AR_AspectRatioGuide.py
 - _02.05.2022_ Updated: AR_AspectRatioGuide.py
@@ -20,7 +22,7 @@ Latest version: **1.64** _(Updated 03.05.2022)_
 - _22.04.2022_ New script: AR_PyTagShowIfCorrectCam
 - _21.04.2022_ New scripts: AR_FlipIt, AR_PyTagAlignToSpline
 - _20.04.2022_ New script: AR_DynaMesh (requires C4D 26)
-- _15.04.2022_ **Initial version of AR_Sripts for R25**
+- _15.04.2022_ **Initial version of AR_Scripts for R25**
 
 ## How to use
 In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for Maxon Cinema 4D R25.117 and Python 3.9.1. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.
@@ -331,6 +333,12 @@ Supports Xpresso and Redshift.
 **Shift:** Add only scale controller.  
 **Ctrl:** Add only offset controller.  
 **Alt:** Add only rotation controller.  
+Works only with Redshift.  
+>Notice: Make sure the Redshift material is selected when using the script!  
+
+### ![AR_NodeTexToMat](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeTexToMat.png) AR_NodeTexToMat.py
+**Default:** Creates material node from selected texture nodes or connects selected texture nodes to selected materials.  
+**Shift:** Change settings.  
 Works only with Redshift.  
 >Notice: Make sure the Redshift material is selected when using the script!  
 

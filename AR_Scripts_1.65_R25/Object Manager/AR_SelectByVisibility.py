@@ -3,14 +3,15 @@ AR_SelectByVisibility
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: SelectByVisibility
-Version: 1.0.1
+Name-US: AR_SelectByVisibility
+Version: 1.0.2
 Description-US: Selects objects by visibility
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
+1.0.2 (26.06.2022) - Fixed script name
 1.0.1 (29.03.2022) - Updated for R25
 """
 

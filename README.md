@@ -3,9 +3,12 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.65** _(Updated 19.05.2022)_
+Latest version: **1.66** _(Updated 18.08.2022)_
 
 ## Change Log
+- _18.08.2022_ Updated: AR_TagsSelect, if tag selection -> search and select that tag type
+- _18.08.2022_ Scripts comeback: AR_RemoveMissingTextureTags.py, AR_SelectSameColor.py
+- _18.08.2022_ Updated: AR_Dot.py, if object selection, create dot null after every selected object
 - _19.05.2022_ New Script: AR_NodeTexToMat.py
 - _06.05.2022_ Updated: AR_NodeAdd.py, added Change Range node
 - _03.05.2022_ New Script: AR_AbsRenderPaths.py
@@ -367,6 +370,9 @@ Supports object and tag selections.
 ### ![AR_RemoveEmptySelectionTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RemoveEmptySelectionTags.png) AR_RemoveEmptySelectionTags.py
 **Default:** Removes empty selection tags from selected object(s) or from all objects if no selection.  
 
+### ![AR_RemoveMissingTextureTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RemoveMissingTextureTags.png) AR_RemoveMissingTextureTags.py
+**Default:** Removes missing texture tags. If selection, removes only from selected objects.  
+
 ### ![AR_SelectByVisibility](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectByVisibility.png) AR_SelectByVisibility.py
 **Default:** Selects objects by visibility.  
 
@@ -407,6 +413,9 @@ Supports object and tag selections.
 **Default:** Selects the root object of the object.  
 **Shift:** Keeps the old selection.  
 
+### ![AR_SelectSameColor](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectSameColor.png) SelectSameColor.py
+**Default:** Selects objects that has same display color as the selected object.  
+
 ### ![AR_SelectSiblings](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectSiblings.png) AR_SelectSiblings.py
 **Default:** Selects the object's siblings.  
 **Ctrl:** Selects the object's siblings and deselects the original selection.  
@@ -435,9 +444,7 @@ Hierarcies has to be indetical!
 **Default:** Removes selected tag type from selected objects. If no object selection. Selected tag type will be removed from all objects.  
 
 ### ![AR_TagsSelect](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsSelect.png) AR_TagsSelect.py
-**Default:** Select tag(s) of selected object(s).  
-**Shift:*** Add to the selection.  
-**Ctrl:** Remove from the selection.  
+**Default:** Selects tag(s) of selected object(s). If only tags selected, selects that type of tags from other objects. You can also restrict the tag search with object selection.  
 
 ### ![AR_TagsShift](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TagsShift.png) AR_TagsShift.py
 Shifts selected tag(s).  

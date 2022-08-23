@@ -3,15 +3,17 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.66** _(Updated 18.08.2022)_
+Latest version: **1.67** _(Updated 23.08.2022)_
 
 ## Change Log
+- _23.08.2022_ New script: AR_ViewportColor
+- _19.08.2022_ Updated: AR_PyTagShowIfActive.py, added option to choose between "Selected" and " Active"
 - _18.08.2022_ Updated: AR_TagsSelect, if tag selection -> search and select that tag type
 - _18.08.2022_ Scripts comeback: AR_RemoveMissingTextureTags.py, AR_SelectSameColor.py
 - _18.08.2022_ Updated: AR_Dot.py, if object selection, create dot null after every selected object
-- _19.05.2022_ New Script: AR_NodeTexToMat.py
+- _19.05.2022_ New script: AR_NodeTexToMat.py
 - _06.05.2022_ Updated: AR_NodeAdd.py, added Change Range node
-- _03.05.2022_ New Script: AR_AbsRenderPaths.py
+- _03.05.2022_ New script: AR_AbsRenderPaths.py
 - _03.05.2022_ Bug fix: AR_AspectRatioGuide.py
 - _02.05.2022_ Updated: AR_AspectRatioGuide.py
 - _02.05.2022_ Major bug fix: AR_OpenRenderFolder.py
@@ -514,7 +516,7 @@ For example: Cinema 4D's native Render Queue does not work with relative render 
 **Alt+Shift:** Force disable.  
 **Alt+Ctrl:** Force enable.  
 **Shift+Ctrl:** Toggle from custom list.  
-**Alt+Ctrl+Shift:** Open textfile to modify custom. You can use hashtag '#' separating comments. Put each generator to separate line!.  
+**Alt+Ctrl+Shift:** Open textfile to modify custom. You can use hashtag '#' separating comments. Put each generator to separate line!  
 >Highly recommended to assign this script to a keyboard shortcut!  
 
 ## Viewport
@@ -532,6 +534,11 @@ The script requires and enables 'Full Animation Redraw' in Preferences/View.
 ### ![AR_TglGrid](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TglGrid.png) AR_TglGrid.py
 **Default:** Toggle ground grid visibility in the active viewport.  
 **Shift:** Toggle in all viewports.  
+
+### ![AR_ViewportColor](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ViewportColor.png) AR_ViewportColor.py
+**Default:** Changes viewport background color. Cycles through list of colors.  
+**Shift:** Sets viewport background color give nby HEX-colorcode.
+**Alt+Ctrl+Shift:** Open textfile to modify custom. You can use hashtag '#' separating comments. Put each color code to separate line!  
 
 ## Support the project
 If you find these scripts useful, consider to supporting the project and keeping it up and running: [Tip jar](https://paypal.me/aturtur).

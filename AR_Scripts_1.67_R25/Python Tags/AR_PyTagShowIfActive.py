@@ -4,7 +4,7 @@ AR_PyTagShowIfActive
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_PyTagShowIfActive
-Version: 1.0.0
+Version: 1.0.1
 Description-US: Adds a custom python tag for selected object(s)
 
 Written for Maxon Cinema 4D R25.117
@@ -12,6 +12,7 @@ Python version 3.9.1
 
 Change log:
 1.0.0 (05.04.2022) - First version
+1.0.1 (19.08.2022) - Added option to select between "Active" and "Selected"
 """
 
 # Libraries
@@ -19,6 +20,24 @@ import c4d
 from c4d import utils as u
 
 # Functions
+def CreateUserDataCycle(obj, name, val, parentGroup=None, unit=c4d.DESC_UNIT_LONG):
+    if obj is None: return False
+    bc = c4d.GetCustomDatatypeDefault(c4d.DTYPE_LONG)
+    bc[c4d.DESC_NAME] = name
+    bc[c4d.DESC_SHORT_NAME] = name
+    bc[c4d.DESC_ANIMATE] = c4d.DESC_ANIMATE_ON
+    bc[c4d.DESC_UNIT] = unit
+    bc[c4d.DESC_CUSTOMGUI] = c4d.CUSTOMGUI_CYCLE
+    cycleBC = c4d.BaseContainer()
+    items = val.split(',')
+    for i, item in enumerate(items):
+        cycleBC.SetString(i, item)
+    bc[c4d.DESC_CYCLE] = cycleBC
+    if parentGroup is not None:
+        bc[c4d.DESC_PARENTGROUP] = parentGroup
+    element = obj.AddUserData(bc)
+    return element
+
 def CreatePythonTag(obj):
     pyTag = c4d.BaseTag(1022749)
     scriptPath = __file__
@@ -27,6 +46,7 @@ def CreatePythonTag(obj):
     pyTag.SetName("AR Show If Active")
     obj.InsertTag(pyTag)
     doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, pyTag)
+    CreateUserDataCycle(pyTag, "Method", "Selected,Active")
 
     # Python Tag code
     # -------------------------------------------------------
@@ -44,10 +64,17 @@ import c4d\n\
 # Functions\n\
 def main():\n\
     obj = op.GetObject() # Get object\n\
-    if obj == doc.GetActiveObject(): # If object is active\n\
-        obj[c4d.ID_BASEOBJECT_VISIBILITY_EDITOR] = 0 # Set 'Visible in Editor' to 'On'\n\
-    else: # Otherwise\n\
-        obj[c4d.ID_BASEOBJECT_VISIBILITY_EDITOR] = 1 # Set 'Visible in Editor' to 'Off'"
+    method = op[c4d.ID_USERDATA,1]\n\
+    if method == 1:\n\
+        if obj == doc.GetActiveObject(): # If object is active\n\
+            obj[c4d.ID_BASEOBJECT_VISIBILITY_EDITOR] = 0 # Set 'Visible in Editor' to 'On'\n\
+        else: # Otherwise\n\
+            obj[c4d.ID_BASEOBJECT_VISIBILITY_EDITOR] = 1 # Set 'Visible in Editor' to 'Off'\n\
+    elif method == 0:\n\
+        if obj.GetBit(c4d.BIT_ACTIVE) == True: # If object is active\n\
+            obj[c4d.ID_BASEOBJECT_VISIBILITY_EDITOR] = 0 # Set 'Visible in Editor' to 'On'\n\
+        else: # Otherwise\n\
+            obj[c4d.ID_BASEOBJECT_VISIBILITY_EDITOR] = 1 # Set 'Visible in Editor' to 'Off'"
     # -------------------------------------------------------
 
     return True # All good

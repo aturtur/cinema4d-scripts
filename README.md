@@ -472,7 +472,7 @@ Set frame range with dash (-) and separate different frames and ranges with a co
 ### ![AR_PyTagShowIfActive](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfActive.png) AR_PyTagShowIfActive.py
 **Default:** Adds a custom python tag for selected object(s) that shows the object only if it is active.  
 
-### ![AR_PyTagShowIfActiveCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfCorrectCam.png) AR_PyTagShowIfCorrectCam.py
+### ![AR_PyTagShowIfActiveCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfCorrectCam.png) AR_PyTagShowIfActiveCam.py
 **Default:** Adds a custom python tag for selected object(s) that shows and hides camera if it is active or not.  
 
 ### ![AR_PyTagShowIfCorrectCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfCorrectCam.png) AR_PyTagShowIfCorrectCam.py

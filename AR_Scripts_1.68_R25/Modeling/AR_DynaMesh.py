@@ -4,7 +4,7 @@ AR_DynaMesh
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_DynaMesh
-Version: 1.0.0
+Version: 1.0.1
 Description-US: Remeshes selected object with ZRemesher.
 
 Note: Requires Cinema 4D R26!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R26.013
 Python version 3.9.1
 
 Change log:
+1.0.1 (17.09.2022) - Support for material
 1.0.0 (20.04.2022) - Initial version
 """
 
@@ -66,12 +67,6 @@ def GetKeyMod():
         else: # No keyboard modifiers used
             keyMod = 'None'
         return keyMod
-
-def GetC4DVersion():
-    c4dversion = c4d.GetC4DVersion()
-    releaseVersion = int(str(c4dversion)[:2])
-    buildVersion = int(str(c4dversion)[:2])
-    return releaseVersion, buildVersion
 
 def GetFolderSeparator():
     if c4d.GeGetCurrentOS() == c4d.OPERATINGSYSTEM_WIN: # If operating system is Windows
@@ -151,6 +146,15 @@ def DynaMesh(doc, op, settings):
     doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, remesh)
     doc.AddUndo(c4d.UNDOTYPE_CHANGE, op)
     op.InsertUnder(remesh) # Add remesh to project
+
+    tags = op.GetTags()
+    for t in tags:
+        if t.GetType() == 5616:
+            cloneTag = t.GetClone() # Clone texture tag
+            remesh.InsertTag(cloneTag) # Insert texture tag to remesh
+            doc.AddUndo(c4d.UNDOTYPE_DELETE, t) # Add undo command for removing tag
+            t.Remove() # Remove tag
+
     obj = CurrentStateToObject(doc, remesh)
     doc.InsertObject(obj, pred=remesh)
     doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, obj)
@@ -181,7 +185,7 @@ class Dialog(GeDialog):
         self.GroupBegin(GRP_FCTR, c4d.BFH_CENTER, 2, 1) # Begin Main group
         self.AddStaticText(TXT_FCTR, c4d.BFH_LEFT, name="Factor")
         self.AddEditNumberArrows(NUM_FCTR, c4d.BFH_LEFT, 70, 0)
-        self.GroupEnd() # End Buttons group        
+        self.GroupEnd() # End Buttons group
 
         self.GroupBegin(GRP_CHK, c4d.BFH_CENTER, 1, 3, "Checkboxes") # Begin Buttons group
         self.AddCheckbox(CHK_SYM_X, c4d.BFH_LEFT, 0, 0, "Symmetric X")
@@ -218,7 +222,7 @@ class Dialog(GeDialog):
         # User presses Cancel button
         if paramid == BTN_CNL:
             self.Close() # Close dialog
-        
+
         # User presses Ok button
         if paramid == BTN_OK:
             saveSettings(f, x, y, z)

@@ -59,7 +59,7 @@ def CreatePythonTag(obj):
     scriptPath = __file__
     iconPath = scriptPath.rsplit('.', 1)[0]+".tif"
     pyTag[c4d.ID_BASELIST_ICON_FILE] = iconPath
-    pyTag.SetName("AR Show When Animated")
+    pyTag.SetName("AR Show Given Frames")
     obj.InsertTag(pyTag)
     doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, pyTag)
 

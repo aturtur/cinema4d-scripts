@@ -4,22 +4,23 @@ AR_Folder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_Folder
-Version: 1.0.9
+Version: 1.0.10
 Description-US: Creates a folder null that keeps your project nice and tidy.
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
-1.0.9 (04.04.2022) - 'Adopt layer' and 'open' options added.
-1.0.8 (02.04.2022) - Added icons! Color update. World Zero option added.
-1.0.7 (29.03.2022) - Instead of carrying txt-file for options along with the script, it will create options file to C4D's preference folder.
-1.0.6 (09.10.2021) - Updated for R25
-1.0.5 (07.09.2021) - Added color option 'None' (No color, just default settings)
-1.0.4 (15.03.2021) - Added and autolayer python tag and some kind of support for R20
-1.0.3 (14.03.2021) - Cinema 4D R23 support for separator python tag
-1.0.2 (12.03.2021) - Big update, a lot of changes and new features
-1.0.1 (07.11.2020) - Added support for Esc and Enter keys
+1.0.10 (16.09.2022) - Added support for Cinema 4D 2023
+1.0.09 (04.04.2022) - 'Adopt layer' and 'open' options added
+1.0.08 (02.04.2022) - Added icons! Color update. World Zero option added
+1.0.07 (29.03.2022) - Instead of carrying txt-file for options along with the script, it will create options file to C4D's preference folder
+1.0.06 (09.10.2021) - Updated for R25
+1.0.05 (07.09.2021) - Added color option 'None' (No color, just default settings)
+1.0.04 (15.03.2021) - Added and autolayer python tag and some kind of support for R20
+1.0.03 (14.03.2021) - Cinema 4D R23 support for separator python tag
+1.0.02 (12.03.2021) - Big update, a lot of changes and new features
+1.0.01 (07.11.2020) - Added support for Esc and Enter keys
 
 Color names from here:
     https://chir.ag/projects/name-that-color/
@@ -187,12 +188,6 @@ def CheckFiles():
         f.write("Null\n4012\n1\n0\n5001\n6004\n0,0,0\n1\n0") # Default settings
         f.close()
     return filePath
-
-def GetC4DVersion():
-    c4dversion = c4d.GetC4DVersion()
-    releaseVersion = int(str(c4dversion)[:2])
-    buildVersion = int(str(c4dversion)[:2])
-    return releaseVersion, buildVersion
 
 def CreateUserDataString(obj, name, link, parentGroup=None, shortname=None):
     if obj is None: return False
@@ -514,20 +509,20 @@ def main():\n\
     randomColor = c4d.Vector(randRed, randGreen, randBlue)
 
     colors = {
-        COL_MIMOSA:      c4d.Vector(float(251.0/255.0), float(253.0/255.0), float(212.0/255.0)),  
-        COL_SALMON:      c4d.Vector(float(255.0/255.0), float(159.0/255.0), float(155.0/255.0)),  
-        COL_PARFUME:     c4d.Vector(float(239.0/255.0), float(175.0/255.0), float(245.0/255.0)),  
-        COL_JELLYBEAN:   c4d.Vector(float(227.0/255.0), float(91.0/255.0), float(91.0/255.0)),  
-        COL_TOPAZ:       c4d.Vector(float(255.0/255.0), float(197.0/255.0), float(121.0/255.0)), 
-        COL_ANZAC:       c4d.Vector(float(222.0/255.0), float(151.0/255.0), float(69.0/255.0)),  
-        COL_LAVENBLUE:   c4d.Vector(float(197.0/255.0), float(212.0/255.0), float(248.0/255.0)),  
-        COL_PALECYAN:    c4d.Vector(float(142.0/255.0), float(220.0/255.0), float(252.0/255.0)),   
+        COL_MIMOSA:      c4d.Vector(float(251.0/255.0), float(253.0/255.0), float(212.0/255.0)),
+        COL_SALMON:      c4d.Vector(float(255.0/255.0), float(159.0/255.0), float(155.0/255.0)),
+        COL_PARFUME:     c4d.Vector(float(239.0/255.0), float(175.0/255.0), float(245.0/255.0)),
+        COL_JELLYBEAN:   c4d.Vector(float(227.0/255.0), float(91.0/255.0), float(91.0/255.0)),
+        COL_TOPAZ:       c4d.Vector(float(255.0/255.0), float(197.0/255.0), float(121.0/255.0)),
+        COL_ANZAC:       c4d.Vector(float(222.0/255.0), float(151.0/255.0), float(69.0/255.0)),
+        COL_LAVENBLUE:   c4d.Vector(float(197.0/255.0), float(212.0/255.0), float(248.0/255.0)),
+        COL_PALECYAN:    c4d.Vector(float(142.0/255.0), float(220.0/255.0), float(252.0/255.0)),
         COL_MELROSE:     c4d.Vector(float(153.0/255.0), float(153.0/255.0), float(255.0/255.0)),
-        COL_AQUAMARINE:  c4d.Vector(float(143.0/255.0), float(255.0/255.0), float(188.0/255.0)),  
-        COL_PASTELGRN:   c4d.Vector(float(108.0/255.0), float(229.0/255.0), float(130.0/255.0)), 
-        COL_NOBEL:       c4d.Vector(float(179.0/255.0), float(179.0/255.0), float(179.0/255.0)), 
-        COL_GRANITE:     c4d.Vector(float(102.0/255.0), float(102.0/255.0), float(102.0/255.0)), 
-        COL_CAPECOD:     c4d.Vector(float(60.0/255.0), float(61.0/255.0), float(61.0/255.0)), 
+        COL_AQUAMARINE:  c4d.Vector(float(143.0/255.0), float(255.0/255.0), float(188.0/255.0)),
+        COL_PASTELGRN:   c4d.Vector(float(108.0/255.0), float(229.0/255.0), float(130.0/255.0)),
+        COL_NOBEL:       c4d.Vector(float(179.0/255.0), float(179.0/255.0), float(179.0/255.0)),
+        COL_GRANITE:     c4d.Vector(float(102.0/255.0), float(102.0/255.0), float(102.0/255.0)),
+        COL_CAPECOD:     c4d.Vector(float(60.0/255.0), float(61.0/255.0), float(61.0/255.0)),
         COL_RANDOM:      randomColor, # Random color
         COL_CUSTOM:      customColor, # Custom color
         COL_NONE:        None         # No color
@@ -546,8 +541,6 @@ def main():\n\
     selection = doc.GetActiveObjects(0) # Get active selection
 
     # Null object
-    c4dver, c4dbuild = GetC4DVersion()
-
     null = c4d.BaseObject(c4d.Onull) # Initialize a null object
     null.SetName(name) # Set null object's name
     null[c4d.NULLOBJECT_DISPLAY] = 14 # Display: None
@@ -561,18 +554,12 @@ def main():\n\
         else: # Otherwise
             pass # Do nothing
 
-    if (c4dver > 20):
-        null[c4d.ID_BASELIST_ICON_FILE] = icon # Folder icon
-        if color != None:
-            null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Icon Color: Custom
-            null[c4d.ID_BASELIST_ICON_COLOR] = color
-        else:
-            pass
+    null[c4d.ID_BASELIST_ICON_FILE] = icon # Folder icon
+    if color != None:
+        null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Icon Color: Custom
+        null[c4d.ID_BASELIST_ICON_COLOR] = color
     else:
-        if color != None:
-            null[c4d.NULLOBJECT_ICONCOL] = True
-        else:
-            pass
+        pass
 
     if color != None:
         null[c4d.ID_BASEOBJECT_USECOLOR] = 2 # Display Color: On
@@ -672,7 +659,6 @@ class Dialog(GeDialog):
     # Create Dialog
     def CreateLayout(self):
         global customColor
-        c4dver, c4dbuild = GetC4DVersion()
 
         self.SetTitle("Create Folder Null") # Set dialog title
         # ----------------------------------------------------------------------------------------
@@ -680,22 +666,18 @@ class Dialog(GeDialog):
         self.GroupBorderSpace(5, 5, 5, 5)
         # ----------------------------------------------------------------------------------------
         # Inputs
-        if (c4dver > 20):
-            self.GroupBegin(GRP_MAIN, c4d.BFH_LEFT, 4, 1, "") # Begin 'Main' group
-        else:
-            self.GroupBegin(GRP_MAIN, c4d.BFH_LEFT, 3, 1, "") # Begin 'Main' group
+        self.GroupBegin(GRP_MAIN, c4d.BFH_LEFT, 4, 1, "") # Begin 'Main' group
         self.GroupBorderSpace(5, 3, 5, 3)
         #self.GroupBorderNoTitle(c4d.BORDER_GROUP_IN)
         self.AddEditText(FOL_NAMEINPUT, c4d.BFH_LEFT, initw=200, inith=0)
 
         # Icon
-        if (c4dver > 20):
-            self.AddComboBox(FOL_ICONCB, c4d.BFH_LEFT, 35, 13)
-            self.AddChild(FOL_ICONCB, ICO_NULL, "Null&i5140&") # Null
-            self.AddChild(FOL_ICONCB, COL_SEP, "") # Separator line
-            self.AddChild(FOL_ICONCB, ICO_OPEN, "Folder 1&i1052838&") # Open folder
-            self.AddChild(FOL_ICONCB, ICO_FOLDER, "Folder 2&i1052837&") # Closed folder
-            self.AddChild(FOL_ICONCB, ICO_CIRCLE, "Circle&i17106&") # Circle
+        self.AddComboBox(FOL_ICONCB, c4d.BFH_LEFT, 35, 13)
+        self.AddChild(FOL_ICONCB, ICO_NULL, "Null&i5140&") # Null
+        self.AddChild(FOL_ICONCB, COL_SEP, "") # Separator line
+        self.AddChild(FOL_ICONCB, ICO_OPEN, "Folder 1&i1052838&") # Open folder
+        self.AddChild(FOL_ICONCB, ICO_FOLDER, "Folder 2&i1052837&") # Closed folder
+        self.AddChild(FOL_ICONCB, ICO_CIRCLE, "Circle&i17106&") # Circle
 
         # Color
         self.AddComboBox(FOL_COLORCB, c4d.BFH_LEFT, 35, 13)
@@ -717,7 +699,7 @@ class Dialog(GeDialog):
         self.AddChild(FOL_COLORCB, COL_NOBEL, "Nobel&i"+str(ID_COL_NOBEL)+"&")
         self.AddChild(FOL_COLORCB, COL_GRANITE, "Granite&i"+str(ID_COL_GRANITE)+"&")
         self.AddChild(FOL_COLORCB, COL_CAPECOD, "Cape Cod&i"+str(ID_COL_CAPECOD)+"&")
-        
+
         # Layers
         self.AddComboBox(FOL_LAYERCB, c4d.BFH_RIGHT, 35, 13)
         self.AddChild(FOL_LAYERCB, LAY_NONE, "No Layer&i"+str(ID_LAY_NOLAYER)+"&")
@@ -731,7 +713,8 @@ class Dialog(GeDialog):
 
         #
         self.GroupBegin(9000, c4d.BFH_SCALEFIT, 4, 1, "") # Begin 'Alt' group
-        self.GroupBorderNoTitle(c4d.BORDER_GROUP_IN)
+        #self.GroupBorderNoTitle(c4d.BORDER_GROUP_IN)
+        #self.GroupBorder(c4d.BORDER_NONE)
         self.GroupBorderSpace(5, 0, 5, 0)
         self.AddCheckbox(FOL_WORLDZERO, c4d.BFH_CENTER | c4d.BFH_SCALEFIT, 0, 13, "Place to origin ")
         self.AddCheckbox(FOL_PROTECT, c4d.BFH_CENTER | c4d.BFH_SCALEFIT, 0, 13, "Protected ")
@@ -744,8 +727,7 @@ class Dialog(GeDialog):
         self.SetString(FOL_NAMEINPUT, str(settings['setName']))
         self.SetInt32(FOL_COLORCB,    int(settings['setColor']))
 
-        if (c4dver > 20):
-            self.SetInt32(FOL_ICONCB, int(settings['setIcon']))
+        self.SetInt32(FOL_ICONCB, int(settings['setIcon']))
 
         self.SetInt32(FOL_LAYERCB,   int(settings['setLayer']))
         self.SetBool(FOL_PROTECT,    int(settings['setProtect']))
@@ -770,7 +752,6 @@ class Dialog(GeDialog):
     # Processing
     def Command(self, paramid, msg): # Handling commands (pressed button etc.)
         global customColor
-        c4dver, c4dbuild = GetC4DVersion()
         bc = c4d.BaseContainer() # Initialize a base container
 
         name        = str(self.GetString(FOL_NAMEINPUT)) # Get name
@@ -779,12 +760,7 @@ class Dialog(GeDialog):
         separator   = int(self.GetBool(FOL_SEPARATOR)) # Get separator
         worldzero   = int(self.GetBool(FOL_WORLDZERO)) # Get world zero
         openfolder  = int(self.GetBool(FOL_OPEN)) # Get open
-
-        if (c4dver > 20):
-            icon    = int(self.GetInt32(FOL_ICONCB)) # Get icon
-        else:
-            icon    = int(5005)
-
+        icon        = int(self.GetInt32(FOL_ICONCB)) # Get icon
         layer       = int(self.GetInt32(FOL_LAYERCB)) # Get layer option
 
         # Actions here

@@ -7,7 +7,7 @@ Name-US: AR_AxisToOrigin
 Version: 1.0.0
 Description-US: Sets object's axis to world origin.
 
-Note: Currently does not support normal tags
+Note: Currently does not support normal tags!
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1

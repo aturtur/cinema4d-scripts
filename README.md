@@ -3,10 +3,14 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.67** _(Updated 23.08.2022)_
+Latest version: **1.68** _(Updated 16.09.2022)_
 
 ## Change Log
-- _23.08.2022_ New script: AR_ViewportColor
+
+- _16.09.2022_ New script: AR_PyTagShowIfActiveCam.py
+- _16.09.2022_ Updated: AR_DynaMesh.py, added support for material
+- _16.09.2022_ Updated: AR_Folder.py, added support for Cinema 4D 2023
+- _23.08.2022_ New script: AR_ViewportColor.py
 - _19.08.2022_ Updated: AR_PyTagShowIfActive.py, added option to choose between "Selected" and " Active"
 - _18.08.2022_ Updated: AR_TagsSelect, if tag selection -> search and select that tag type
 - _18.08.2022_ Scripts comeback: AR_RemoveMissingTextureTags.py, AR_SelectSameColor.py
@@ -467,6 +471,9 @@ Set frame range with dash (-) and separate different frames and ranges with a co
 
 ### ![AR_PyTagShowIfActive](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfActive.png) AR_PyTagShowIfActive.py
 **Default:** Adds a custom python tag for selected object(s) that shows the object only if it is active.  
+
+### ![AR_PyTagShowIfActiveCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfCorrectCam.png) AR_PyTagShowIfCorrectCam.py
+**Default:** Adds a custom python tag for selected object(s) that shows and hides camera if it is active or not.  
 
 ### ![AR_PyTagShowIfCorrectCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowIfCorrectCam.png) AR_PyTagShowIfCorrectCam.py
 **Default:** Adds a custom python tag for selected object(s) that shows and hides object based on assigned camera.  

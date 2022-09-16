@@ -17,7 +17,7 @@ def main():
     # Import the asset
     st.Import(path=assetPath, # Asset path
               icon=__file__,  # Icon path
-              color=None,     # Color in c4d.Vector() format
+              color=None,     # Icon color in c4d.Vector() format
               matsOnly=False) # If 'True' imports only materials from asset file
 
 # Execute main()

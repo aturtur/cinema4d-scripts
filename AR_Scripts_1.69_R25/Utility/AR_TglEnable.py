@@ -1,10 +1,10 @@
 """
-AR_ToggleEnable
+AR_TglEnable
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_ToggleEnable
-Version: 1.0.7
+Name-US: AR_TglEnable
+Version: 1.0.8
 Description-US: Enables or disables generator. Shift: Toggle next parent generator. Ctrl: Toggle root generator. Alt: Toggle generator family
 
 Written for Maxon Cinema 4D R25.010
@@ -22,6 +22,7 @@ CTRL+SHIFT: Toggle from custom list.
 ALT+CTRL+SHIFT: Open textfile to modify custom. You can use hashtag '#' separating comments. Put each generator to own line!
 
 Change log:
+1.0.8 (23.09.2022) - Added Insydium NeXus stuff.
 1.0.7 (29.03.2022) - Instead of carrying txt-file for options along with the script, it will create options file to C4D's preference folder.
 1.0.6 (23.03.2022) - Added support Insydium stuff.
 1.0.5 (20.10.2021) - Updated for R25.
@@ -423,7 +424,24 @@ def main():
                 1037688, # cyEnvironment
                 1058347, # toPlant                  Taio
                 1058580, # toGrass
-                1058015  # toTree
+                1058015, # toTree
+                1059838, # nxWind                   NeXus
+                1059907, # nxVorticity
+                1059404, # nxTurbulence
+                1059801, # nxSpeed
+                1059802, # nxScale
+                1059773, # nxPush
+                1059789, # nxRotate
+                1059792, # nxKill
+                1059389, # nxGravity
+                1059816, # nxExplode
+                1059774, # nxDrag
+                1059803, # nxDirection
+                1059788, # nxBlend
+                1059785, # nxAttract
+                1059731, # nxFoam
+                1059048, # nxFluids
+                1059475  # nxConstraints
     ]
 
     default = generators + mggenerators

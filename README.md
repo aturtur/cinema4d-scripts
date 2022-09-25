@@ -3,10 +3,11 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.68** _(Updated 16.09.2022)_
+Latest version: **1.69** _(Updated 25.09.2022)_
 
 ## Change Log
-
+- _24.09.2022_ Updated: AR_TglEnable.py, support for Insydium NeXus stuff, fixed script name
+- _24.09.2022_ Updated: AR_Dot.py, darker icon
 - _16.09.2022_ New script: AR_PyTagShowIfActiveCam.py
 - _16.09.2022_ Updated: AR_DynaMesh.py, added support for material
 - _16.09.2022_ Updated: AR_Folder.py, added support for Cinema 4D 2023
@@ -546,6 +547,12 @@ The script requires and enables 'Full Animation Redraw' in Preferences/View.
 **Default:** Changes viewport background color. Cycles through list of colors.  
 **Shift:** Sets viewport background color give nby HEX-colorcode.
 **Alt+Ctrl+Shift:** Open textfile to modify custom. You can use hashtag '#' separating comments. Put each color code to separate line!  
+
+## Modules
+### ar_shelf_tool.py
+More information here: [Shelf tool script for Cinema 4D](https://aturtur.com/shelf-tool-script-for-cinema-4d/)
+Version: 1.0.4
+Latest update: Alt+Ctrl+Shift keymodifier opens the asset document (for modification purpose)
 
 ## Support the project
 If you find these scripts useful, consider to supporting the project and keeping it up and running: [Tip jar](https://paypal.me/aturtur).

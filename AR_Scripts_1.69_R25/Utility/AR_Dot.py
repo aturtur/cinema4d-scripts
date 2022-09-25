@@ -18,6 +18,9 @@ Change log:
 # Libraries
 import c4d
 
+# Global variables
+color = c4d.Vector(0.235, 0.239, 0.239)
+
 # Functions
 def GetKeyMod():
     bc = c4d.BaseContainer() # Initialize a base container
@@ -46,10 +49,12 @@ def GetKeyMod():
         return keyMod
 
 def CreateDot():
+    global color
+
     null = c4d.BaseObject(c4d.Onull) # Init a null object
     null[c4d.ID_BASELIST_ICON_FILE] = "17106" # Set icon to 'Circle'
     null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Set icon color to 'Custom'
-    null[c4d.ID_BASELIST_ICON_COLOR] = c4d.Vector(0.235, 0.239, 0.239) # Set icon color
+    null[c4d.ID_BASELIST_ICON_COLOR] = color # Set icon color
     null[c4d.NULLOBJECT_DISPLAY] = 14 # Set shape to 'None'
     null.SetName(" ") # Set null's name
     return null # Return the null object

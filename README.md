@@ -6,7 +6,7 @@ My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.
 Latest version: **1.70** _(Released 20.11.2022)_
 
 ## Change Log
-**Changes in 1.70**
+**Changes in 1.70**  
 - _20.11.2022_ Updated: AR_ExportMat, added progress bar
 - _18.11.2022_ Updated: AR_BakeCam, AR_BakePLA, AR_BakePSR, progress bar added, parallel processing
 - _18.11.2022_ Updated: AR_SelectDeepest, AR_SelectDown, AR_SelectNext, AR_SelectPrev, AR_SelectRoot, AR_SelectUp, better support for hotkeys
@@ -17,8 +17,8 @@ Latest version: **1.70** _(Released 20.11.2022)_
 - _10.11.2022_ Updated: AR_BakeCamera and AR_AspectRatioGuide, support for Redshift Camera object (new in C4D 2023.1.0)
 - _08.11.2022_ Updated: AR_ViewportColor, dialog for presets. AR_RandomColors, option to colorize objects with a gradient
 - _02.11.2022_ New script: AR_ColorizeLayersWithGradient
-- _01.11.2022_ New script: AR_ExportMat
-**Older changes**
+- _01.11.2022_ New script: AR_ExportMat  
+**Older changes**  
 - _24.09.2022_ Updated: AR_TglEnable, support for Insydium NeXus stuff, fixed script name
 - _24.09.2022_ Updated: AR_Dot, darker icon
 - _16.09.2022_ New script: AR_PyTagShowIfActiveCam

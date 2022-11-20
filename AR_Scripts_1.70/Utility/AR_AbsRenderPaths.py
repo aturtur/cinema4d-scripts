@@ -1,10 +1,10 @@
 """
-AR_AbsRenderPaths.py
+AR_AbsRenderPaths
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_AbsRenderPaths.py
-Version: 1.0.1
+Name-US: AR_AbsRenderPaths
+Version: 1.0.0
 Description-US: Converts relative render paths to absolute.
 
 Written for Maxon Cinema 4D R26.014

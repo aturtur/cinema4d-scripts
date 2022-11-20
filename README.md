@@ -3,30 +3,43 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.69** _(Updated 25.09.2022)_
+Latest version: **1.70** _(Released 20.11.2022)_
 
 ## Change Log
-- _24.09.2022_ Updated: AR_TglEnable.py, support for Insydium NeXus stuff, fixed script name
-- _24.09.2022_ Updated: AR_Dot.py, darker icon
-- _16.09.2022_ New script: AR_PyTagShowIfActiveCam.py
-- _16.09.2022_ Updated: AR_DynaMesh.py, added support for material
-- _16.09.2022_ Updated: AR_Folder.py, added support for Cinema 4D 2023
-- _23.08.2022_ New script: AR_ViewportColor.py
-- _19.08.2022_ Updated: AR_PyTagShowIfActive.py, added option to choose between "Selected" and " Active"
+**Changes in 1.70**
+- _20.11.2022_ Updated: AR_ExportMat, added progress bar
+- _18.11.2022_ Updated: AR_BakeCam, AR_BakePLA, AR_BakePSR, progress bar added, parallel processing
+- _18.11.2022_ Updated: AR_SelectDeepest, AR_SelectDown, AR_SelectNext, AR_SelectPrev, AR_SelectRoot, AR_SelectUp, better support for hotkeys
+- _17.11.2022_ Updated: AR_ExportC4D, AR_ExportOBJ, progress bar
+- _17.11.2022_ Updated: AR_Folder, fixed bug when user cancels picking a custom color
+- _16.11.2022_ Updated: AR_Dot, Added option to change the color
+- _15.11.2022_ Updated: AT_NodeAdd, fixed AOV port
+- _10.11.2022_ Updated: AR_BakeCamera and AR_AspectRatioGuide, support for Redshift Camera object (new in C4D 2023.1.0)
+- _08.11.2022_ Updated: AR_ViewportColor, dialog for presets. AR_RandomColors, option to colorize objects with a gradient
+- _02.11.2022_ New script: AR_ColorizeLayersWithGradient
+- _01.11.2022_ New script: AR_ExportMat
+**Older changes**
+- _24.09.2022_ Updated: AR_TglEnable, support for Insydium NeXus stuff, fixed script name
+- _24.09.2022_ Updated: AR_Dot, darker icon
+- _16.09.2022_ New script: AR_PyTagShowIfActiveCam
+- _16.09.2022_ Updated: AR_DynaMesh, added support for material
+- _16.09.2022_ Updated: AR_Folder, added support for Cinema 4D 2023
+- _23.08.2022_ New script: AR_ViewportColor
+- _19.08.2022_ Updated: AR_PyTagShowIfActive, added option to choose between "Selected" and " Active"
 - _18.08.2022_ Updated: AR_TagsSelect, if tag selection -> search and select that tag type
-- _18.08.2022_ Scripts comeback: AR_RemoveMissingTextureTags.py, AR_SelectSameColor.py
-- _18.08.2022_ Updated: AR_Dot.py, if object selection, create dot null after every selected object
-- _19.05.2022_ New script: AR_NodeTexToMat.py
-- _06.05.2022_ Updated: AR_NodeAdd.py, added Change Range node
-- _03.05.2022_ New script: AR_AbsRenderPaths.py
-- _03.05.2022_ Bug fix: AR_AspectRatioGuide.py
-- _02.05.2022_ Updated: AR_AspectRatioGuide.py
-- _02.05.2022_ Major bug fix: AR_OpenRenderFolder.py
-- _02.05.2022_ New scripts: AR_Dot.py, AR_PyTagShowGivenFrames.py
-- _29.04.2022_ New scripts: AR_KeysAlign.py, AR_KeysValueAdd, AR_KeysValueSub, AR_NodeResize
-- _29.04.2022_ Updated: AR_KeysMoveL.py, AR_KeysMoveL.py (saves custom step and sets it as default value), AR_BakePLA.py
-- _26.04.2022_ New script: AR_OpenProjectFolder.py
-- _26.04.2022_ Bug fixes: AR_TracksRemap, AR_OpenRenderFolder.py
+- _18.08.2022_ Scripts comeback: AR_RemoveMissingTextureTags, AR_SelectSameColor
+- _18.08.2022_ Updated: AR_Dot, if object selection, create dot null after every selected object
+- _19.05.2022_ New script: AR_NodeTexToMat
+- _06.05.2022_ Updated: AR_NodeAdd, added Change Range node
+- _03.05.2022_ New script: AR_AbsRenderPaths
+- _03.05.2022_ Bug fix: AR_AspectRatioGuide
+- _02.05.2022_ Updated: AR_AspectRatioGuide
+- _02.05.2022_ Major bug fix: AR_OpenRenderFolder
+- _02.05.2022_ New scripts: AR_Dot, AR_PyTagShowGivenFrames
+- _29.04.2022_ New scripts: AR_KeysAlign, AR_KeysValueAdd, AR_KeysValueSub, AR_NodeResize
+- _29.04.2022_ Updated: AR_KeysMoveL, AR_KeysMoveL (saves custom step and sets it as default value), AR_BakePLA
+- _26.04.2022_ New script: AR_OpenProjectFolder
+- _26.04.2022_ Bug fixes: AR_TracksRemap, AR_OpenRenderFolder
 - _25.04.2022_ Minor fix: AR_OpenBugReportsFolder
 - _25.04.2022_ New scripts: AR_DeleteARPrefs, AR_SortABC, AR_SortRandom
 - _22.04.2022_ New script: AR_PyTagShowIfCorrectCam
@@ -35,7 +48,7 @@ Latest version: **1.69** _(Updated 25.09.2022)_
 - _15.04.2022_ **Initial version of AR_Scripts for R25**
 
 ## How to use
-In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for Maxon Cinema 4D R25.117 and Python 3.9.1. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.
+In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for Maxon Cinema 4D 2023.1.0 and Python 3.9.1. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.
 
 _Use these scripts with your own risk!_
 
@@ -146,6 +159,10 @@ Preview range will determine the frame range that will be exported.
 
 ### ![AR_ExportC4D](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportC4D.png) AR_ExportC4D.py
 **Default:** Exports top level objects individually to C4D-file. Supports object selection.  
+
+### ![AR_ExportMat](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportMat.png) AR_ExportMat.py
+**Default:** Exports selected material(s) to own file(s).
+>Note: Material names should NOT end with dot and number! Eg. "MyMaterial.1" rename that to "MyMaterial_1" or something different. Currently the script does not copy textures to the export location, use global paths!  
 
 ### ![AR_ExportOBJ](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportOBJ.png) AR_ExportOBJ.py
 **Default:** Exports top level objects individually to OBJ-file. Supports object selection.  
@@ -371,7 +388,7 @@ Supports object and tag selections.
 ### ![AR_RandomColors](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RandomColors.png) AR_RandomColors.py
 **Default:** Gives a random display color to selected object(s).  
 **Shift:** Gives a random grayscale display color to selected object(s).  
-**Ctrl:** Cycles predefined colors and assigns them to selected object(s).  
+**Ctrl:** Colorize objects randomly based on a custom gradient.   
 **Alt:** Reset color.  
 
 ### ![AR_RemoveEmptySelectionTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_RemoveEmptySelectionTags.png) AR_RemoveEmptySelectionTags.py
@@ -493,6 +510,9 @@ Extracts 2D tracks from selected motion tracker to null objects.
 **Default:** Converts relative render paths to absolute paths.  
 For example: Cinema 4D's native Render Queue does not work with relative render paths, so this scripts helps to convert render paths.  
 
+### ![AR_ColorizeLayersWithGradient](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ColorizeLayersWithGradient.png) AR_ColorizeLayersWithGradient.py
+**Default:** Colorizes selected layers with custom gradient.  
+
 ### ![AR_DeleteARPrefs](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DeleteARPrefs.png) AR_DeleteARPrefs.py
 **Default:** Deletes aturtur folder inside prefs folder, where some of scripts saves user's custom settings.  
 **Shift:** Opens the folder location.  
@@ -544,9 +564,8 @@ The script requires and enables 'Full Animation Redraw' in Preferences/View.
 **Shift:** Toggle in all viewports.  
 
 ### ![AR_ViewportColor](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ViewportColor.png) AR_ViewportColor.py
-**Default:** Changes viewport background color. Cycles through list of colors.  
-**Shift:** Sets viewport background color give nby HEX-colorcode.
-**Alt+Ctrl+Shift:** Open textfile to modify custom. You can use hashtag '#' separating comments. Put each color code to separate line!  
+**Default:** Opens a dialog where you can select a preset to change viewport color.
+**Alt+Ctrl+Shift:** Open textfile to modify custom. Use hashtag '#' separating preset name. Put each color code to separate line!  
 
 ## Modules
 ### ar_shelf_tool.py

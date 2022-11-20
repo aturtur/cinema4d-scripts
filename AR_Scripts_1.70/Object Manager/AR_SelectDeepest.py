@@ -4,13 +4,14 @@ AR_SelectDeepest
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_SelectDeepest
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Default: Select children of selected object(s) that are the most deep in hierarchy. Shift: Keep original selection.
 
-Written for Maxon Cinema 4D R25.010
+Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
+1.0.2 (18.11.2022) - Hotkey fix
 1.0.1 (20.01.2022) - R25 update
 """
 
@@ -169,11 +170,11 @@ def main():
     keyMod = GetKeyMod() # Get keymodifier
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_SELECTIONORDER)   
 
-    if keyMod == "None":
+    if (keyMod == "None") or (keyMod == "Alt"):
         for obj in selection: # Loop through selection
             Deselect(obj) # Deselect selected object
             Select(FindDeepest(obj)) # Select deepest chldren object(s)
-    elif keyMod == "Shift":
+    elif (keyMod == "Shift") or (keyMod == "Alt+Shift"):
         for obj in selection: # Loop through selection
             Select(FindDeepest(obj)) # Select deepest chldren object(s)
 

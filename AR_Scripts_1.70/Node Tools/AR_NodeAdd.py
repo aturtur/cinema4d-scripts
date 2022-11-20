@@ -4,7 +4,7 @@ AR_NodeAdd
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodeAdd
-Version: 1.0.1
+Version: 1.1.1
 Description-US: Adds node between selected nodes (Only for Redshift).
 
 Notice: Make sure the Redshift material is selected when using the script!
@@ -13,7 +13,8 @@ Written for Maxon Cinema 4D R25.010
 Python version 3.9.1
 
 Change log:
-1.0.1 (06.05.2022) - Added Change Range node
+1.1.1 (15.11.2022) - Fixed AOV port
+1.1.0 (06.05.2022) - Added Change Range node
 """
 
 # Libraries
@@ -264,7 +265,7 @@ def AddNode(nodeMaster):
         elif options[1] == NODE_COLORAOV:
             newNode[c4d.GV_REDSHIFT_SHADER_META_CLASSNAME] = "StoreColorToAOV" # Set to Store Color To AOV node
             newNode[c4d.ID_GVBASE_COLOR] = c4d.Vector(0.69, 0.663, 0.78) # Set node color
-            inputPort = newNode.AddPort(c4d.GV_PORT_INPUT, 10001) # (in port)
+            inputPort = newNode.AddPort(c4d.GV_PORT_INPUT, 10000) # (in port) (Beauty Input)
 
         elif options[1] == NODE_BUMPMAP:
             newNode[c4d.GV_REDSHIFT_SHADER_META_CLASSNAME] = "BumpMap" # Set to Bump Map node

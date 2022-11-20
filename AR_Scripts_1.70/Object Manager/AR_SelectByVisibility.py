@@ -43,32 +43,6 @@ BTN_SELECT = 4001
 BTN_DESELECT = 4002
 
 # Functions
-def GetKeyMod():
-    bc = c4d.BaseContainer() # Initialize a base container
-    keyMod = "None" # Initialize a keyboard modifier status
-    # Button is pressed
-    if c4d.gui.GetInputState(c4d.BFM_INPUT_KEYBOARD,c4d.BFM_INPUT_CHANNEL,bc):
-        if bc[c4d.BFM_INPUT_QUALIFIER] & c4d.QSHIFT:
-            if bc[c4d.BFM_INPUT_QUALIFIER] & c4d.QCTRL: # Ctrl + Shift
-                if bc[c4d.BFM_INPUT_QUALIFIER] & c4d.QALT: # Alt + Ctrl + Shift
-                    keyMod = 'Alt+Ctrl+Shift'
-                else: # Shift + Ctrl
-                    keyMod = 'Ctrl+Shift'
-            elif bc[c4d.BFM_INPUT_QUALIFIER] & c4d.QALT: # Alt + Shift
-                keyMod = 'Alt+Shift'
-            else: # Shift
-                keyMod = 'Shift'
-        elif bc[c4d.BFM_INPUT_QUALIFIER] & c4d.QCTRL:
-            if bc[c4d.BFM_INPUT_QUALIFIER] & c4d.QALT: # Alt + Ctrl
-                keyMod = 'Alt+Ctrl'
-            else: # Ctrl
-                keyMod = 'Ctrl'
-        elif bc[c4d.BFM_INPUT_QUALIFIER] & c4d.QALT: # Alt
-            keyMod = 'Alt'
-        else: # No keyboard modifiers used
-            keyMod = 'None'
-        return keyMod
-
 def GetNextObject(op):
     if op==None:
         return None

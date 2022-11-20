@@ -4,16 +4,17 @@ AR_AspectRatioGuide
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_AspectRatioGuide
-Version: 1.0.2
+Version: 1.2.0
 Description-US: Creates an aspect ratio guide for selected camera(s)
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
-1.0.2 (03.05.2022) - Bug fix (cropping)
-1.0.1 (02.05.2022) - Added scale parameter
-1.0.0 (05.04.2022) - First version
+1.2.0 (10.11.2022) - Added support for Redshift Camera object
+1.1.2 (03.05.2022) - Bug fix (cropping)
+1.1.1 (02.05.2022) - Added scale parameter
+1.0.0 (05.04.2022) - Initial release
 """
 
 # Libraries
@@ -32,7 +33,7 @@ def CreateUserDataLink(obj, name, link, parentGroup=None, shortname=None):
     bc[c4d.DESC_SHADERLINKFLAG] = True
     if parentGroup is not None:
         bc[c4d.DESC_PARENTGROUP] = parentGroup
-  
+
     element = obj.AddUserData(bc)
     obj[element] = link
     return element
@@ -45,7 +46,7 @@ def CreateUserDataCycle(obj, name, val, parentGroup=None, unit=c4d.DESC_UNIT_LON
     bc[c4d.DESC_ANIMATE] = c4d.DESC_ANIMATE_ON
     bc[c4d.DESC_UNIT] = unit
     bc[c4d.DESC_CUSTOMGUI] = c4d.CUSTOMGUI_CYCLEBUTTON
-    
+
     cycleBC = c4d.BaseContainer()
     items = val.split(',')
     for i, item in enumerate(items):
@@ -55,7 +56,7 @@ def CreateUserDataCycle(obj, name, val, parentGroup=None, unit=c4d.DESC_UNIT_LON
 
     if parentGroup is not None:
         bc[c4d.DESC_PARENTGROUP] = parentGroup
-  
+
     element = obj.AddUserData(bc)
     #obj[element] = val
     return element
@@ -75,7 +76,7 @@ def CreateUserDataFloat(obj, name, val=1.778, parentGroup=None, unit=c4d.DESC_UN
     bc[c4d.DESC_MAXSLIDER] = 1000
     bc[c4d.DESC_STEP] = 0.001
     if parentGroup is not None:
-        bc[c4d.DESC_PARENTGROUP] = parentGroup  
+        bc[c4d.DESC_PARENTGROUP] = parentGroup
     element = obj.AddUserData(bc)
     obj[element] = val
     return element
@@ -136,7 +137,7 @@ def CreateAspectRatioGuide(cam):
     CreateUserDataButton(pyTag, "Crop", btnGroup)
 
     pyTag[c4d.ID_USERDATA,1] = cam
-    
+
     rectangle.InsertTag(pyTag)
     rectangle.InsertUnder(cam)
     doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, rectangle)
@@ -310,7 +311,7 @@ def main():
     selection = doc.GetActiveObjects(1)
     if len(selection) != 0:
         for s in selection:
-            if s.GetType() == 5103:
+            if (s.GetType() == 5103) or (s.GetType() == 1057516): # If standard C4D camera od Redshift camera
                 CreateAspectRatioGuide(s) # Run the function
                 doc.AddUndo(c4d.UNDOTYPE_CHANGE, s)
                 if s.GetNBit(c4d.NBIT_OM1_FOLD) == 0: # If object is folded

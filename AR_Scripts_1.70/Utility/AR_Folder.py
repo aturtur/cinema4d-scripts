@@ -4,23 +4,24 @@ AR_Folder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_Folder
-Version: 1.0.10
-Description-US: Creates a folder null that keeps your project nice and tidy.
+Version: 1.8.2
+Description-US: Creates a folder null that keeps your project nice and tidy
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
-1.0.10 (16.09.2022) - Added support for Cinema 4D 2023
-1.0.09 (04.04.2022) - 'Adopt layer' and 'open' options added
-1.0.08 (02.04.2022) - Added icons! Color update. World Zero option added
-1.0.07 (29.03.2022) - Instead of carrying txt-file for options along with the script, it will create options file to C4D's preference folder
-1.0.06 (09.10.2021) - Updated for R25
-1.0.05 (07.09.2021) - Added color option 'None' (No color, just default settings)
-1.0.04 (15.03.2021) - Added and autolayer python tag and some kind of support for R20
-1.0.03 (14.03.2021) - Cinema 4D R23 support for separator python tag
-1.0.02 (12.03.2021) - Big update, a lot of changes and new features
-1.0.01 (07.11.2020) - Added support for Esc and Enter keys
+1.8.2 (17.11.2022) - Fixed bug when user cancels picking a custom color
+1.8.1 (16.09.2022) - Added support for Cinema 4D 2023
+1.8.0 (04.04.2022) - 'Adopt layer' and 'open' options added
+1.7.0 (02.04.2022) - Added icons! Color update. World Zero option added
+1.6.0 (29.03.2022) - Instead of carrying txt-file for options along with the script, it will create options file to C4D's preference folder
+1.5.1 (09.10.2021) - Updated for R25
+1.5.0 (07.09.2021) - Added color option 'None' (No color, just default settings)
+1.4.0 (15.03.2021) - Added and autolayer python tag and some kind of support for R20
+1.3.0 (14.03.2021) - Cinema 4D R23 support for separator python tag
+1.2.0 (12.03.2021) - Big update, a lot of changes and new features
+1.1.0 (07.11.2020) - Added support for Esc and Enter keys
 
 Color names from here:
     https://chir.ag/projects/name-that-color/
@@ -769,6 +770,9 @@ class Dialog(GeDialog):
         if paramid == BTN_OK: # If 'Accept' button is pressed
             if (color == COL_CUSTOM):
                 customColor = c4d.gui.ColorDialog(0, customColor)
+                if customColor == None:
+                    self.Close() # Close dialog
+                    return False
 
             createFolderNull(name, color, protect, separator, icon, layer, customColor, worldzero, openfolder) # Run the main algorithm
             saveSettings(name, color, protect, separator, icon, layer, customColor, worldzero, openfolder)

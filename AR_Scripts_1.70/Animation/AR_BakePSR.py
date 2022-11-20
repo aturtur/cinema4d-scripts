@@ -4,13 +4,14 @@ AR_BakePSR
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_BakePSR
-Version: 1.0.3
+Version: 1.1.0
 Description-US: Bakes object to PSR animation in world space. Shift: In local space
 
-Written for Maxon Cinema 4D R25.117
+Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
+1.1.0 (18.11.2022) - Parallel processing, bakes multiple cameras in one go. Progress bar
 1.0.3 (29.04.2022) - Removes 'Time Track' if there's any
 1.0.2 (10.10.2021) - Updated to R25
 1.0.1 (27.10.2020) - Fixed setTime bug
@@ -18,6 +19,10 @@ Change log:
 
 # Libraries
 import c4d
+from c4d import utils as u
+
+# Global variables
+suffix = "_baked"
 
 # Functions
 def GetKeyMod():
@@ -56,19 +61,24 @@ def MoveToFirst(obj, doc):
     first = items[0] # The first item in the hierarchy
     obj.InsertBefore(first) # Move object before the first item
 
-def CopyTags(source, target):
-    hiddenTags = [c4d.PointTag, c4d.PolygonTag] # Tag types that you dont wan't to delete
-    tags = source.GetTags() # Get objects tags
-    for t in reversed(tags): # Iterate through tags
-        if type(t) not in hiddenTags:
-            d = t.GetClone() # Duplicate the tag
-            target.InsertTag(d) # Copy tag
+def CopyTags(objects):
+    for obj in objects: # Iterate through objects
+        source = obj[0] # Source object
+        target = obj[2] # Baked object
+        hiddenTags = [c4d.PointTag, c4d.PolygonTag] # Tag types that you dont wan't to delete
+        tags = source.GetTags() # Get objects tags
+        for t in reversed(tags): # Iterate through tags
+            if type(t) not in hiddenTags:
+                d = t.GetClone() # Duplicate the tag
+                target.InsertTag(d) # Copy tag
 
-def DisableDynamics(obj):
-    tags = obj.GetTags() # Get objects tags
-    for t in tags: # Iterate through tags
-        if t.GetType() == 180000102: # If dynamics tag
-            t[c4d.RIGID_BODY_ENABLED] = False # Disable dynamics
+def DisableDynamics(objects):
+    for obj in objects: # Iterate through objects
+        theObj = obj[2] # Baked object
+        tags = theObj.GetTags() # Get objects tags
+        for t in tags: # Iterate through tags
+            if t.GetType() == 180000102: # If dynamics tag
+                t[c4d.RIGID_BODY_ENABLED] = False # Disable dynamics
 
 def DummyObject(obj, doc):
     dummyObject = obj.GetClone() # Initialize a camera object
@@ -93,31 +103,40 @@ def DummyObject(obj, doc):
                                     "\tobj.SetMg(mat)")
     return dummyObject
 
-def CleanKeys(obj):
+def RemoveDummys(objects):
+    for obj in objects:
+        dummy = obj[1] # Dummy object
+        dummy.Remove() # Delete udmmy object
+
+def CleanKeys(objects):
     """ Removes unnecessary keyframes """
-    ctracks = obj.GetCTracks() # Get object's CTracks
-    for ctrack in ctracks: # Iterate through CTracks
-        ctrack[c4d.ID_CTRACK_TIME] = None # Remove 'Time Track' if there was any
-        curve = ctrack.GetCurve() # Get Curve (keyframe holder)
-        keyCount = curve.GetKeyCount() # Get Keyframe count
-        keysToDelete = [] # Initialize an array for kayframes that can be deleted
-        for key in range(0, keyCount): # Iterate through keyframes
-            keyValue = curve.GetKey(key).GetValue() # Get keyframe value
-            if (key != 0) and (key != keyCount-1): # If not first or last keyframe
-                prevKey = curve.GetKey(key-1).GetValue() # Get previous keyframes value
-                nextKey = curve.GetKey(key+1).GetValue() # Get next keyframes value
-                if keyValue == prevKey and keyValue == nextKey: # If current keyframe has same value with previous and next keyframe
-                    keysToDelete.append(key) # Add this keyframe to deleted keys
-        for d in reversed(keysToDelete): # Iterate through keystoDelete array
-            curve.DelKey(d) # Delete keyframe
-    # Remove unused tracks
-    ctracks = obj.GetCTracks() # Get object's CTracks again
-    for ctrack in ctracks:
-        curve = ctrack.GetCurve()
-        keyCount = curve.GetKeyCount()
-        if keyCount == 2: # If CTrack has only two keyframes
-            if curve.GetKey(0).GetValue() == curve.GetKey(1).GetValue(): # ...and if they has same value
-                ctrack.Remove() # ...CTrack can be removed
+    for obj in objects: # Iterate through objects
+        theObj = obj[2] # Baked object
+        ctracks = theObj.GetCTracks() # Get object's CTracks
+        for ctrack in ctracks: # Iterate through CTracks
+            ctrack[c4d.ID_CTRACK_TIME] = None # Remove 'Time Track' if there was any
+            curve = ctrack.GetCurve() # Get Curve (keyframe holder)
+            keyCount = curve.GetKeyCount() # Get Keyframe count
+            keysToDelete = [] # Initialize an array for kayframes that can be deleted
+            for key in range(0, keyCount): # Iterate through keyframes
+                keyValue = curve.GetKey(key).GetValue() # Get keyframe value
+                if (key != 0) and (key != keyCount-1): # If not first or last keyframe
+                    prevKey = curve.GetKey(key-1).GetValue() # Get previous keyframes value
+                    nextKey = curve.GetKey(key+1).GetValue() # Get next keyframes value
+                    if keyValue == prevKey and keyValue == nextKey: # If current keyframe has same value with previous and next keyframe
+                        keysToDelete.append(key) # Add this keyframe to deleted keys
+            for d in reversed(keysToDelete): # Iterate through keystoDelete array
+                curve.DelKey(d) # Delete keyframe
+        # Remove unused tracks
+        ctracks = theObj.GetCTracks() # Get object's CTracks again
+        for ctrack in ctracks:
+            curve = ctrack.GetCurve()
+            keyCount = curve.GetKeyCount()
+            if keyCount == 2: # If CTrack has only two keyframes
+                if curve.GetKey(0).GetValue() == curve.GetKey(1).GetValue(): # ...and if they has same value
+                    ctrack.Remove() # ...CTrack can be removed
+
+
 
 def CreateUserDataLink(obj, name, link, parentGroup=None, shortname=None):
     """ Create user data link """
@@ -150,7 +169,7 @@ def RemoveTags(obj):
         if type(t) not in hiddenTags: # If not protected tag type
             t.Remove() # Remove tag
 
-def Bake(source, target):
+def Bake(objects):
     """ Bake function  """
 
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
@@ -159,38 +178,50 @@ def Bake(source, target):
     endFrame = doc.GetLoopMaxTime().GetFrame(fps) # Get last frame of Preview Range
 
     for i in range(startFrame, endFrame+1): # Iterate through Preview Range
+
+        #
+        progress = u.RangeMap(i, 0, endFrame+1, 0, 100, True)
+        c4d.StatusSetText("Baking frame %s of %s" % (i,endFrame+1))
+        c4d.StatusSetBar(progress)
+        #c4d.DrawViews(c4d.DRAWFLAGS_ONLY_ACTIVE_VIEW|c4d.DRAWFLAGS_NO_THREAD|c4d.DRAWFLAGS_STATICBREAK) # Updates the viewport during the script runs -> slows down potential baking speed a lot!
+        #
+
         SetCurrentFrame(i, doc) # Set current frame
         frame = doc.GetTime().GetFrame(fps) # Get current frame
 
-        dataVault = [ [903, c4d.DTYPE_REAL, 1000, c4d.DTYPE_VECTOR], [903, c4d.DTYPE_REAL, 1001, c4d.DTYPE_VECTOR], [903, c4d.DTYPE_REAL, 1002, c4d.DTYPE_VECTOR], # Position
-                      [904, c4d.DTYPE_REAL, 1000, c4d.DTYPE_VECTOR], [904, c4d.DTYPE_REAL, 1001, c4d.DTYPE_VECTOR], [904, c4d.DTYPE_REAL, 1002, c4d.DTYPE_VECTOR], # Rotation
-                      [905, c4d.DTYPE_REAL, 1000, c4d.DTYPE_VECTOR], [905, c4d.DTYPE_REAL, 1001, c4d.DTYPE_VECTOR], [905, c4d.DTYPE_REAL, 1002, c4d.DTYPE_VECTOR],  # Scale
-                    ]
+        for obj in objects: # Iterate through objects
+            source = obj[1] # Dummy object
+            target = obj[2] # Bake object
 
-        for data in dataVault: # Iterate through data vault
-            if len(data) == 2: # Float
-                desc = c4d.DescID(c4d.DescLevel(data[0], data[1],0))
-                value = source[data[0]]
+            dataVault = [ [903, c4d.DTYPE_REAL, 1000, c4d.DTYPE_VECTOR], [903, c4d.DTYPE_REAL, 1001, c4d.DTYPE_VECTOR], [903, c4d.DTYPE_REAL, 1002, c4d.DTYPE_VECTOR], # Position
+                          [904, c4d.DTYPE_REAL, 1000, c4d.DTYPE_VECTOR], [904, c4d.DTYPE_REAL, 1001, c4d.DTYPE_VECTOR], [904, c4d.DTYPE_REAL, 1002, c4d.DTYPE_VECTOR], # Rotation
+                          [905, c4d.DTYPE_REAL, 1000, c4d.DTYPE_VECTOR], [905, c4d.DTYPE_REAL, 1001, c4d.DTYPE_VECTOR], [905, c4d.DTYPE_REAL, 1002, c4d.DTYPE_VECTOR],  # Scale
+                        ]
 
-            if len(data) == 4: # Vector
-                desc = c4d.DescID(c4d.DescLevel(data[0], data[3],0), c4d.DescLevel(data[2], data[1],0))
-                value = source[data[0],data[2]]
+            for data in dataVault: # Iterate through data vault
+                if len(data) == 2: # Float
+                    desc = c4d.DescID(c4d.DescLevel(data[0], data[1],0))
+                    value = source[data[0]]
 
-            track = target.FindCTrack(desc) # Try to find CTrack
-            if not track: # If CTrack does not exists
-                track = c4d.CTrack(target, desc) # Initialize CTrack
-                target.InsertTrackSorted(track) # Insert CTrack to the object
+                if len(data) == 4: # Vector
+                    desc = c4d.DescID(c4d.DescLevel(data[0], data[3],0), c4d.DescLevel(data[2], data[1],0))
+                    value = source[data[0],data[2]]
 
-            curve = track.GetCurve() # Get Curve of the CTrack
-            currentTime = c4d.BaseTime(frame, fps) # Get current time
-            key = curve.AddKey(currentTime)["key"]
-            track.FillKey(doc, target, key)
+                track = target.FindCTrack(desc) # Try to find CTrack
+                if not track: # If CTrack does not exists
+                    track = c4d.CTrack(target, desc) # Initialize CTrack
+                    target.InsertTrackSorted(track) # Insert CTrack to the object
 
-            if data[1] == c4d.DTYPE_REAL: # Float
-                key.SetValue(curve, value)
-            else: # If boolean or integer
-                key.SetValue(curve, value)
-                key.SetGeData(curve, value) # Keyframe value needs to be set with SetGeData
+                curve = track.GetCurve() # Get Curve of the CTrack
+                currentTime = c4d.BaseTime(frame, fps) # Get current time
+                key = curve.AddKey(currentTime)["key"]
+                track.FillKey(doc, target, key)
+
+                if data[1] == c4d.DTYPE_REAL: # Float
+                    key.SetValue(curve, value)
+                else: # If boolean or integer
+                    key.SetValue(curve, value)
+                    key.SetGeData(curve, value) # Keyframe value needs to be set with SetGeData
 
 def main():
     """ The first function to run """
@@ -198,43 +229,45 @@ def main():
     selected = doc.GetActiveObjects(0) # Get selected objects
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier
+    objects = [] # Initialize a list for objects
     if keyMod == "None":
-        bakedObjects = [] # Initialize a list for collecting baked objects
         for s in selected: # Iterate through objects
-            dummyObject = DummyObject(s, doc) # Dummy object
+            dummyObj = DummyObject(s, doc) # Dummy object
             bakeObj = s.GetClone() # Bake object
             name = s.GetName() # Get object's name
-            bakeObj.SetName(name+"_baked") # Set baked object's name
-            bakeObj.InsertAfter(dummyObject) # Insert object to document
+            bakeObj.SetName(name+suffix) # Set baked object's name
+            bakeObj.InsertAfter(dummyObj) # Insert object to document
             doc.AddUndo(c4d.UNDOTYPE_NEW, bakeObj) # Add undo command for creating a new object
             doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
             RemoveTags(bakeObj) # Remove tags of the object
-            Bake(dummyObject, bakeObj) # Bake the object
-            CleanKeys(bakeObj) # Clean keyframes
-            CopyTags(s, bakeObj)
-            DisableDynamics(bakeObj)
-            dummyObject.Remove() # Delete dummy object
-            bakedObjects.append(bakeObj)
-
-        for baked in reversed(bakedObjects):
-            MoveToFirst(baked, doc) # Sort
+            objects.append([s, dummyObj, bakeObj]) # Add object array to objects array :D
+        Bake(objects) # Bake the object
+        CleanKeys(objects) # Clean keyframes
+        CopyTags(objects) # Restore tags
+        DisableDynamics(objects) # Disable dynamics tags
+        RemoveDummys(objects) # Remove dummy objects
 
     if keyMod == "Shift":
         for s in selected: # Iterate through objects
             bakeObj = s.GetClone() # Bake object
             name = s.GetName() # Get object's name
-            bakeObj.SetName(name+"_baked") # Set baked object's name
+            bakeObj.SetName(name+suffix) # Set baked object's name
             bakeObj.InsertAfter(s) # Insert object to document
             doc.AddUndo(c4d.UNDOTYPE_NEW, bakeObj) # Add undo command for creating a new object
             doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
             RemoveTags(bakeObj) # Remove tags of the object
-            Bake(s, bakeObj) # Bake the object
-            CleanKeys(bakeObj) # Clean keyframes
-            CopyTags(s, bakeObj)
-            DisableDynamics(bakeObj)
+            objects.append([s, s, bakeObj]) # Add object array to objects array :D
+        Bake(objects) # Bake the object
+        CleanKeys(objects) # Clean keyframes
+        CopyTags(objects) # Restore tags
+        DisableDynamics(objects) # Disable dynamics tags
+
+    for x in reversed(objects):
+        MoveToFirst(x[2], doc) # Sort
 
     doc.EndUndo() # Stop recording undos
     c4d.EventAdd() # Refresh Cinema 4D
+    c4d.StatusClear() # Clear status
 
 # Execute main()
 if __name__=='__main__':

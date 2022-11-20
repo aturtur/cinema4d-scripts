@@ -4,18 +4,18 @@ Shelf Tool Script for Cinema 4D
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 
-Version: 1.0.4
+Version: 1.3.0
 
 Installation path: C:/Users/[USER]]/AppData/Roaming/MAXON/Maxon Cinema 4D R2X_XXXXXXXX/python39/libs
 
-Written for Maxon Cinema 4D R25.010
+Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
-1.0.4 (25.09.2022) - Alt+Ctrl+Shift keymodifier opens the asset document
-1.0.3 (16.09.2022) - Bug fixes and code improvements
-1.0.2 (06.05.2022) - Added icon parsing here
-1.0.1 (04.05.2022) - Added support to change icon and icon color
+1.3.0 (25.09.2022) - Alt+Ctrl+Shift keymodifier opens the asset document
+1.2.1 (16.09.2022) - Bug fixes and code improvements
+1.2.0 (06.05.2022) - Added icon parsing here
+1.1.0 (04.05.2022) - Added support to change icon and icon color
 1.0.0 (08.04.2022) - Initial release
 """
 

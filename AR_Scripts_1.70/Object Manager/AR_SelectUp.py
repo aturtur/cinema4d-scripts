@@ -1,16 +1,17 @@
 """
-AR_SelectRoot
+AR_SelectUp
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_SelectRoot
-Version: 1.0.1
-Description-US: Default: Selects the root object(s). Shift: Keeps the old selection.
+Name-US: AR_SelectUp
+Version: 1.0.2
+Description-US: Default: Selects parent object. Shift: Keeps the old selection. Ctrl: Keeps old selection if new candidate no found.
 
-Written for Maxon Cinema 4D R25.010
+Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
+1.0.2 (18.11.2022) - Hotkey fix
 1.0.1 (20.01.2022) - R25 update
 """
 
@@ -54,12 +55,15 @@ def Deselect(op):
         doc.AddUndo(c4d.UNDOTYPE_BITS, op) # Record undo for changing bits
         op.DelBit(c4d.BIT_ACTIVE) # Deselect object
 
-def GetRoot(op):
-    while op: # Infinite loop
-        if op.GetUp() == None: # If item has no parent
-            return op # Return opect
-            break # Break the loop
-        op = op.GetUp() # Item is object's parent
+def GetUp(op, safe):
+    pred = op # Store old object
+    op = op.GetUp() # Get parent object
+    if op == None: # If object is none
+        if safe: # If safe mode is enabled
+            return pred # Return old object
+        return None # Return none
+    else: # Otherwise
+        return op # Return the object
 
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
@@ -68,13 +72,20 @@ def main():
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN) # Get active objects
     keyMod = GetKeyMod() # Get keymodifier
     
-    if keyMod == "None":
+    if (keyMod == "None") or (keyMod == "Alt"):
         for s in selection: # Loop through selection
             Deselect(s) # Deselect original object
-            Select(GetRoot(s)) # Select next object
-    elif keyMod == "Shift":
+            Select(GetUp(s, True)) # Select parent object
+    elif (keyMod == "Shift") or (keyMod == "Alt+Shift"):
         for s in selection:
-            Select(GetRoot(s))
+            Select(GetUp(s, True))
+    elif (keyMod == "Ctrl") or (keyMod == "Alt+Ctrl"):
+        for s in selection:
+            Deselect(s) # Deselect original object
+            Select(GetUp(s, False))
+    elif (keyMod == "Ctrl+Shift") or (keyMod == "Alt+Ctrl+Shift"):
+        for s in selection:
+            Select(GetUp(s, False))
 
     doc.EndUndo() # Stop recording undos
     c4d.EventAdd() # Refresh Cinema 4D

@@ -4,13 +4,14 @@ AR_SelectDown
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_SelectDown
-Version: 1.0.1
-Description-US: Default: Goes down one hierarchy level. Shift: Add to old selection.
+Version: 1.0.2
+Description-US: Default: Goes down one hierarchy level. Shift: Add to old selection
 
-Written for Maxon Cinema 4D R25.010
+Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
+1.0.2 (18.11.2022) - Hotkey fix
 1.0.1 (20.01.2022) - R25 update
 """
 
@@ -75,18 +76,18 @@ def main():
     selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN) # Get active objects
     keyMod = GetKeyMod() # Get keymodifier
 
-    if keyMod == "None":
+    if (keyMod == "None") or (keyMod == "Alt"):
         for s in selection: # Loop through selection
             Deselect(s) # Deselect original object
             Select(GetDown(s, True)) # Select child object
-    elif keyMod == "Shift":
+    elif (keyMod == "Shift") or (keyMod == "Alt+Shift"):
         for s in selection:
             Select(GetDown(s, True))
-    elif keyMod == "Ctrl":
+    elif (keyMod == "Ctrl") or (keyMod == "Alt+Ctrl"):
         for s in selection:
             Deselect(s) # Deselect original object
             Select(GetDown(s, False))
-    elif keyMod == "Ctrl+Shift":
+    elif (keyMod == "Ctrl+Shift") or (keyMod == "Alt+Ctrl+Shift"):
         for s in selection:
             Select(GetDown(s, False))
 

@@ -18,7 +18,8 @@ Latest version: **1.70** _(Released 20.11.2022)_
 - _08.11.2022_ Updated: AR_ViewportColor, dialog for presets. AR_RandomColors, option to colorize objects with a gradient
 - _02.11.2022_ New script: AR_ColorizeLayersWithGradient
 - _01.11.2022_ New script: AR_ExportMat  
-**Older changes**  
+
+**Older changes**
 - _24.09.2022_ Updated: AR_TglEnable, support for Insydium NeXus stuff, fixed script name
 - _24.09.2022_ Updated: AR_Dot, darker icon
 - _16.09.2022_ New script: AR_PyTagShowIfActiveCam

@@ -4,13 +4,14 @@ AR_Folder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_Folder
-Version: 1.8.2
+Version: 1.8.3
 Description-US: Creates a folder null that keeps your project nice and tidy
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
+1.8.3 (18.02.2023) - Fixed adopt layer bug
 1.8.2 (17.11.2022) - Fixed bug when user cancels picking a custom color
 1.8.1 (16.09.2022) - Added support for Cinema 4D 2023
 1.8.0 (04.04.2022) - 'Adopt layer' and 'open' options added
@@ -171,6 +172,18 @@ BTN_OK          = 7001
 BTN_CANCEL      = 7002
 
 # Functions
+def GetVersion():
+    ver = c4d.GetC4DVersion() # Get Cinema 4D version
+    if len(str(ver)) >= 7: # Cinema 2023 or newer
+        app = True # New enough
+    elif len(str(ver)) == 5: # Older than 2023
+        if ver[:2] >= 20: # If newer than R20
+            app = True
+        else:
+            app = False # Too old
+    return app
+
+
 def GetFolderSeparator():
     if c4d.GeGetCurrentOS() == c4d.OPERATINGSYSTEM_WIN: # If operating system is Windows
         return "\\"
@@ -409,6 +422,7 @@ def Deselect(data): # Deselect object(s)
 
 def createFolderNull(name, selColor, selProtect, selSeparator, selIcon, selLayer, customColor, worldzero, openfolder):
     global hierarchy # Access to global dictionary (hierarchy)
+    c4dver = GetVersion()
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
 
@@ -578,7 +592,7 @@ def main():\n\
             adoptLayer = selection[0][c4d.ID_LAYER_LINK]
             if adoptLayer != None: # If there's layer
                 null[c4d.ID_LAYER_LINK] = adoptLayer # Adopt layer
-                if (c4dver > 20):
+                if (c4dver == True):
                     if color == None:
                         null[c4d.ID_BASELIST_ICON_COLORIZE_MODE] = 1 # Icon Color: Custom
                         null[c4d.ID_BASELIST_ICON_COLOR] = adoptLayer[c4d.ID_LAYER_COLOR] # Set color

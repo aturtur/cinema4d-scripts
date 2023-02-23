@@ -3,23 +3,25 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.70** _(Released 20.11.2022)_
+Latest version: **1.71** _(Released 18.02.2023)_
 
 ## Change Log
-**Changes in 1.70**  
+**Changes in 1.71**
+- _18.02.2023_ Updated: AR_Folder.py, fixed adopt layer bug
+- _10.01.2023_ New scripts: AR_CameraPlane.py, AR_ExportUVTex, AR_KeysSetPosX.py, AR_KeysSetPosY.py, AR_KeysSetPosZ.py, AR_KeysSetRotB.py, AR_KeysSetRotH.py, AR_KeysSetRotP.py, AR_KeysSetSclX.py, AR_KeysSetSclY.py, AR_KeysSetSclZ.py
+
+**Older changes**
 - _20.11.2022_ Updated: AR_ExportMat, added progress bar
 - _18.11.2022_ Updated: AR_BakeCam, AR_BakePLA, AR_BakePSR, progress bar added, parallel processing
 - _18.11.2022_ Updated: AR_SelectDeepest, AR_SelectDown, AR_SelectNext, AR_SelectPrev, AR_SelectRoot, AR_SelectUp, better support for hotkeys
 - _17.11.2022_ Updated: AR_ExportC4D, AR_ExportOBJ, progress bar
 - _17.11.2022_ Updated: AR_Folder, fixed bug when user cancels picking a custom color
 - _16.11.2022_ Updated: AR_Dot, Added option to change the color
-- _15.11.2022_ Updated: AT_NodeAdd, fixed AOV port
+- _15.11.2022_ Updated: AR_NodeAdd, fixed AOV port
 - _10.11.2022_ Updated: AR_BakeCamera and AR_AspectRatioGuide, support for Redshift Camera object (new in C4D 2023.1.0)
 - _08.11.2022_ Updated: AR_ViewportColor, dialog for presets. AR_RandomColors, option to colorize objects with a gradient
 - _02.11.2022_ New script: AR_ColorizeLayersWithGradient
 - _01.11.2022_ New script: AR_ExportMat  
-
-**Older changes**
 - _24.09.2022_ Updated: AR_TglEnable, support for Insydium NeXus stuff, fixed script name
 - _24.09.2022_ Updated: AR_Dot, darker icon
 - _16.09.2022_ New script: AR_PyTagShowIfActiveCam
@@ -111,6 +113,9 @@ Use in dope sheet editor, does not work in f-curve editor.
 **Ctrl:** Move selected keyframe(s) by the set value multiplied by 2 to the right.  
 Use in dope sheet editor, does not work in f-curve editor.  
 
+### ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetPosX.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetPosY.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetPosZ.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetRotH.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetRotB.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetRotP.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetSclX.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetSclY.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetSclZ.png) AR_KeysSet...
+**Default:** Scripts to set individually position, scale or rotation keyframe for wanted axis for selected object(s).  
+
 ### ![AR_KeysValueAdd](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysValueAdd.png) AR_KeysValueAdd.py
 **Default:** Increases selected keyframe(s) value.  
 **Shift:** Set custom value as default (shared with AR_KeysValueSub).  
@@ -141,6 +146,10 @@ Requires at least two (2) selected tracks to correctly function. Use in dope she
 **Default:** Creates an aspect ratio guide for selected camera(s).  
 Requires at least one (1) selected camera object to correctly function.  
 
+### ![AR_CameraPlane](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CameraPlane.png) AR_CameraPlane.py
+**Default:** Creates plane object that matches selected camera(s) field of view. Positioned to cameras focal point in Z-axis.  
+Supports perspective and parallel projections.  
+
 ### ![AR_CropToIRR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CropToIRR.png) AR_CropToIRR.py
 **Default:** Crops the canvas to Interactive Render Region.  
 Changes active render settings resolution and selected/active camera's sensor size (film gate) and possibly also film offsets.  
@@ -167,6 +176,9 @@ Preview range will determine the frame range that will be exported.
 
 ### ![AR_ExportOBJ](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportOBJ.png) AR_ExportOBJ.py
 **Default:** Exports top level objects individually to OBJ-file. Supports object selection.  
+
+### ![AR_ExportUVTex](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportUVTex.png) AR_ExportUVTex.py
+**Default:** Exports UV texture for selected object. Remember to select polygons of the object first!  
 
 ## Import
 ### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py

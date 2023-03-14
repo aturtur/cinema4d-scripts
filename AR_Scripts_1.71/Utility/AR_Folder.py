@@ -4,13 +4,14 @@ AR_Folder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_Folder
-Version: 1.8.3
+Version: 1.8.4
 Description-US: Creates a folder null that keeps your project nice and tidy
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
+1.8.4 (14.03.2023) - Fixed GetVersion bug
 1.8.3 (18.02.2023) - Fixed adopt layer bug
 1.8.2 (17.11.2022) - Fixed bug when user cancels picking a custom color
 1.8.1 (16.09.2022) - Added support for Cinema 4D 2023
@@ -173,16 +174,15 @@ BTN_CANCEL      = 7002
 
 # Functions
 def GetVersion():
-    ver = c4d.GetC4DVersion() # Get Cinema 4D version
-    if len(str(ver)) >= 7: # Cinema 2023 or newer
+    version = c4d.GetC4DVersion() # Get Cinema 4D version
+    if len(str(version)) >= 7: # Cinema 2023 or newer
         app = True # New enough
-    elif len(str(ver)) == 5: # Older than 2023
-        if ver[:2] >= 20: # If newer than R20
+    elif len(str(version)) == 5: # Older than 2023
+        if str(version)[:2] >= 20: # If newer than R20
             app = True
         else:
             app = False # Too old
     return app
-
 
 def GetFolderSeparator():
     if c4d.GeGetCurrentOS() == c4d.OPERATINGSYSTEM_WIN: # If operating system is Windows

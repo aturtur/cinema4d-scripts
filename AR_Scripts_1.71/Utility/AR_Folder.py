@@ -178,7 +178,8 @@ def GetVersion():
     if len(str(version)) >= 7: # Cinema 2023 or newer
         app = True # New enough
     elif len(str(version)) == 5: # Older than 2023
-        if str(version)[:2] >= 20: # If newer than R20
+        majorVersion = int(str(version)[:2])
+        if majorVersion >= 20: # If newer than R20
             app = True
         else:
             app = False # Too old

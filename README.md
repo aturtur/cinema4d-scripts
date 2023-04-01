@@ -3,14 +3,18 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.71** _(Released 18.02.2023)_
+Latest version: **1.72** _(Released 01.04.2023)_
 
 ## Change Log
-**Changes in 1.71**
-- _18.02.2023_ Updated: AR_Folder.py, fixed adopt layer bug
-- _10.01.2023_ New scripts: AR_CameraPlane.py, AR_ExportUVTex, AR_KeysSetPosX.py, AR_KeysSetPosY.py, AR_KeysSetPosZ.py, AR_KeysSetRotB.py, AR_KeysSetRotH.py, AR_KeysSetRotP.py, AR_KeysSetSclX.py, AR_KeysSetSclY.py, AR_KeysSetSclZ.py
+**Changes in 1.72**
+- _01.04.2023_ New script: AR_F@#kUpNodes (2023 April Fools' Day)
+- _28.03.2023_ New script: AR_MatOverride
+- _03.03.2023_ New scripts: AR_StabilizeCamera, AR_AverageLocator, AR_CycleCameras
+- _27.02.2023_ Updated: AR_ViewportColor, More presets, async GeDialog instead of modal
 
 **Older changes**
+- _18.02.2023_ Updated: AR_Folder, fixed adopt layer bug
+- _10.01.2023_ New scripts: AR_CameraPlane, AR_ExportUVTex, AR_KeysSetPosX, AR_KeysSetPosY, AR_KeysSetPosZ, AR_KeysSetRotB, AR_KeysSetRotH, AR_KeysSetRotP, AR_KeysSetSclX, AR_KeysSetSclY, AR_KeysSetSclZ
 - _20.11.2022_ Updated: AR_ExportMat, added progress bar
 - _18.11.2022_ Updated: AR_BakeCam, AR_BakePLA, AR_BakePSR, progress bar added, parallel processing
 - _18.11.2022_ Updated: AR_SelectDeepest, AR_SelectDown, AR_SelectNext, AR_SelectPrev, AR_SelectRoot, AR_SelectUp, better support for hotkeys
@@ -155,11 +159,19 @@ Supports perspective and parallel projections.
 Changes active render settings resolution and selected/active camera's sensor size (film gate) and possibly also film offsets.  
 
 ### ![AR_ResizeCanvas](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ResizeCanvas.png) AR_ResizeCanvas.py
+**Default:** Cycles through available cameras.  
+**Shift:** Cycles cameras backwards.  
+
+### ![AR_CycleCameras](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CycleCameras.png) AR_CycleCameras.py
 **Default:** Resizes the canvas without changing the perspective.  
 Changes active render settings resolution and selected/active camera's sensor size or focal length and possibly also film offsets.  
 
 ### ![AR_SelectActiveCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectActiveCamera.png) AR_SelectActiveCamera.py
 **Default:** Selects the active camera in the object manager.  
+
+### ![AR_StabilizeCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_StabilizeCamera.png) AR_StabilizeCamera.py
+**Default:** Stabilizes active camera view to selected object.  
+Designed to use with AR_AverageLocator.  
 
 ## Export
 ### ![AR_ExportAISeq](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportAISeq.png) AR_ExportAISeq.py
@@ -210,9 +222,12 @@ Preview range will determine the frame range that will be exported.
 **Default:** Merges materials that has the same name.  
 Case sensitive. Supports Cinema 4D's naming conventions. The first material in the material manager overrides the other ones (with the same name).  
 
-### ![AR_MatOwn](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatOwn.png) AR_MatOwn.py
-**Default:** Creates own materials for every object from existing materials.  
-Supports object selection.  
+### ![AR_MatOverride](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatMerge.png) AR_MatMerge.py
+**Default:** Merges materials that has the same name.  
+Case sensitive. Supports Cinema 4D's naming conventions. The first material in the material manager overrides the other ones (with the same name).  
+
+### ![AR_MatOwn](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatOverride.png) AR_MatOverride.py
+**Default:** Overrides selected materials with the top of the list selected material.  
 
 ### ![AR_MatToObject](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatToObject.png) AR_MatToObject.py
 **Default:** Puts material to object if they have a same name.  
@@ -299,6 +314,10 @@ Does not support subfields or tags!
 >Note: If you have nested MoGraph Generators, disable parent generators before running this script.  
 
 ## Node Tools
+### ![AR_F@#kUpNodes](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FkUpNodes.png) AR_F@#kUpNodes.py
+**Default:** Messes position of selected nodes (2023 April Fools' Day).  
+>Works only with Redshift. Make sure the Redshift material is selected when using the script!  
+
 ### ![AR_NodeAdd](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_NodeAdd.png) AR_NodeAdd.py
 **Default:** Adds node between selected nodes.  
 >Works only with Redshift. Make sure the Redshift material is selected when using the script!  
@@ -513,6 +532,9 @@ Set frame range with dash (-) and separate different frames and ranges with a co
 **Default:** Adds a custom python tag for selected object(s) that shows the object only when it is animated.  
 
 ## Tracking
+### ![AR_AverageLocator](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AverageLocator.png) AR_AverageLocator.py
+**Default:** Creates a null object which position is average of selected objects/points.  
+
 ### ![AR_Extract2DTracks](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Extract2DTracks.png) AR_Extract2DTracks.py
 Extracts 2D tracks from selected motion tracker to null objects.  
 **Default:** Extracts only manual tracks.  

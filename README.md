@@ -218,9 +218,8 @@ Preview range will determine the frame range that will be exported.
 **Default:** Consolidates different polygon selections together that uses same materials.  
 >Note: Messes up material projections! Select object(s) and run the script.  
 
-### ![AR_MatMerge](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatMerge.png) AR_MatMerge.py
-**Default:** Merges materials that has the same name.  
-Case sensitive. Supports Cinema 4D's naming conventions. The first material in the material manager overrides the other ones (with the same name).  
+### ![AR_MatOverride](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/MatOverride.png) MatOverride.py
+**Default:** Overrides selected materials with the top of the list selected material.  
 
 ### ![AR_MatOverride](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatMerge.png) AR_MatMerge.py
 **Default:** Merges materials that has the same name.  

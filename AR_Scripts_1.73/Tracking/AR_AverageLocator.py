@@ -36,12 +36,12 @@ def CreateAverageLocatorPoints(pointList):
     locator[c4d.ID_BASELIST_ICON_FILE] = "1058512" # Set 'Icon'
 
     doc.InsertObject(locator, checknames=True) # Insert locator object to the document
-    # Importat to insert it before creating object nodes in xpresso tag!
+    # Important to insert it before creating object nodes in xpresso tag!
 
     # Priority data setup
     prioritydata = c4d.PriorityData() # Initialize a priority data
     prioritydata.SetPriorityValue(c4d.PRIORITYVALUE_MODE, c4d.CYCLE_GENERATORS) # Set priority to 'Generators'
-    prioritydata.SetPriorityValue(c4d.PRIORITYVALUE_PRIORITY, 10) # Set priority value to last possible value
+    prioritydata.SetPriorityValue(c4d.PRIORITYVALUE_PRIORITY, 10) # Set priority value
     prioritydata.SetPriorityValue(c4d.PRIORITYVALUE_CAMERADEPENDENT, False) # Set camera dependent to false
 
     # Xpresso tag setup

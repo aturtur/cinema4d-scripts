@@ -4,7 +4,7 @@ AR_NodeTexToMat
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodeTexToMat
-Version: 1.0.0
+Version: 1.0.1
 Description-US: Creates material node from selected texture nodes (Only for Redshift).
 
 Notice: Make sure the Redshift material is selected when using the script!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R26.014
 Python version 3.9.1
 
 Change log:
+1.0.1 (03.04.2024) - Bug fixes
 1.0.0 (19.05.2022) - First version
 
 https://help.poliigon.com/en/articles/1712652-what-are-the-different-texture-maps-for
@@ -109,7 +110,7 @@ class Dialog(GeDialog):
         self.GroupBegin(GRP_MEGA, c4d.BFH_CENTER, cols=1, rows=1, groupflags=1, initw=300, inith=0)
         self.GroupBorderSpace(5, 5, 5, 5)
         # ----------------------------------------------------------------------------------------
-        
+
         self.GroupBegin(GRP_MAIN, c4d.BFH_CENTER, cols=2, rows=1, groupflags=1, initw=300, inith=0)
 
         self.AddStaticText(TXT_MAT, c4d.BFH_LEFT, name="Material")
@@ -193,7 +194,7 @@ class Dialog(GeDialog):
         # Actions here
         if paramid == BTN_CANCEL: # If 'Cancel' button is pressed
             self.Close() # Close dialog
-        
+
         if paramid == BTN_OK: # If 'Accept' button is pressed
             # Save options
             saveSettings(options)
@@ -339,7 +340,7 @@ def SearchMap(node, path, maps):
         return None
     for m in maps:
         if m != "" and m != " ":
-            found = re.search("(?<![^\\W_])"+m+"(?![^\\W_])", path) 
+            found = re.search("(?<![^\\W_])"+m+"(?![^\\W_])", path)
             if found:
                 return node
     return None
@@ -374,12 +375,13 @@ def AddPorts(material, outputNode, x, colorMap, roughMap, glossMap, normalMap, h
         matType = MAT_RSMAT
     elif material[c4d.GV_REDSHIFT_SHADER_META_CLASSNAME] == "StandardMaterial":
         matType = MAT_RSSTD
-    
+
     if matType == MAT_RSMAT:
         bumpPortID    = 10062
         metalPortID   = 10017
         opacityPortID = 10059
         emissionPortID= 10060
+
     elif matType == MAT_RSSTD:
         bumpPortID    = 10046
         metalPortID   = 10004
@@ -388,8 +390,8 @@ def AddPorts(material, outputNode, x, colorMap, roughMap, glossMap, normalMap, h
 
     dispPortID        = 10001
 
-
     space = 50
+
     # -------------------------------------------------------------------------------------------------------
     nodeMaster = material.GetNodeMaster()
     root = nodeMaster.GetRoot() # Get node master root
@@ -401,6 +403,7 @@ def AddPorts(material, outputNode, x, colorMap, roughMap, glossMap, normalMap, h
     if glossMap:
         glossInPort = NodeAddInPort(material, reflRoughPortID)
         glossMap.node.GetOutPort(0).Connect(glossInPort)
+
         # Convert from glossiness to roughness
         if matType == MAT_RSSTD:
             material[c4d.REDSHIFT_SHADER_STANDARDMATERIAL_REFL_ISGLOSSINESS] = True
@@ -410,6 +413,7 @@ def AddPorts(material, outputNode, x, colorMap, roughMap, glossMap, normalMap, h
     if roughMap:
         roughInPort = NodeAddInPort(material, reflRoughPortID)
         roughMap.node.GetOutPort(0).Connect(roughInPort)
+
         # Convert from glossiness to roughness
         if matType == MAT_RSSTD:
             material[c4d.REDSHIFT_SHADER_STANDARDMATERIAL_REFL_ISGLOSSINESS] = False
@@ -445,9 +449,10 @@ def AddPorts(material, outputNode, x, colorMap, roughMap, glossMap, normalMap, h
         NodeSetPosition(bumpMap, heightMap.px + heightMap.sx + space, heightMap.py)
 
     if metalMap:
-        material[c4d.REDSHIFT_SHADER_MATERIAL_REFL_FRESNEL_MODE] = 2 # Set 'Fresnel Type' to 'Metalness'
-        metalInPort = material.AddPort(c4d.GV_PORT_INPUT, metalPortID)
-        heightMap.node.GetOutPort(0).Connect(metalInPort)
+        if matType == MAT_RSMAT:
+            material[c4d.REDSHIFT_SHADER_MATERIAL_REFL_FRESNEL_MODE] = 2 # Set 'Fresnel Type' to 'Metalness'
+        metalInPort = NodeAddInPort(material, metalPortID)
+        metalMap.node.GetOutPort(0).Connect(metalInPort)
 
     if dispMap:
         if outputNode:
@@ -463,7 +468,12 @@ def AddPorts(material, outputNode, x, colorMap, roughMap, glossMap, normalMap, h
         NodeSetPosition(dispMapN, dispMap.px + dispMap.sx + space, dispMap.py)
 
     if emissionMap:
-        emissionInPort = NodeAddInPort(m, emissionPortID)
+        emissionInPort = NodeAddInPort(material, emissionPortID)
+
+        if matType == MAT_RSMAT:
+            material[c4d.REDSHIFT_SHADER_MATERIAL_EMISSION_WEIGHT] = 1.0
+        elif matType == MAT_RSSTD:
+            material[c4d.REDSHIFT_SHADER_STANDARDMATERIAL_EMISSION_WEIGHT] = 1.0
         emissionMap.node.GetOutPort(0).Connect(emissionInPort)
 
     # -----------------------------------------------------------------------------------------------------------
@@ -567,7 +577,8 @@ def CreateTexToMat(nodeMaster):
                    opacityMap,
                    dispMap,
                    opacityMap,
-                   metalMap]
+                   metalMap,
+                   emissionMap]
         dontCreateMat = not any(allMaps)
         if dontCreateMat: return None
 
@@ -606,7 +617,7 @@ def main():
             if m.GetBit(c4d.BIT_ACTIVE): # If material is selected
                 rsnm = redshift.GetRSMaterialNodeMaster(m) # Get Redshift material node master
                 CreateTexToMat(rsnm) # Run the main function
-    elif keyMod == "Shift":
+    elif keyMod == "Alt+Ctrl+Shift":
         dlg = Dialog() # Create dialog object
         dlg.Open(c4d.DLG_TYPE_MODAL, 0, -1, -1, 0, 0) # Open dialog
 

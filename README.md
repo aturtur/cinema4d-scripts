@@ -3,16 +3,18 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.72** _(Released 01.04.2023)_
+Latest version: **1.73** _(Released 07.04.2023)_
 
 ## Change Log
-**Changes in 1.72**
+**Changes in 1.73**
+- _06.04.2023_ New script: AR_MoGraphToNulls
+- _03.04.2023_ Updated: AR_NodeTexToMat, bug fixes
+
+**Older changes**
 - _01.04.2023_ New script: AR_F@#kUpNodes (2023 April Fools' Day)
 - _28.03.2023_ New script: AR_MatOverride
 - _03.03.2023_ New scripts: AR_StabilizeCamera, AR_AverageLocator, AR_CycleCameras
 - _27.02.2023_ Updated: AR_ViewportColor, More presets, async GeDialog instead of modal
-
-**Older changes**
 - _18.02.2023_ Updated: AR_Folder, fixed adopt layer bug
 - _10.01.2023_ New scripts: AR_CameraPlane, AR_ExportUVTex, AR_KeysSetPosX, AR_KeysSetPosY, AR_KeysSetPosZ, AR_KeysSetRotB, AR_KeysSetRotH, AR_KeysSetRotP, AR_KeysSetSclX, AR_KeysSetSclY, AR_KeysSetSclZ
 - _20.11.2022_ Updated: AR_ExportMat, added progress bar
@@ -218,7 +220,7 @@ Preview range will determine the frame range that will be exported.
 **Default:** Consolidates different polygon selections together that uses same materials.  
 >Note: Messes up material projections! Select object(s) and run the script.  
 
-### ![AR_MatOverride](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/MatOverride.png) MatOverride.py
+### ![AR_MatOverride](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatOverride.png) AR_MatOverride.py
 **Default:** Overrides selected materials with the top of the list selected material.  
 
 ### ![AR_MatOverride](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatMerge.png) AR_MatMerge.py
@@ -302,6 +304,11 @@ Does not support subfields or tags!
 
 ### ![AR_FindGenerators](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FindGenerators.png) AR_FindGenerators.py
 **Default:** Selects MoGraph generator(s) that use(s) selected effector. Prints info also to console.  
+
+
+### ![AR_MoGraphToNulls](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoGraphToNulls.png) AR_MoGraphToNulls.py
+**Default:** Creates MoGraph to nulls setup.  
+**Shift:** User input for custom index.   
 
 ### ![AR_MoSelection](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MoSelection.png) AR_MoSelection.py
 **Default:** Creates MoGraph selection for every clone.  

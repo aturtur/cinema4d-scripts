@@ -3,7 +3,7 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.73** _(Released 07.04.2023)_
+Latest version: **1.73** _(Released 23.05.2023)_
 
 ## Change Log
 **Changes in 1.73**

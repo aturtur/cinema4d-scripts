@@ -4,13 +4,14 @@ AR_PyTagKeepOnFloor
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_PyTagKeepOnFloor
-Version: 1.0.0
+Version: 1.0.1
 Description-US: Adds a custom python tag for selected object(s)
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
+1.0.1 (24.05.2023) - Major bug fix!
 1.0.0 (09.04.2022) - First version
 """
 
@@ -113,10 +114,10 @@ class DropToFloor:\n\
         return True # All good!\n\
 \n\
 def main():\n\
-    selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN) # Get selected objects\n\
-    if len(selection) == 0: return False # If no objects selected\n\
+    obj = op.GetObject() # Get the object\n\
+    if obj is None: return False # If no object\n\
     dtf = DropToFloor() # Initialize a drop to floor class\n\
-    dtf.Start_Floor(doc, selection) # Run the drop the floor function\n\
+    dtf.Start_Floor(doc, [obj]) # Run the drop the floor function\n\
 \n\
     pass"
     # -------------------------------------------------------

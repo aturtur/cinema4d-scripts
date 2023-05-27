@@ -4,7 +4,7 @@ AR_OpenRenderFolder
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_OpenRenderFolder
-Version: 1.0.4
+Version: 1.2.0
 Description-US: Opens folder where project is rendered.
 
 NOTE: Does not support all of the tokens!
@@ -13,7 +13,8 @@ Written for Maxon Cinema 4D R26.014
 Python version 3.9.1
 
 Change log:
-1.0.4 (18.05.2022) - Some custom tokens added
+1.2.0 (25.05.2023) - Support for Variable Tokens
+1.1.0 (18.05.2022) - Some custom tokens added
 1.0.3 (02.05.2022) - Bug fixes and support for some tokens added
 1.0.2 (26.04.2022) - Bug fix and cleaning the code
 1.0.1 (11.01.2022) - MacOS support
@@ -27,6 +28,13 @@ from c4d import storage
 from datetime import datetime
 
 # Functions
+def GetNextObject(op):
+    if op == None: return None
+    if op.GetDown(): return op.GetDown()
+    while not op.GetNext() and op.GetUp():
+        op = op.GetUp()
+    return op.GetNext()
+
 def GetFullYear():
     now = datetime.now()
     return now.strftime("%Y")
@@ -78,6 +86,22 @@ def GetCleanProjectName(name, delimiter):
     else:
         return name
 
+def SearchVT(token):
+    """ Variable Token """
+    tokenVariableObject = None
+    op = doc.GetFirstObject() # Get the first object in the project
+    if op is None: return
+    while op:
+        if op.GetType() == 1060651: # If Variable Tokens object
+            if op[c4d.ID_BASEOBJECT_GENERATOR_FLAG] == True: # If object is enabled
+                tokenVariableObject = op
+                break
+        op = GetNextObject(op) # Get next object
+    if tokenVariableObject != None:
+        return tokenVariableObject[token]
+    else:
+        return None
+
 def CheckTokens(path):
     """ Convert tokens in the path to absolute format """
 
@@ -114,7 +138,7 @@ def CheckTokens(path):
     if tokenAuthor != "":
         tokenAuthor = tokenAuthor.replace(" ", s)
 
-    # Custom tokes
+    # Custom tokens
     tokenAprj   = str(GetCleanProjectName(tokenPrj, d))
     tokenVer    = str(GetProjectVersion(tokenPrj, d))
 
@@ -137,6 +161,20 @@ def CheckTokens(path):
     path = path.replace("$aprj", tokenAprj)     # Solve clean project name ($aprj) token (CUSTOM)
     path = path.replace("$ver", tokenVer)       # Solve project version ($ver) token (CUSTOM)
 
+    try:
+        path = path.replace("$t0", SearchVT(c4d.VT_TOKEN0)) # Solve variable tokens ($t0-9) (PLUG-IN)
+        path = path.replace("$t1", SearchVT(c4d.VT_TOKEN1))
+        path = path.replace("$t2", SearchVT(c4d.VT_TOKEN2))
+        path = path.replace("$t3", SearchVT(c4d.VT_TOKEN3))
+        path = path.replace("$t4", SearchVT(c4d.VT_TOKEN4))
+        path = path.replace("$t5", SearchVT(c4d.VT_TOKEN5))
+        path = path.replace("$t6", SearchVT(c4d.VT_TOKEN6))
+        path = path.replace("$t7", SearchVT(c4d.VT_TOKEN7))
+        path = path.replace("$t8", SearchVT(c4d.VT_TOKEN8))
+        path = path.replace("$t9", SearchVT(c4d.VT_TOKEN9))
+    except:
+        pass
+
     return path
 
 def main():
@@ -147,7 +185,7 @@ def main():
     path = os.path.abspath(renderPath)          # Get absolute path
     path = os.path.dirname(path)                # Get folder path
     path = CheckTokens(path)                    # Convert tokens to absolute
-    
+
     print(path)
 
     storage.ShowInFinder(path, True)            # Open the folder

@@ -3,9 +3,16 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.73** _(Released 24.05.2023)_
+Latest version: **1.74** _(Released 27.05.2023)_
 
 ## Change Log
+**Changes in 1.74**
+- _27.04.2023_ Bug fix: AR_MoGraphToNulls
+- _25.05.2023_ New script: AR_AlignNullToPolygon
+- _25.05.2023_ New script: AR_CameraFocusToNull
+- _25.05.2023_ Updated: AR_OpenRenderFolder, support for Variable Tokens
+- _25.05.2023_ Updated: AR_CycleCameras, support for object selection and Selection object
+
 **Changes in 1.73**
 - _24.05.2023_ Bug fix: AR_PyTagKeepOnFloor
 - _06.04.2023_ New script: AR_MoGraphToNulls
@@ -153,6 +160,10 @@ Requires at least two (2) selected tracks to correctly function. Use in dope she
 **Default:** Creates an aspect ratio guide for selected camera(s).  
 Requires at least one (1) selected camera object to correctly function.  
 
+### ![AR_CameraFocusToNull](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CameraFocusToNull.png) AR_CameraFocusToNull.py
+**Default:** Creates Focus Distance object for selected camera(s).  
+**Shift:** Assigns also target tag to camera.  
+
 ### ![AR_CameraPlane](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CameraPlane.png) AR_CameraPlane.py
 **Default:** Creates plane object that matches selected camera(s) field of view. Positioned to cameras focal point in Z-axis.  
 Supports perspective and parallel projections.  
@@ -161,11 +172,11 @@ Supports perspective and parallel projections.
 **Default:** Crops the canvas to Interactive Render Region.  
 Changes active render settings resolution and selected/active camera's sensor size (film gate) and possibly also film offsets.  
 
-### ![AR_ResizeCanvas](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ResizeCanvas.png) AR_ResizeCanvas.py
+### ![AR_CycleCameras](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CycleCameras.png) AR_CycleCameras.py
 **Default:** Cycles through available cameras.  
 **Shift:** Cycles cameras backwards.  
 
-### ![AR_CycleCameras](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CycleCameras.png) AR_CycleCameras.py
+### ![AR_ResizeCanvas](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ResizeCanvas.png) AR_ResizeCanvas.py
 **Default:** Resizes the canvas without changing the perspective.  
 Changes active render settings resolution and selected/active camera's sensor size or focal length and possibly also film offsets.  
 
@@ -193,7 +204,8 @@ Preview range will determine the frame range that will be exported.
 **Default:** Exports top level objects individually to OBJ-file. Supports object selection.  
 
 ### ![AR_ExportUVTex](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportUVTex.png) AR_ExportUVTex.py
-**Default:** Exports UV texture for selected object. Remember to select polygons of the object first!  
+**Default:** Exports UV texture for selected object.  
+>Note: Uses colors from Bodypaint. Set these first!
 
 ## Import
 ### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py
@@ -224,17 +236,20 @@ Preview range will determine the frame range that will be exported.
 ### ![AR_MatOverride](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatOverride.png) AR_MatOverride.py
 **Default:** Overrides selected materials with the top of the list selected material.  
 
-### ![AR_MatOverride](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatMerge.png) AR_MatMerge.py
+### ![AR_MatMerge](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatMerge.png) AR_MatMerge.py
 **Default:** Merges materials that has the same name.  
 Case sensitive. Supports Cinema 4D's naming conventions. The first material in the material manager overrides the other ones (with the same name).  
 
-### ![AR_MatOwn](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatOverride.png) AR_MatOverride.py
-**Default:** Overrides selected materials with the top of the list selected material.  
+### ![AR_MatOwn](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatOwn.png) AR_MatOwn.py
+**Default:** Creates own materials for every object from existing materials. Supports object selection. 
 
 ### ![AR_MatToObject](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatToObject.png) AR_MatToObject.py
 **Default:** Puts material to object if they have a same name.  
 
 ## Modeling
+### ![AR_AlignNullToPolygon](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AlignNullToPolygon.png) AR_AlignNullToPolygon.py
+**Default:** Creates a null object(s) which is aligned to selected polygon(s).  
+
 ### ![AR_AxisToOrigin](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AxisToOrigin.png) AR_AxisToOrigin.py
 **Default:** Sets object's axis to world origin.  
 Currently does not support objects with exposed normal tags.  

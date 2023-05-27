@@ -5,7 +5,7 @@ Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_ExportUVTex
 Version: 1.0.0
-Description-US: Exports UV texture for selected object. Remember to select polygons of the object!
+Description-US: Exports UV texture for selected object
 
 Written for Maxon Cinema 4D 2023.1.3
 Python version 3.9.1
@@ -27,6 +27,8 @@ def main():
     openLocation = True # If true opens containing folder of the texture
     
     obj = op # Object
+    if obj == None: return False
+
     name = obj.GetName() # Get name of the object
     path = doc.GetDocumentPath() # Get file path of project
     
@@ -59,8 +61,6 @@ def main():
     # Texture editing
     bp.PaintTexture.SetSelected_Texture(tex, None) # Select texture
     c4d.CallCommand(170723) # Create UV Mesh Layer
-    #c4d.CallCommand(170152) # Outline Polygons
-    #c4d.CallCommand(170151) # Fill Polygons
     c4d.CallCommand(170004) # Save Texture
     
     # 

@@ -4,13 +4,14 @@ AR_MoGraphToNulls
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_MoGraphToNulls
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Creates a Xpresso setup where null follows MoGraph items
 
 Written for Maxon Cinema 4D 2023.2.0
 Python version 3.10.8
 
 Change log:
+1.0.2 (19.06.2023) - Bug fix
 1.0.1 (11.05.2023) - Warning dialog if user is going to make large amount of nulls
 1.0.0 (06.04.2023) - Initial realease
 
@@ -63,16 +64,18 @@ def MographToNulls(obj, numberList):
     # Ask user if sure to generate a lot of rigs
     if len(numberList) > 200:
         confirm = g.QuestionDialog("You sure want to create rig for\n"+str(len(numberList))+" clones?")
-
-    if not confirm:
-        return None
+        if not confirm:
+            return None
 
     groupNull = c4d.BaseObject(c4d.Onull) # 
     groupNull.SetName(obj.GetName()+"_nulls") # Set name
 
-    doc.InsertObject(groupNull, checknames=True)
-    # Important to insert it before creating object nodes in xpresso tag!
+    #doc.InsertObject(groupNull, checknames=True)
+    groupNull.InsertAfter(obj)
+    doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, groupNull)
+    groupNull.SetBit(c4d.BIT_ACTIVE)
 
+    # Important to insert it before creating object nodes in xpresso tag!
     for i in numberList:
         mgNull = c4d.BaseObject(c4d.Onull) #
         mgNull.SetName("Item "+str(i)) # Set name
@@ -112,7 +115,6 @@ def MographToNulls(obj, numberList):
     #
     c4d.modules.graphview.RedrawMaster(nodeMaster) # Update xpresso
     return groupNull
-    pass
 
 def main():
     keyMod = GetKeyMod() # Get keymodifier

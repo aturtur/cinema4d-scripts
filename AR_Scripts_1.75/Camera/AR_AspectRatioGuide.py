@@ -11,6 +11,7 @@ Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
+1.2.1 (31.08.2023) - Result resolution bug
 1.2.0 (10.11.2022) - Added support for Redshift Camera object
 1.1.2 (03.05.2022) - Bug fix (cropping)
 1.1.1 (02.05.2022) - Added scale parameter
@@ -273,8 +274,8 @@ def main():\n\
     if old_ar > new_ar:\n\
         w2 = h * new_ar\n\
         h2 = h\n\
-        new_w = round((height * new_ar * scale),2)\n\
-        new_h = round(height * 1 * scale, 2)\n\
+        new_w = round((height * new_ar),2)\n\
+        new_h = round(height, 2)\n\
 \n\
     elif old_ar < new_ar:\n\
         w2 = w\n\
@@ -285,11 +286,11 @@ def main():\n\
     else:\n\
         w2 = w\n\
         h2 = h\n\
-        new_w = round(width * 1 * scale, 2)\n\
-        new_h = round(height * 1 * scale, 2)\n\
+        new_w = round(width, 2)\n\
+        new_h = round(height, 2)\n\
 \n\
-    op[c4d.ID_USERDATA,5] = str(round(new_w * scale, 2))\n\
-    op[c4d.ID_USERDATA,6] = str(round(new_h * scale, 2))\n\
+    op[c4d.ID_USERDATA,5] = str(round(new_w*scale, 2))\n\
+    op[c4d.ID_USERDATA,6] = str(round(new_h*scale, 2))\n\
 \n\
     obj[c4d.PRIM_RECTANGLE_HEIGHT] = h2 * scale\n\
     obj[c4d.PRIM_RECTANGLE_WIDTH]  = w2 * scale\n\

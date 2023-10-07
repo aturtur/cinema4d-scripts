@@ -3,9 +3,19 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.74** _(Released 27.05.2023)_
+Latest version: **1.75** _(Released 07.10.2023)_
 
 ## Change Log
+**Changes in 1.75**
+- _07.10.2023_ Updated: AR_TagsCloneHierarchy, added tag selection feature
+- _24.09.2023_ Updated: AR_TagsSelect, better logic
+- _24.09.2023_ New script: AR_ImportGaea
+- _24.09.2023_ Bug fix: AR_BakeCam, AR_BakePLA, AR_BakePSR, fixed status bar range
+- _17.09.2023_ Bug fix: AR_AlignNullToPolygon, undo step added
+- _10.09.2023_ Bug fix: AR_SelectPrev, major bug fix
+- _31.08.2023_ Bug fix: AR_AspectRatioGuide, vertical resolution calculation fixed
+- _28.06.2023_ New script: AR_TracksRemove
+
 **Changes in 1.74**
 - _27.04.2023_ Bug fix: AR_MoGraphToNulls
 - _25.05.2023_ New script: AR_AlignNullToPolygon
@@ -148,6 +158,9 @@ Adds special track: Time for selected track(s) for time remapping.
 **Shift:** time track is set to relative.  
 Use in dope sheet editor, does not work in f-curve editor.  
 
+### ![AR_TracksRemove](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TracksRemove.png) AR_TracksRemove.py
+**Default:** Removes animated tracks from selected item(s).  
+
 ### ![AR_TracksSequence](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TracksSequence.png) AR_TracksSequence.py
 **Default:** Sequences selected animation tracks.  
 **Shift:** Sequences selected animation tracks with a given gap (in frames).  
@@ -210,6 +223,9 @@ Preview range will determine the frame range that will be exported.
 ## Import
 ### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py
 **Default:** Creates a camera from fSpy JSON-file and Background object from a Image-file.  
+
+### ![AR_ImportGaea](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportGaea.png) AR_ImportGaea.py
+**Default:** Creates a setup from Gaea height map image file.  
 
 ### ![AR_ImportImageFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportImageFolder.png) AR_ImportImageFolder.py
 **Default:** Imports an image folder into materials.  

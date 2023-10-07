@@ -4,13 +4,14 @@ AR_BakeCam
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_BakeCam
-Version: 1.2.0
+Version: 1.2.1
 Description-US: Bakes selected camera(s) to the world space
 
 Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
+1.2.1 (24.09.2023) - Status bar fix, returns to frame where you started baking
 1.2.0 (18.11.2022) - Parallel processing, bakes multiple cameras in one go. Progress bar
 1.1.0 (10.11.2022) - Support for Redshift camera (new in C4D 2023.1.0)
 1.0.2 (10.10.2021) - Updated to R25
@@ -567,11 +568,9 @@ def Bake(cameras):
     for i in range(startFrame, endFrame+1): # Iterate through Preview Range
 
         #
-        progress = u.RangeMap(i, 0, endFrame+1, 0, 100, True)
-        c4d.StatusSetText("Baking frame %s of %s" % (i,endFrame+1))
+        progress = u.RangeMap(i, startFrame, endFrame + 1, 0, 100, True)
+        c4d.StatusSetText("Baking frame %s of %s" % (i,endFrame + 1))
         c4d.StatusSetBar(progress)
-        #c4d.DrawViews(c4d.DRAWFLAGS_ONLY_ACTIVE_VIEW|c4d.DRAWFLAGS_NO_THREAD|c4d.DRAWFLAGS_STATICBREAK) # Updates the viewport during the script runs -> slows down potential baking speed a lot!
-        #
 
         SetCurrentFrame(i, doc) # Set current frame
         frame = doc.GetTime().GetFrame(fps) # Get current frame
@@ -610,6 +609,7 @@ def Bake(cameras):
 def main():
     """ The first function to run """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
+    currentTime = doc.GetTime() # Get current time
     keymod = GetKeyMod() # Get keymodifier
     selected = doc.GetActiveObjects(0) # Get selected objects
     cameras = [] # Collect cameras to an array
@@ -635,6 +635,10 @@ def main():
     doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
     Bake(cameras) # Bake the camera (standard C4D camera)
     CleanKeys(cameras) # Clean keyframes
+
+    doc.SetTime(currentTime) # Set current time to back 
+    doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
+    c4d.GeSyncMessage(c4d.EVMSG_TIMECHANGED) # Send a synchronous event message that time has changed
 
     # Remove dummy cameras
     for i in range(0, len(cameras)):

@@ -4,13 +4,14 @@ AR_SelectPrev
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_SelectPrev
-Version: 1.0.2
+Version: 1.0.3
 Description-US: Default: Selects previous object. Shift: Keeps the old selection
 
 Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
+1.0.3 (10.09.2023) - Bug fix
 1.0.2 (18.11.2022) - Hotkey fix
 1.0.1 (20.01.2022) - R25 update
 """
@@ -79,7 +80,7 @@ def main():
     elif (keyMod == "Shift") or (keyMod == "Alt+Shift"):
         for s in selection:
             Select(GetPrev(s, True))
-    elif (keyMod == "Ctrl"= or (keyMod == "Alt+Ctrl)":
+    elif (keyMod == "Ctrl") or (keyMod == "Alt+Ctrl"):
         for s in selection:
             Deselect(s) # Deselect original object
             Select(GetPrev(s, False))

@@ -4,13 +4,14 @@ AR_BakePSR
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_BakePSR
-Version: 1.1.0
+Version: 1.1.1
 Description-US: Bakes object to PSR animation in world space. Shift: In local space
 
 Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
+1.1.1 (24.09.2023) - Status bar fix, returns to frame where you started baking
 1.1.0 (18.11.2022) - Parallel processing, bakes multiple cameras in one go. Progress bar
 1.0.3 (29.04.2022) - Removes 'Time Track' if there's any
 1.0.2 (10.10.2021) - Updated to R25
@@ -77,8 +78,10 @@ def DisableDynamics(objects):
         theObj = obj[2] # Baked object
         tags = theObj.GetTags() # Get objects tags
         for t in tags: # Iterate through tags
-            if t.GetType() == 180000102: # If dynamics tag
+            if t.GetType() == 180000102: # If dynamics tag (bullet)
                 t[c4d.RIGID_BODY_ENABLED] = False # Disable dynamics
+            if t.GetType() == 1059981: # If rigid body tag (new simulation system)
+                t[c4d.RIGIDBODY_USE] = False # Disable dynamics
 
 def DummyObject(obj, doc):
     dummyObject = obj.GetClone() # Initialize a camera object
@@ -180,8 +183,8 @@ def Bake(objects):
     for i in range(startFrame, endFrame+1): # Iterate through Preview Range
 
         #
-        progress = u.RangeMap(i, 0, endFrame+1, 0, 100, True)
-        c4d.StatusSetText("Baking frame %s of %s" % (i,endFrame+1))
+        progress = u.RangeMap(i, startFrame, endFrame + 1, 0, 100, True)
+        c4d.StatusSetText("Baking frame %s of %s" % (i,endFrame + 1))
         c4d.StatusSetBar(progress)
         #c4d.DrawViews(c4d.DRAWFLAGS_ONLY_ACTIVE_VIEW|c4d.DRAWFLAGS_NO_THREAD|c4d.DRAWFLAGS_STATICBREAK) # Updates the viewport during the script runs -> slows down potential baking speed a lot!
         #
@@ -226,6 +229,7 @@ def Bake(objects):
 def main():
     """ The first function to run """
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
+    currentTime = doc.GetTime() # Get current time
     selected = doc.GetActiveObjects(0) # Get selected objects
     doc.StartUndo() # Start recording undos
     keyMod = GetKeyMod() # Get keymodifier
@@ -261,6 +265,10 @@ def main():
         CleanKeys(objects) # Clean keyframes
         CopyTags(objects) # Restore tags
         DisableDynamics(objects) # Disable dynamics tags
+
+    doc.SetTime(currentTime) # Set current time to back 
+    doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
+    c4d.GeSyncMessage(c4d.EVMSG_TIMECHANGED) # Send a synchronous event message that time has changed
 
     for x in reversed(objects):
         MoveToFirst(x[2], doc) # Sort

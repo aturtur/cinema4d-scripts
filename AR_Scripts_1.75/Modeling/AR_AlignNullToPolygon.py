@@ -4,13 +4,14 @@ AR_AlignNullToPolygon
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_AlignNullToPolygon
-Version: 1.1.0
+Version: 1.1.1
 Description-US: Creates a null object(s) which is aligned to selected polygon(s)
 
 Written for Maxon Cinema 4D 2023.2.1
 Python version 3.10.8
 
 Change log:
+1.1.1 (19.09.2023) - Bug fix, missing undo step
 1.1.0 (27.05.2023) - Support for multiple object selections and polygon selections
 1.0.0 (25.05.2023) - Initial realease
 """
@@ -39,6 +40,8 @@ def CreateNullSetup(obj, polyIndex):
     locator[c4d.NULLOBJECT_ORIENTATION] = 1 # Set orientation to Z
 
     locator.InsertBefore(obj) # Insert null object to the document
+    doc.AddUndo(c4d.UNDOTYPE_NEWOBJ, locator) # Add undo step for inserting new object
+
     # Important to insert it before creating object nodes in xpresso tag!
 
     # Priority data setup

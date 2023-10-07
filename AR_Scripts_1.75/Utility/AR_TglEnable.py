@@ -289,7 +289,8 @@ def main():
                   1035502, # Forester Rock
                   1035500, # Forester MultiCloner
                   1034620, # Forester MultiFlora
-                  1060584] # Aturtur Hawkeye
+                  1060584, # Aturtur Hawkeye
+                  1060651] # Aturtur Variable Tokens
 
     insydium = [1027397, # xpSystem                 X-Particles Systems
                 1032129, # Dynamics Null

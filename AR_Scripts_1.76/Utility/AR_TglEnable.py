@@ -4,7 +4,7 @@ AR_TglEnable
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_TglEnable
-Version: 1.0.8
+Version: 1.0.9
 Description-US: Enables or disables generator. Shift: Toggle next parent generator. Ctrl: Toggle root generator. Alt: Toggle generator family
 
 Written for Maxon Cinema 4D R25.010
@@ -22,6 +22,7 @@ CTRL+SHIFT: Toggle from custom list.
 ALT+CTRL+SHIFT: Open textfile to modify custom. You can use hashtag '#' separating comments. Put each generator to own line!
 
 Change log:
+1.0.8 (15.11.2023) - Added support for Projection deformer
 1.0.8 (23.09.2022) - Added Insydium NeXus stuff.
 1.0.7 (29.03.2022) - Instead of carrying txt-file for options along with the script, it will create options file to C4D's preference folder.
 1.0.6 (23.03.2022) - Added support Insydium stuff.
@@ -136,7 +137,8 @@ def main():
                 5131,       # Shear 0
                 5129,       # Bulge 0
                 5128,       # Bend 0
-                1035447]    # Delta Mush 0
+                1035447,    # Delta Mush 0
+                1060422]    # Projection
 
     objects = [1027657,     # Guide 0
                 5120,       # Bezier 0

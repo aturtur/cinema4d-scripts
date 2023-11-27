@@ -4,7 +4,7 @@ AR_NodeAdd
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodeAdd
-Version: 1.1.1
+Version: 1.1.2
 Description-US: Adds node between selected nodes (Only for Redshift).
 
 Notice: Make sure the Redshift material is selected when using the script!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R25.010
 Python version 3.9.1
 
 Change log:
+1.1.2 (19.10.2023) - Update for Cinema 4D 2024
 1.1.1 (15.11.2022) - Fixed AOV port
 1.1.0 (06.05.2022) - Added Change Range node
 """
@@ -180,7 +181,7 @@ def AddNode(nodeMaster):
 
     for node in root.GetChildren(): # Iterate through nodes
         if node.GetBit(c4d.BIT_ACTIVE): # If node is selected
-            bc  = node.GetData() # Get copy of base container
+            bc  = node.GetDataInstance() # Get copy of base container
             bsc = bc.GetContainer(c4d.ID_SHAPECONTAINER) # Get copy of shape container
             bcd = bsc.GetContainer(c4d.ID_OPERATORCONTAINER) # Get copy of operator container
             px  = bcd.GetReal(100) # Get x position

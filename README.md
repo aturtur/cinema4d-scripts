@@ -3,9 +3,20 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.75** _(Released 07.10.2023)_
+Latest version: **1.76** _(Released 27.11.2023)_
 
 ## Change Log
+**Changes in 1.76**
+- _26.11.2023_ New script: AR_MatSelectPrev
+- _26.11.2023_ New script: AR_MatSelectNext
+- _01.11.2023_ New script: AR_KeysMoveToPlayheadLast
+- _01.11.2023_ New script: AR_KeysMoveToPlayheadFirst
+- _01.11.2023_ New script: AR_KeysDuplicateToPlayheadFlip
+- _01.11.2023_ New script: AR_KeysDuplicateToPlayhead
+- _30.10.2022_ Updated: AR_Dot, Added python tag to keep the name
+- _19.10.2023_ Updated: Many Node Tools scripts updated for Cinema 4D 2024 (fixed deprecation warnings)
+- _31.08.2023_ New script: AR_ImportAuditionMarkers
+
 **Changes in 1.75**
 - _07.10.2023_ Updated: AR_TagsCloneHierarchy, added tag selection feature
 - _24.09.2023_ Updated: AR_TagsSelect, better logic
@@ -17,7 +28,7 @@ Latest version: **1.75** _(Released 07.10.2023)_
 - _28.06.2023_ New script: AR_TracksRemove
 
 **Changes in 1.74**
-- _27.04.2023_ Bug fix: AR_MoGraphToNulls
+- _19.06.2023_ Bug fix: AR_MoGraphToNulls
 - _25.05.2023_ New script: AR_AlignNullToPolygon
 - _25.05.2023_ New script: AR_CameraFocusToNull
 - _25.05.2023_ Updated: AR_OpenRenderFolder, support for Variable Tokens
@@ -121,6 +132,14 @@ It's important that 'Intermediate Points' is set to 'Uniform'! The script does n
 **Shift:** Distributes selected keyframes by given step (in frames).  
 Requires at least three (3) selected keyframes to correctly function. Use in dope sheet editor, does not work in f-curve editor.  
 
+### ![AR_KeysDuplicateToPlayhead](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysDuplicateToPlayhead.png) AR_KeysDuplicateToPlayhead.py
+**Default:** Duplicate keydrames to playhead flipped.  
+Use in dope sheet editor, does not work in f-curve editor.  
+
+### ![AR_KeysDuplicateToPlayheadFlip](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysDuplicateToPlayheadFlip.png) AR_KeysDuplicateToPlayheadFlip.py
+**Default:** Duplicate keydrames to playhead flipped.  
+Use in dope sheet editor, does not work in f-curve editor.  
+
 ### ![AR_KeysAlign](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysAlign.png) AR_KeysAlign.py
 **Default:** Aligns selected keyframes to the closest whole frame.  
 Use in dope sheet editor, does not work in f-curve editor.  
@@ -135,6 +154,14 @@ Use in dope sheet editor, does not work in f-curve editor.
 **Default:** Move selected keyframe(s) to the right.  
 **Shift:** Set custom value as default (shared with AR_KeysMoveL).  
 **Ctrl:** Move selected keyframe(s) by the set value multiplied by 2 to the right.  
+Use in dope sheet editor, does not work in f-curve editor.  
+
+### ![AR_KeysMoveToPlayheadFirst](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysMoveToPlayheadFirst.png) AR_KeysMoveToPlayheadFirst.py
+**Default:** Align selected keyframe(s) to playhead, first keyframe ruling.  
+Use in dope sheet editor, does not work in f-curve editor.  
+
+### ![AR_KeysMoveToPlayheadLast](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysMoveToPlayheadLast.png) AR_KeysMoveToPlayheadLast.py
+**Default:** Align selected keyframe(s) to playhead, last keyframe ruling.  
 Use in dope sheet editor, does not work in f-curve editor.  
 
 ### ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetPosX.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetPosY.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetPosZ.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetRotH.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetRotB.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetRotP.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetSclX.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetSclY.png) ![AR_KeysSet](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysSetSclZ.png) AR_KeysSet...
@@ -221,6 +248,9 @@ Preview range will determine the frame range that will be exported.
 >Note: Uses colors from Bodypaint. Set these first!
 
 ## Import
+### ![AR_ImportAuditionMarkers](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportAuditionMarkers.png) AR_ImportAuditionMarkers.py
+**Default:** Imports Adobe Audition markers CSV file and creates markers from those.  
+
 ### ![AR_ImportfSpy](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportfSpy.png) AR_ImportfSpy.py
 **Default:** Creates a camera from fSpy JSON-file and Background object from a Image-file.  
 
@@ -258,6 +288,12 @@ Case sensitive. Supports Cinema 4D's naming conventions. The first material in t
 
 ### ![AR_MatOwn](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatOwn.png) AR_MatOwn.py
 **Default:** Creates own materials for every object from existing materials. Supports object selection. 
+
+### ![AR_MatSelectNext](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatSelectNext.png) AR_MatSelectNext.py
+**Default:** Select next material.  
+
+### ![AR_MatSelectPrev](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatSelectPrev.png) AR_MatSelectPrev.py
+**Default:** Select previous material.  
 
 ### ![AR_MatToObject](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatToObject.png) AR_MatToObject.py
 **Default:** Puts material to object if they have a same name.  

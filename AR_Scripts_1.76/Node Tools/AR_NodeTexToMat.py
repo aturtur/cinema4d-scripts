@@ -4,7 +4,7 @@ AR_NodeTexToMat
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodeTexToMat
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Creates material node from selected texture nodes (Only for Redshift).
 
 Notice: Make sure the Redshift material is selected when using the script!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R26.014
 Python version 3.9.1
 
 Change log:
+1.0.2 (19.10.2023) - Update for Cinema 4D 2024
 1.0.1 (03.04.2024) - Bug fixes
 1.0.0 (19.05.2022) - First version
 
@@ -493,7 +494,7 @@ def CreateTexToMat(nodeMaster):
             outputNode = node
 
         if node.GetBit(c4d.BIT_ACTIVE): # If node is selected
-            bc  = node.GetData() # Get copy of base container
+            bc  = node.GetDataInstance() # Get copy of base container
             bsc = bc.GetContainer(c4d.ID_SHAPECONTAINER) # Get copy of shape container
             bcd = bsc.GetContainer(c4d.ID_OPERATORCONTAINER) # Get copy of operator container
             px  = bcd.GetReal(100) # Get x position

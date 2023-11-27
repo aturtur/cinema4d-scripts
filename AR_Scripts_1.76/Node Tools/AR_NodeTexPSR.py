@@ -4,7 +4,7 @@ AR_NodeTexPSR
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodeTexPSR
-Version: 1.0.2
+Version: 1.0.3
 Description-US: Creates individual scale, offset and rotate control nodes for Redshift texture and triplanar nodes.
 
 Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R25.010
 Python version 3.9.1
 
 Change log:
+1.0.3 (19.10.2023) - Update for Cinema 4D 2024
 1.0.2 (08.10.2021) - Updated for R25
 1.0.1 (25.02.2021) - Key modifier support: Shift add only scale, Ctrl add only offset, Alt add only rotation
 """
@@ -74,7 +75,7 @@ def AddControllers(nodeMaster, keyMod):
     nodeMaster.AddUndo() # Add undo for changing nodes
     for node in root.GetChildren(): # Iterate through nodes
         if node.GetBit(c4d.BIT_ACTIVE): # If node is selected
-            bc  = node.GetData() # Get copy of base container
+            bc  = node.GetDataInstance() # Get copy of base container
             bsc = bc.GetContainer(c4d.ID_SHAPECONTAINER) # Get copy of shape container
             bcd = bsc.GetContainer(c4d.ID_OPERATORCONTAINER) # Get copy of operator container
             px  = bcd.GetReal(100) # Get x position

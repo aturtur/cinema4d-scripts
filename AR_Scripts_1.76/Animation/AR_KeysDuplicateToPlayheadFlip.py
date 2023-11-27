@@ -1,43 +1,26 @@
 """
-AR_KeysMoveR
+AR_KeysDuplicateToPlayheadFlip
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_KeysMoveR
-Version: 1.0.1
-Description-US: Default: Moves selected keyframe(s) to left. Shift: Set the step. Ctrl: Step is multiplied by 2.
+Name-US: AR_KeysDuplicateToPlayheadFlip
+Version: 1.0.0
+Description-US: Duplicate keydrames to playhead flipped
 
 Note: Use in 'Dope Sheet', doesn't work in 'F-Curve Mode'
 
-Written for Maxon Cinema 4D R25.010
-Python version 3.9.1
+Written for Maxon Cinema 4D 2024.1.0
+Python version 3.11.4
 
 Change log:
-1.0.1 (29.04.2022) - Float value support, save custom step
-1.0.0 (28.03.2022) - First version
+1.0.0 (01.11.2023) - First version
 """
 
 # Libraries
 import c4d
-import os
 import sys
-from c4d import storage
-from c4d import gui
 
 # Functions
-def CheckFiles():
-    folder = storage.GeGetC4DPath(c4d.C4D_PATH_PREFS) # Get C4D's preference folder path
-    folder = os.path.join(folder, "aturtur") # Aturtur folder
-    if not os.path.exists(folder): # If folder doesn't exist
-        os.makedirs(folder) # Create folder
-    fileName = "AR_KeysMove.txt" # File name
-    filePath = os.path.join(folder, fileName) # File path
-    if not os.path.isfile(filePath): # If file doesn't exist
-        f = open(filePath,"w+")
-        f.write("1.0") # Default settings
-        f.close()
-    return filePath
-
 def GetKeyMod():
     bc = c4d.BaseContainer() # Initialize a base container
     keyMod = "None" # Initialize a keyboard modifier status
@@ -106,52 +89,56 @@ def GetKeys():
         tracks.append([curve, keys])
     return tracks
 
-def LoadStep():
-    optionsFile = CheckFiles() # Get options file
-    if (sys.version_info >= (3, 0)): # If Python 3 version (R23)
-        f = open(optionsFile) # Open the file for reading
-    else: # If Python 2 version (R21)
-        f = open(optionsFile.decode("utf-8"))
-    value = float(f.readline()) # Get value from the file
-    return value
+def MoveKeys(keyMod):
 
-def SaveStep(customStep):
-    optionsFile = CheckFiles() # Get options file
-    if (sys.version_info >= (3, 0)): # If Python 3 version (R23)
-        f = open(optionsFile, 'w') # Open the file for writing
-    else: # If Python 2 version (R21)
-        f = open(optionsFile.decode("utf-8"), 'w') # Open the file for writing
-    f.write(str(customStep)) # Write current value to file
-    f.close() # Close file
-
-def MoveKeys(keyMod, step):
-    tracks = GetKeys() # Get selected keys
     fps = doc.GetFps()
+    currentFrame = doc.GetTime().GetFrame(fps) # Get current frame
+
+    tracks = GetKeys() # Get selected keys
+
+    maxFrame = -sys.maxsize -1
+
     for track in tracks: # Iterate through tracks
         keys = track[1]
         for i, k in enumerate(keys): # Iterate through keys
             curve = k.GetCurve() # Get the curve
-            if keyMod == "None":
-                time = k.GetTime().Get() + (float(-step) / fps)
-            elif keyMod == "Ctrl":
-                time = k.GetTime().Get() + float(-step * 2) / fps
+            frame = k.GetTime().Get() * fps # Get keyframe time in frames
+            if frame > maxFrame: # If frame is larger than max frame currently
+                maxFrame = frame # Set new max frame
+
+    diff = currentFrame - maxFrame
+
+    for track in tracks: # Iterate through tracks
+        keys = track[1]
+        for i, k in enumerate(reversed(keys)): # Iterate through keys
+            curve = k.GetCurve() # Get the curve
+            time = k.GetTime().Get() # Get time of the keyframe
             index = curve.FindKey(k.GetTime())["idx"] # Get correct index
-            curve.MoveKey(c4d.BaseTime(time), index, None, True, False) # Move keyframe
-            
+            cloneKey = curve.GetKey(index).GetClone()
+            step = currentFrame - (k.GetTime().Get() * fps) - diff # Calculate step
+
+            newTime = c4d.BaseTime((currentFrame  / fps) + (float(step) / fps))
+            cloneKey.SetTime(curve, newTime) # Set new time
+
+            cloneKey.SetValueLeft(curve, k.GetValueRight())
+            cloneKey.SetValueRight(curve, k.GetValueLeft())
+            cloneKey.SetTimeLeft(curve, k.GetTimeLeft())
+            cloneKey.SetTimeRight(curve, k.GetTimeRight())
+
+            #curve.MoveKey(c4d.BaseTime(time), index, None, True, False) # Move keyframe
+            curve.InsertKey(cloneKey, bUndo = True, SynchronizeKeys = False)
+            k.ChangeNBit(c4d.NBIT_TL1_SELECT, c4d.NBITCONTROL_CLEAR) # Deselect old keyframes
+
 def main():
     doc.StartUndo() # Start recording undos
     #try: # Try to execute following script
     keyMod = GetKeyMod() # Get keymodifier
-    step = LoadStep()
-    if keyMod == "Shift":
-        step = float(gui.InputDialog('Step', str(step))) # Store user given value
-        SaveStep(step)
-    MoveKeys(keyMod, step) # Do the thing
+    MoveKeys(keyMod) # Do the thing
     #except: # If something went wrong
     #    pass # Do nothing
     doc.EndUndo() # Stop recording undos
     c4d.EventAdd() # Update Cinema 4D
-    
+
 # Execute main()
 if __name__=='__main__':
     main()

@@ -4,7 +4,7 @@ AR_NodeAlignH
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodeAlignH
-Version: 1.0.2
+Version: 1.0.3
 Description-US: Aligns selected graph nodes horizontally, supports Xpresso and Redshift
 
 Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R25.010
 Python version 3.9.1
 
 Change log:
+1.0.3 (19.10.2023) - Update for Cinema 4D 2024
 1.0.2 (07.10.2021) - Updated for R25
 1.0.1 (17.02.2021) - Alt modifier: The rightmost node rules
 """
@@ -65,7 +66,7 @@ def AlignNodesHorizontally(nodeMaster, keyMod):
     root = nodeMaster.GetRoot() # Get xpresso root
     for node in root.GetChildren(): # Iterate through nodes
         if node.GetBit(c4d.BIT_ACTIVE): # If node is selected
-            bc = node.GetData() # Get copy of base container
+            bc = node.GetDataInstance() # Get copy of base container
             bsc = bc.GetContainer(c4d.ID_SHAPECONTAINER) # Get copy of shape container
             bcd = bsc.GetContainer(c4d.ID_OPERATORCONTAINER) # Get copy of operator container
             px  = bcd.GetReal(100) # Get x position

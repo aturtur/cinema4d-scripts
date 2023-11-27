@@ -4,7 +4,7 @@ AR_NodeDstrbV
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_NodeDstrbV
-Version: 1.0.1
+Version: 1.0.2
 Description-US: Distributes selected nodes vertically, supports Xpresso and Redshift
 
 Notice: Make sure the Xpresso tag or the Redshift material is selected when using the script!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R25.010
 Python version 3.9.1
 
 Change log:
+(19.10.2023) - Update for Cinema 4D 2024
 1.0.1 (07.10.2021) - Updated for R25
 """
 
@@ -40,7 +41,7 @@ def DistributeNodes(nodeMaster):
     root = nodeMaster.GetRoot() # Get node master root
     for node in root.GetChildren(): # Iterate through nodes
         if node.GetBit(c4d.BIT_ACTIVE): # If node is selected
-            bc  = node.GetData() # Get copy of base container
+            bc  = node.GetDataInstance() # Get copy of base container
             bsc = bc.GetContainer(c4d.ID_SHAPECONTAINER) # Get copy of shape container
             bcd = bsc.GetContainer(c4d.ID_OPERATORCONTAINER) # Get copy of operator container
             px  = bcd.GetReal(100) # Get x position

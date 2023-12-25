@@ -4,7 +4,7 @@ AR_MatRSLegacy
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_MatRSLegacy
-Version: 1.0.0
+Version: 1.0.1
 Description-US: Creates Redshift material that uses old Redshift Shader Graph
 
 Note: Requires Cinema 4D R26!
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R26.013
 Python version 3.9.1
 
 Change log:
+1.0.1 (15.12.2024) - Typo bug fix
 1.0.0 (20.04.2022) - Initial version
 """
 
@@ -46,7 +47,7 @@ def main():
     material.SetBit(c4d.BIT_ACTIVE) # Select new material
 
     doc.EndUndo() # Stop recording undos
-    doc.EnetAdd() # Update Cinema 4D
+    doc.EventAdd() # Update Cinema 4D
 
 if __name__ == '__main__':
     main()

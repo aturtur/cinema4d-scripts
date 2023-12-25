@@ -4,13 +4,15 @@ AR_RandomColors
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_RandomColors
-Version: 1.1.0
+Version: 1.1.1
 Description-US: Sets random display color to selected object(s)
 
-Written for Maxon Cinema 4D R25.117
-Python version 3.9.1
+Written for Maxon Cinema 4D 2024.2.0
+Python version 3.11.4
 
 Change log:
+1.1.1 (20.12.2023) - Support for Cinema 4D 2024 (Gradient bug fix)
+    - Gradient changed https://developers.maxon.net/assets/docs/py/2024_0_0a/misc/whatisnew.html
 1.1.0 (08.11.2022) - Added feature to use custom gradient
 1.0.1 (29.03.2022) - Support for R25
 1.0.0 (10.04.2021) - Initial release
@@ -107,19 +109,20 @@ class Dialog(GeDialog):
 
 # Functions
 def ColorizeWithGradient(gradient):
-    irs = render.InitRenderStruct()
-    gradient.InitRender(irs)
+    irs = render.InitRenderStruct() # Create a rendering structure
+    gradientData = gradient.PrepareRenderData(irs) # Initialize gradient data for rendering
     selection = doc.GetActiveObjects(1) # Get object selection
     random.shuffle(selection)
     for i, obj in enumerate(selection): # Iterate through selected objects
         doc.AddUndo(c4d.UNDOTYPE_CHANGE_NOCHILDREN, obj) # Record undo
         obj[c4d.ID_BASEOBJECT_USECOLOR] = 2 # Display Color = On
-        #color = c4d.Vector(RandomValue(), RandomValue(), RandomValue()) # Get random color
+        position = float(i) / float(len(selection) - 1) # Calculate gradient position
+        color64 = gradientData.CalcGradientPixel(position) # Calculate gradient color
+        colorVector = c4d.Vector(color64.r, color64.g, color64.b) # Convert color
+        obj[c4d.ID_BASEOBJECT_COLOR] = colorVector # Set object color
 
-        obj[c4d.ID_BASEOBJECT_COLOR] = gradient.CalcGradientPixel(float(i)/float(len(selection)))
     doc.EndUndo() # Stop recording undos
     c4d.EventAdd() # Update Cinema 4D
-
 
 def GetKeyMod():
     bc = c4d.BaseContainer() # Initialize a base container

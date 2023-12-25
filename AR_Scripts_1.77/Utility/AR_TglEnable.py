@@ -138,7 +138,7 @@ def main():
                 5129,       # Bulge 0
                 5128,       # Bend 0
                 1035447,    # Delta Mush 0
-                1060422]    # Projection
+                1060422]    # Projection 0
 
     objects = [1027657,     # Guide 0
                 5120,       # Bezier 0

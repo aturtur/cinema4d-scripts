@@ -174,7 +174,7 @@ class Dialog(GeDialog):
     # Create Dialog
     def CreateLayout(self):
         # ----------------------------------------------------------------------------------------
-        self.SetTitle("Resize composition") # Set dialog title
+        self.SetTitle("Resize Canvas") # Set dialog title
         # ----------------------------------------------------------------------------------------
         self.GroupBegin(999, c4d.BFH_CENTER, 1, 1) # Begin 'Main' group
         self.GroupBorderSpace(9, 0, 9, 9)

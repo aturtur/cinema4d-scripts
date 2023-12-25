@@ -3,90 +3,26 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.76** _(Released 27.11.2023)_
+Latest version: **1.77** _(Released 25.12.2023)_
 
 ## Change Log
-**Changes in 1.76**
-- _26.11.2023_ New script: AR_MatSelectPrev
-- _26.11.2023_ New script: AR_MatSelectNext
-- _01.11.2023_ New script: AR_KeysMoveToPlayheadLast
-- _01.11.2023_ New script: AR_KeysMoveToPlayheadFirst
-- _01.11.2023_ New script: AR_KeysDuplicateToPlayheadFlip
-- _01.11.2023_ New script: AR_KeysDuplicateToPlayhead
-- _30.10.2022_ Updated: AR_Dot, Added python tag to keep the name
-- _19.10.2023_ Updated: Many Node Tools scripts updated for Cinema 4D 2024 (fixed deprecation warnings)
-- _31.08.2023_ New script: AR_ImportAuditionMarkers
+**Changes in 1.77**
+- _25.12.2023_ New script: AR_TakeMatte
+- _22.12.2023_ New script: AR_LayerToggle
+- _22.12.2023_ New script: AR_LayerOff
+- _22.12.2023_ New script: AR_LayerOn
+- _20.12.2023_ Updated: AR_RandomColors, Support for C4D 2024 (gradient)
+- _20.12.2023_ Updated: AR_LayerColorizeWithGradient, Support for C4D 2024 (gradient) and name change
+- _14.12.2023_ Updated: AR_ExportMat, Exports with current render settings
+- _09.12.2023_ Updated: AR_CameraPlane, Option to create camera plane that stays on place, but scales (shift)
+- _09.12.2023_ Updated: AR_Reference, Dialog with different options
+- _08.12.2023_ New script: AR_KeysConstantSpeed
+- _24.11.2023_ New script: AR_TakeCamera
 
-**Changes in 1.75**
-- _07.10.2023_ Updated: AR_TagsCloneHierarchy, added tag selection feature
-- _24.09.2023_ Updated: AR_TagsSelect, better logic
-- _24.09.2023_ New script: AR_ImportGaea
-- _24.09.2023_ Bug fix: AR_BakeCam, AR_BakePLA, AR_BakePSR, fixed status bar range
-- _17.09.2023_ Bug fix: AR_AlignNullToPolygon, undo step added
-- _10.09.2023_ Bug fix: AR_SelectPrev, major bug fix
-- _31.08.2023_ Bug fix: AR_AspectRatioGuide, vertical resolution calculation fixed
-- _28.06.2023_ New script: AR_TracksRemove
-
-**Changes in 1.74**
-- _19.06.2023_ Bug fix: AR_MoGraphToNulls
-- _25.05.2023_ New script: AR_AlignNullToPolygon
-- _25.05.2023_ New script: AR_CameraFocusToNull
-- _25.05.2023_ Updated: AR_OpenRenderFolder, support for Variable Tokens
-- _25.05.2023_ Updated: AR_CycleCameras, support for object selection and Selection object
-
-**Changes in 1.73**
-- _24.05.2023_ Bug fix: AR_PyTagKeepOnFloor
-- _06.04.2023_ New script: AR_MoGraphToNulls
-- _03.04.2023_ Bug fix: AR_NodeTexToMat
-
-**Older changes**
-- _01.04.2023_ New script: AR_F@#kUpNodes (2023 April Fools' Day)
-- _28.03.2023_ New script: AR_MatOverride
-- _03.03.2023_ New scripts: AR_StabilizeCamera, AR_AverageLocator, AR_CycleCameras
-- _27.02.2023_ Updated: AR_ViewportColor, More presets, async GeDialog instead of modal
-- _18.02.2023_ Updated: AR_Folder, fixed adopt layer bug
-- _10.01.2023_ New scripts: AR_CameraPlane, AR_ExportUVTex, AR_KeysSetPosX, AR_KeysSetPosY, AR_KeysSetPosZ, AR_KeysSetRotB, AR_KeysSetRotH, AR_KeysSetRotP, AR_KeysSetSclX, AR_KeysSetSclY, AR_KeysSetSclZ
-- _20.11.2022_ Updated: AR_ExportMat, added progress bar
-- _18.11.2022_ Updated: AR_BakeCam, AR_BakePLA, AR_BakePSR, progress bar added, parallel processing
-- _18.11.2022_ Updated: AR_SelectDeepest, AR_SelectDown, AR_SelectNext, AR_SelectPrev, AR_SelectRoot, AR_SelectUp, better support for hotkeys
-- _17.11.2022_ Updated: AR_ExportC4D, AR_ExportOBJ, progress bar
-- _17.11.2022_ Updated: AR_Folder, fixed bug when user cancels picking a custom color
-- _16.11.2022_ Updated: AR_Dot, Added option to change the color
-- _15.11.2022_ Updated: AR_NodeAdd, fixed AOV port
-- _10.11.2022_ Updated: AR_BakeCamera and AR_AspectRatioGuide, support for Redshift Camera object (new in C4D 2023.1.0)
-- _08.11.2022_ Updated: AR_ViewportColor, dialog for presets. AR_RandomColors, option to colorize objects with a gradient
-- _02.11.2022_ New script: AR_ColorizeLayersWithGradient
-- _01.11.2022_ New script: AR_ExportMat  
-- _24.09.2022_ Updated: AR_TglEnable, support for Insydium NeXus stuff, fixed script name
-- _24.09.2022_ Updated: AR_Dot, darker icon
-- _16.09.2022_ New script: AR_PyTagShowIfActiveCam
-- _16.09.2022_ Updated: AR_DynaMesh, added support for material
-- _16.09.2022_ Updated: AR_Folder, added support for Cinema 4D 2023
-- _23.08.2022_ New script: AR_ViewportColor
-- _19.08.2022_ Updated: AR_PyTagShowIfActive, added option to choose between "Selected" and " Active"
-- _18.08.2022_ Updated: AR_TagsSelect, if tag selection -> search and select that tag type
-- _18.08.2022_ Scripts comeback: AR_RemoveMissingTextureTags, AR_SelectSameColor
-- _18.08.2022_ Updated: AR_Dot, if object selection, create dot null after every selected object
-- _19.05.2022_ New script: AR_NodeTexToMat
-- _06.05.2022_ Updated: AR_NodeAdd, added Change Range node
-- _03.05.2022_ New script: AR_AbsRenderPaths
-- _03.05.2022_ Bug fix: AR_AspectRatioGuide
-- _02.05.2022_ Updated: AR_AspectRatioGuide
-- _02.05.2022_ Major bug fix: AR_OpenRenderFolder
-- _02.05.2022_ New scripts: AR_Dot, AR_PyTagShowGivenFrames
-- _29.04.2022_ New scripts: AR_KeysAlign, AR_KeysValueAdd, AR_KeysValueSub, AR_NodeResize
-- _29.04.2022_ Updated: AR_KeysMoveL, AR_KeysMoveL (saves custom step and sets it as default value), AR_BakePLA
-- _26.04.2022_ New script: AR_OpenProjectFolder
-- _26.04.2022_ Bug fixes: AR_TracksRemap, AR_OpenRenderFolder
-- _25.04.2022_ Minor fix: AR_OpenBugReportsFolder
-- _25.04.2022_ New scripts: AR_DeleteARPrefs, AR_SortABC, AR_SortRandom
-- _22.04.2022_ New script: AR_PyTagShowIfCorrectCam
-- _21.04.2022_ New scripts: AR_FlipIt, AR_PyTagAlignToSpline
-- _20.04.2022_ New script: AR_DynaMesh (requires C4D 26)
-- _15.04.2022_ **Initial version of AR_Scripts for R25**
+Older change logs are collected in CHANGELOG.md file  
 
 ## How to use
-In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for Maxon Cinema 4D 2023.1.0 and Python 3.9.1. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.
+In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for **Maxon Cinema 4D 2024.2.0** (usually always the newest version) and Python 3.11.4. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.
 
 _Use these scripts with your own risk!_
 
@@ -94,7 +30,7 @@ _Use these scripts with your own risk!_
 Download this [repo](https://github.com/aturtur/cinema4d-scripts/archive/master.zip) and put AR_Scripts_#.##\_R25 folder to following path:
 
 #### Windows
-`C:\Users\<USER>\AppData\Roaming\MAXON\Maxon Cinema 4D RXX\library\scripts`
+`C:\Users\<USER>\AppData\Roaming\MAXON\Maxon Cinema 4D 2024\library\scripts`
 
 #### Mac OS
 `/Applications/MAXON/CINEMA 4D RXX/library/scripts`
@@ -103,11 +39,11 @@ Other way to find folder for installing scripts is to opening C4D and opening pr
 
 #### Addendum 
 Some of the scripts will make a txt-files in the aturtur folder under the C4D's prefs folder to save the previous settings of the script.
-`C:\Users\<USER>\AppData\Roaming\MAXON\Maxon Cinema 4D RXX\prefs\aturtur`
+`C:\Users\<USER>\AppData\Roaming\MAXON\Maxon Cinema 4D 2024\prefs\aturtur`
 If/when you want to uninstall AR_Scripts completely, remove that folder too.
 
 ### Using scripts
-When you have installed AR_Scripts you have to reboot Cinema 4D if it is already running. On start up Cinema 4D will scan and load all of the scripts. Scripts are located under Extensions -> User Scripts -> AR_Scripts_#.##\_R25. Scripts can be used with the commander (Shift+C) too.
+When you have installed AR_Scripts you have to reboot Cinema 4D if it is already running. On start up Cinema 4D will scan and load all of the scripts. Scripts are located under Extensions -> User Scripts -> AR_Scripts_#.##. Scripts can be used with the commander (Shift+C) too.
 
 You run the script by clicking it. Some of the scripts have multiple functions and you can use those with key modifiers (Alt / Ctrl / Shift) and different combinations. Some of the scripts requires a certain item selection or mode to be active. If you don't know what the script does you can either open the script in the script editor and read the description or search the info of the specific script on this page.
 
@@ -142,6 +78,11 @@ Use in dope sheet editor, does not work in f-curve editor.
 
 ### ![AR_KeysAlign](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysAlign.png) AR_KeysAlign.py
 **Default:** Aligns selected keyframes to the closest whole frame.  
+Use in dope sheet editor, does not work in f-curve editor.  
+
+### ![AR_KeysConstantSpeed](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysConstantSpeed.png) AR_KeysConstantSpeed.py
+**Default:** Modifies two selected keyframes' tangents so they are aligned.  
+**Shift:** Break tangents.  
 Use in dope sheet editor, does not work in f-curve editor.  
 
 ### ![AR_KeysMoveL](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysMoveL.png) AR_KeysMoveL.py
@@ -206,6 +147,7 @@ Requires at least one (1) selected camera object to correctly function.
 
 ### ![AR_CameraPlane](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CameraPlane.png) AR_CameraPlane.py
 **Default:** Creates plane object that matches selected camera(s) field of view. Positioned to cameras focal point in Z-axis.  
+**Shift:** Same as default, but plane stays in place. Does not support film shift.  
 Supports perspective and parallel projections.  
 
 ### ![AR_CropToIRR](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_CropToIRR.png) AR_CropToIRR.py
@@ -273,6 +215,22 @@ Preview range will determine the frame range that will be exported.
 
 ### ![AR_ImportSound](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ImportSound.png) AR_ImportSound.py
 **Default:** Imports sound-file and places it to the current time.  
+
+## Layers
+### ![AR_LayerColorizeWithGradient](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_LayerColorizeWithGradient.png) AR_LayerColorizeWithGradient.py
+**Default:** Colorizes selected layers with custom gradient.  
+
+### ![AR_LayerOff](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_LayerOff.png) AR_LayerOff.py
+**Default:** Turns all layers off or only selected ones.  
+**Alt+Ctrl+Shift:** Open settings.  
+
+### ![AR_LayerOn](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_LayerOn.png) AR_LayerOn.py
+**Default:** Turns all layers on or only selected ones.  
+**Alt+Ctrl+Shift:** Open settings.  
+
+### ![AR_LayerToggle](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_LayerToggle.png) AR_LayerToggle.py
+**Default:** Toggles all layers or only selected ones.  
+**Alt+Ctrl+Shift:** Open settings.  
 
 ## Materials
 ### ![AR_MatConsolidateTags](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MatConsolidateTags.png) AR_MatConsolidateTags.py
@@ -605,6 +563,13 @@ Set frame range with dash (-) and separate different frames and ranges with a co
 ### ![AR_PyTagShowWhenAnimated](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PyTagShowWhenAnimated.png) AR_PyTagShowWhenAnimated.py
 **Default:** Adds a custom python tag for selected object(s) that shows the object only when it is animated.  
 
+## Takes
+### ![AR_TakeCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TakeCamera.png) AR_TakeCamera.py
+**Default:** Creates take from selected camera(s) or if no selection for each camera.  
+
+### ![AR_TakeMatte](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TakeMatte.png) AR_TakeMatte.py
+**Default:** Creates matte take from selected materials.  
+
 ## Tracking
 ### ![AR_AverageLocator](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AverageLocator.png) AR_AverageLocator.py
 **Default:** Creates a null object which position is average of selected objects/points.  
@@ -618,9 +583,6 @@ Extracts 2D tracks from selected motion tracker to null objects.
 ### ![AR_AbsRenderPaths](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AbsRenderPaths.png) AR_AbsRenderPaths.py
 **Default:** Converts relative render paths to absolute paths.  
 For example: Cinema 4D's native Render Queue does not work with relative render paths, so this scripts helps to convert render paths.  
-
-### ![AR_ColorizeLayersWithGradient](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ColorizeLayersWithGradient.png) AR_ColorizeLayersWithGradient.py
-**Default:** Colorizes selected layers with custom gradient.  
 
 ### ![AR_DeleteARPrefs](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_DeleteARPrefs.png) AR_DeleteARPrefs.py
 **Default:** Deletes aturtur folder inside prefs folder, where some of scripts saves user's custom settings.  
@@ -657,11 +619,10 @@ For example: Cinema 4D's native Render Queue does not work with relative render 
 >Highly recommended to assign this script to a keyboard shortcut!  
 
 ## Viewport
-### ![AR_ReferenceViewport](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ReferenceViewport.png) AR_ReferenceViewport.py
-**Default:** Creates a viewport for animation reference.  
-**Shift:** Create only background.  
-**Ctrl:** Delete existing setup.  
-The script requires and enables 'Full Animation Redraw' in Preferences/View.  
+### ![AR_Reference](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Reference.png) AR_Reference.py
+**Default:** Opens a dialog with different options to create an animation reference stuff (viewport, background and plane).  
+Viewport option requires and enables 'Full Animation Redraw' in Preferences/View.  
+Animation's starting point is the current time at the timeline.  
 
 ### ![AR_Safeframes](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_Safeframes.png) AR_Safeframes.py
 **Default:** Toggle opacity of safeframes in viewport.  
@@ -677,10 +638,10 @@ The script requires and enables 'Full Animation Redraw' in Preferences/View.
 **Alt+Ctrl+Shift:** Open textfile to modify custom. Use hashtag '#' separating preset name. Put each color code to separate line!  
 
 ## Modules
-### ar_shelf_tool.py
-More information here: [Shelf tool script for Cinema 4D](https://aturtur.com/shelf-tool-script-for-cinema-4d/)
-Version: 1.0.4
-Latest update: Alt+Ctrl+Shift keymodifier opens the asset document (for modification purpose)
+### ar_modules
+load_shelf_tool.py  
+load_tamplate.py  
+More information some day...  
 
 ## Support the project
 If you find these scripts useful, consider to supporting the project and keeping it up and running: [Tip jar](https://paypal.me/aturtur).

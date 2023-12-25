@@ -1,16 +1,18 @@
 """
-AR_ColorizeLayersWithGradient
+AR_LayersColorizeWithGradient
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_ColorizeLayersWithGradient
-Version: 1.0.1
+Name-US: AR_LayersColorizeWithGradient
+Version: 1.0.2
 Description-US: Colorizes selected layers with custom gradient
 
-Written for Maxon Cinema 4D 2023.0.1
-Python version 3.9.1
+Written for Maxon Cinema 4D 2024.2.0
+Python version 3.11.4
 
 Change log:
+1.0.2 (20.12.2023) - Support for Cinema 4D 2024 (Gradient bug fix)
+    - Gradient changed https://developers.maxon.net/assets/docs/py/2024_0_0a/misc/whatisnew.html
 1.0.1 (02.11.2022) - Fixed a bug
 1.0.0 (02.11.2022) - Initial realease
 """
@@ -130,23 +132,29 @@ def CollectLayers():
         return IterateLayers(startLayer) # Return collection of all layers
 
 def ColorizeWithGradient(gradient):
-    doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
+    doc = c4d.documents.GetActiveDocument() # Get the active Cinema 4D document
     doc.StartUndo() # Start recording undos
-    irs = render.InitRenderStruct()
-    gradient.InitRender(irs)
-    
-    layers = CollectLayers()
-    selectedLayers = []
-    for l in layers:
-        if l.GetBit(c4d.BIT_ACTIVE):
-            selectedLayers.append(l)
-            
+
+    irs = render.InitRenderStruct() # Create a rendering structure
+    gradientData = gradient.PrepareRenderData(irs) # Initialize gradient data for rendering
+
+    layers = CollectLayers() # Collect layers
+    selectedLayers = [l for l in layers if l.GetBit(c4d.BIT_ACTIVE)] # Filter for selected layers
+
+    if len(selectedLayers) == 0: # If no layers are selected
+        return
+
     for i, s in enumerate(selectedLayers):
-        doc.AddUndo(c4d.UNDOTYPE_CHANGE, s) # Add undo command for changing something
-        s[c4d.ID_LAYER_COLOR] = gradient.CalcGradientPixel(float(i)/float(len(selectedLayers)))
-    
-    doc.EndUndo() # Stop recording undos
+        doc.AddUndo(c4d.UNDOTYPE_CHANGE, s) # Add undo command
+        position = float(i) / (len(selectedLayers) - 1) # Calculate gradient position
+        color64 = gradientData.CalcGradientPixel(position) # Calculate gradient color
+        colorVector = c4d.Vector(color64.r, color64.g, color64.b) # Convert color
+        s[c4d.ID_LAYER_COLOR] = colorVector # Set layer color
+        s.Message(c4d.MSG_UPDATE) # Force refresh layer
+
+    doc.EndUndo() # End recording undos
     c4d.EventAdd() # Update Cinema 4D
+
 def main():
     dlg = Dialog() # Create dialog object
     dlg.Open(c4d.DLG_TYPE_MODAL, 0, -1, -1, 0, 0) # Open dialog

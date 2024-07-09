@@ -4,11 +4,11 @@ AR_TglEnable
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_TglEnable
-Version: 1.0.9
+Version: 1.0.10
 Description-US: Enables or disables generator. Shift: Toggle next parent generator. Ctrl: Toggle root generator. Alt: Toggle generator family
 
-Written for Maxon Cinema 4D R25.010
-Python version 3.9.1
+Written for Maxon Cinema 4D 2024.4.0
+Python version 3.11.4
 
 Similar to Cinema 4D's own Toggle Parent Generator script, but just a lot better ;)
 
@@ -22,16 +22,18 @@ CTRL+SHIFT: Toggle from custom list.
 ALT+CTRL+SHIFT: Open textfile to modify custom. You can use hashtag '#' separating comments. Put each generator to own line!
 
 Change log:
-1.0.8 (15.11.2023) - Added support for Projection deformer
-1.0.8 (23.09.2022) - Added Insydium NeXus stuff.
-1.0.7 (29.03.2022) - Instead of carrying txt-file for options along with the script, it will create options file to C4D's preference folder.
-1.0.6 (23.03.2022) - Added support Insydium stuff.
-1.0.5 (20.10.2021) - Updated for R25.
-1.0.4 (21.11.2020) - Added support for many different generators that were missed.
-1.0.3 (13.11.2020) - Support for alembic generators.
-1.0.2 (08.11.2020) - Added Alt+Shift and Alt+Ctrl shortcuts to force disable and enable.
-                     Added also Ctrl+Shift and Alt+Ctrl+Shift for toggling generators based on custom list and for editing custom list.
-1.0.1 (04.11.2020) - Support for Redshift objects (lights, proxy, sky, environment)
+1.0.10 (10.04.2024) - Added support for 2024.4.0 particle objects
+1.0.9 (26.02.2024)  - Added support for Thicken generator and Doodle object
+1.0.8 (15.11.2023)  - Added support for Projection deformer
+1.0.8 (23.09.2022)  - Added Insydium NeXus stuff.
+1.0.7 (29.03.2022)  - Instead of carrying txt-file for options along with the script, it will create options file to C4D's preference folder.
+1.0.6 (23.03.2022)  - Added support Insydium stuff.
+1.0.5 (20.10.2021)  - Updated for R25.
+1.0.4 (21.11.2020)  - Added support for many different generators that were missed.
+1.0.3 (13.11.2020)  - Support for alembic generators.
+1.0.2 (08.11.2020)  - Added Alt+Shift and Alt+Ctrl shortcuts to force disable and enable.
+                      Added also Ctrl+Shift and Alt+Ctrl+Shift for toggling generators based on custom list and for editing custom list.
+1.0.1 (04.11.2020)  - Support for Redshift objects (lights, proxy, sky, environment)
 """
 
 import c4d
@@ -193,7 +195,8 @@ def main():
                 1019396,    # Spline Mask 1
                 5116,       # Extrude 1
                 1057899,    # Vector Import 0
-                1054750]    # Remesh 1
+                1054750,    # Remesh 1
+                1060179]    # Thicken
 
     mggenerators = [1018957, # MoInstance 1
                 1019268,     # MoText 0
@@ -250,6 +253,32 @@ def main():
                  5113,     # Wind
                  1001414]  # TP Geometry
 
+    newparticles = [1057221, # Simulation Scene
+                    1062564, # Spline Emitter
+                    1061778, # Reproduce
+                    1062577, # Mesh Emitter
+                    1061200, # Basic Emitter
+                    1060887, # Particle Group
+                    1062038, # Multi Group
+                    1062613, # Time Condition
+                    1062533, # Field Condition
+                    1060726, # Condition
+                    1061985, # Surface Attract
+                    1062128, # Stick
+                    1061850, # Pyro Advect
+                    1061841, # Collide
+                    1061801, # Predator Prey
+                    1061637, # Flock
+                    1062565, # Blend
+                    1062543, # Turn
+                    1062542, # Spin
+                    1062541, # Look
+                    1062045, # Switch Group
+                    1061199, # Kill
+                    1061175, # Math
+                    1062535, # Data Mapper
+                    1061780] # Color Mapper
+
     connectors = [180000011, # Connector
                   180000010, # Spring
                   180000103, # Force
@@ -276,7 +305,8 @@ def main():
                 1028083, # Alembic
                 1017305, # Hair
                 1018958, # Fur
-                1018396] # Feather
+                1018396, # Feather
+                1022242] # Doodle
 
     scenenodes = [180420400] # Scene Nodes Deformer 0
 
@@ -449,7 +479,7 @@ def main():
     ]
 
     default = generators + mggenerators
-    allGenerators = deformers + objects + splines + generators + mggenerators + mgeffectors + fields + particles + connectors + others + scenenodes + redshift + insydium + thirdparty
+    allGenerators = deformers + objects + splines + generators + mggenerators + mgeffectors + fields + particles + newparticles + connectors + others + scenenodes + redshift + insydium + thirdparty
 
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos

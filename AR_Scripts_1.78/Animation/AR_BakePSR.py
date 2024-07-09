@@ -4,13 +4,14 @@ AR_BakePSR
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_BakePSR
-Version: 1.1.1
+Version: 1.1.2
 Description-US: Bakes object to PSR animation in world space. Shift: In local space
 
 Written for Maxon Cinema 4D 2023.1.0
 Python version 3.9.1
 
 Change log:
+1.1.2 (26.04.2024) - Disables Alembic Morph tag on baked object
 1.1.1 (24.09.2023) - Status bar fix, returns to frame where you started baking
 1.1.0 (18.11.2022) - Parallel processing, bakes multiple cameras in one go. Progress bar
 1.0.3 (29.04.2022) - Removes 'Time Track' if there's any
@@ -73,15 +74,21 @@ def CopyTags(objects):
                 d = t.GetClone() # Duplicate the tag
                 target.InsertTag(d) # Copy tag
 
-def DisableDynamics(objects):
+def DisableTags(objects):
     for obj in objects: # Iterate through objects
         theObj = obj[2] # Baked object
         tags = theObj.GetTags() # Get objects tags
         for t in tags: # Iterate through tags
             if t.GetType() == 180000102: # If dynamics tag (bullet)
                 t[c4d.RIGID_BODY_ENABLED] = False # Disable dynamics
+            if t.GetType() == 100004020: # If cloth tag
+                t[c4d.CLOTH_USE] = False # Disable cloth
+            if t.GetType() == 1018068: # If spline dynamics tag
+                t[c4d.EXPRESSION_ENABLE] = False # Disable spline dynamics
             if t.GetType() == 1059981: # If rigid body tag (new simulation system)
                 t[c4d.RIGIDBODY_USE] = False # Disable dynamics
+            if t.GetType() == 1037184: # If alembic morph tag
+                t[c4d.EXPRESSION_ENABLE] = False # Disable alembic tag
 
 def DummyObject(obj, doc):
     dummyObject = obj.GetClone() # Initialize a camera object
@@ -173,7 +180,7 @@ def RemoveTags(obj):
             t.Remove() # Remove tag
 
 def Bake(objects):
-    """ Bake function  """
+    """ Bake function """
 
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     fps = doc.GetFps() # Get Frame Rate
@@ -248,7 +255,7 @@ def main():
         Bake(objects) # Bake the object
         CleanKeys(objects) # Clean keyframes
         CopyTags(objects) # Restore tags
-        DisableDynamics(objects) # Disable dynamics tags
+        DisableTags(objects) # Disable dynamics tags
         RemoveDummys(objects) # Remove dummy objects
 
     if keyMod == "Shift":
@@ -264,9 +271,9 @@ def main():
         Bake(objects) # Bake the object
         CleanKeys(objects) # Clean keyframes
         CopyTags(objects) # Restore tags
-        DisableDynamics(objects) # Disable dynamics tags
+        DisableTags(objects) # Disable dynamics tags
 
-    doc.SetTime(currentTime) # Set current time to back 
+    doc.SetTime(currentTime) # Set current time to back
     doc.ExecutePasses(None, True, True, True, 0) # Animate the current frame of the document
     c4d.GeSyncMessage(c4d.EVMSG_TIMECHANGED) # Send a synchronous event message that time has changed
 

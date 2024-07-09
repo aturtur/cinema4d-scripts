@@ -4,13 +4,14 @@ AR_LayerToggle
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_LayerToggle
-Version: 1.0.0
+Version: 1.1.0
 Description-US: Toggle layer options
 
 Written for Maxon Cinema 4D 2024.2.0
 Python version 3.11.4
 
 Change log:
+1.1.0 (20.02.2024) - Added support for undos
 1.0.0 (22.12.2023) - Initial realease
 """
 
@@ -85,7 +86,7 @@ class Dialog(GeDialog):
         self.SetInt32(CHK_DEFORMERS,   settings['deformers'])
         self.SetInt32(CHK_EXPRESSIONS, settings['expressions'])
         self.SetInt32(CHK_XREFS,       settings['xfers'])
-        
+
         self.GroupEnd()
         # ----------------------------------------------------------------------------------------
         # Buttons
@@ -241,6 +242,9 @@ def LayerToggle(settings):
 
     if len(selectedLayers) == 0: # If no layers are selected
         for s in layers: # Iterate through all layers
+            
+            doc.AddUndo(c4d.UNDOTYPE_CHANGE, s) # Add undo step
+            
             if settings['solo'] == 1:
                 s[c4d.ID_LAYER_SOLO] = not s[c4d.ID_LAYER_SOLO]
             if settings['editor'] == 1:
@@ -263,6 +267,9 @@ def LayerToggle(settings):
                 s[c4d.ID_LAYER_XREF] = not s[c4d.ID_LAYER_XREF]
 
     for i, s in enumerate(selectedLayers): # For selected layers
+        
+        doc.AddUndo(c4d.UNDOTYPE_CHANGE, s) # Add undo step
+        
         if settings['solo'] == 1:
             s[c4d.ID_LAYER_SOLO] = not s[c4d.ID_LAYER_SOLO]
         if settings['editor'] == 1:

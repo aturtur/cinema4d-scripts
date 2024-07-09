@@ -4,7 +4,7 @@ AR_KeysConstantSpeed
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_KeysConstantSpeed
-Version: 1.0.0
+Version: 1.0.1
 Description-US: Default: Modifies two selected keyframes' tangents so they are aligned. Shift: Break tangents.
 
 Note: Use in 'Dope Sheet', doesn't work in 'F-Curve Mode'
@@ -13,6 +13,7 @@ Written for Maxon Cinema 4D R2024.1.0
 Python version 3.11.4
 
 Change log:
+1.0.1 (17.01.2024) - Added some error checking
 1.0.0 (08.12.2023) - First version
 """
 
@@ -94,8 +95,11 @@ def GetKeys():
 def ConstantSpeed(keyMod):
     tracks = GetKeys() # Get selected keys
     for track in tracks: # Iterate through tracks
+
         keys = track[1]
-        
+        if len(keys) == 0:
+            return False
+
         # Get keyframes
         keyA   = keys[0] # First keyframe
         keyB   = keys[1] # Second keyframe
@@ -107,12 +111,15 @@ def ConstantSpeed(keyMod):
         keyA.ChangeNBit(c4d.NBIT_CKEY_AUTO, c4d.NBITCONTROL_CLEAR) # Untick auto tangents
         keyA.ChangeNBit(c4d.NBIT_CKEY_CLAMP, c4d.NBITCONTROL_CLEAR) # Untick clamp tangents
         keyA.ChangeNBit(c4d.NBIT_CKEY_LOCK_L, c4d.NBITCONTROL_SET) # Lock key tangents length
-
+        keyA.ChangeNBit(c4d.NBIT_CKEY_WEIGHTEDTANGENT, c4d.NBITCONTROL_CLEAR) # Untick weighted tangent
+        keyA.ChangeNBit(c4d.NBIT_CKEY_REMOVEOVERSHOOT, c4d.NBITCONTROL_CLEAR) # Untick Remove overshoot
+        keyA.ChangeNBit(c4d.NBIT_CKEY_AUTOWEIGHT, c4d.NBITCONTROL_CLEAR) # Untick Auto weight
+    
         valueA = keyA.GetValue() # Get keyframe's value
         timeA  = keyA.GetTime().Get() # Get keyframe's time
         timeALeft = keyA.GetTimeLeft().Get() # Gets the time component of the left tangent of the key
         timeARight = keyA.GetTimeRight().Get() # Gets the time component of the right tangent of the key
-    
+
         # Get and set keyframe B data
         curveB = keyB.GetCurve() # Get keyframe's curve
 
@@ -120,6 +127,9 @@ def ConstantSpeed(keyMod):
         keyB.ChangeNBit(c4d.NBIT_CKEY_AUTO, c4d.NBITCONTROL_CLEAR) # Untick auto tangents
         keyB.ChangeNBit(c4d.NBIT_CKEY_CLAMP, c4d.NBITCONTROL_CLEAR) # Untick clamp tangents
         keyB.ChangeNBit(c4d.NBIT_CKEY_LOCK_L, c4d.NBITCONTROL_SET) # Lock key tangents length
+        keyB.ChangeNBit(c4d.NBIT_CKEY_WEIGHTEDTANGENT, c4d.NBITCONTROL_CLEAR) # Untick weighted tangent
+        keyB.ChangeNBit(c4d.NBIT_CKEY_REMOVEOVERSHOOT, c4d.NBITCONTROL_CLEAR) # Untick Remove overshoot
+        keyB.ChangeNBit(c4d.NBIT_CKEY_AUTOWEIGHT, c4d.NBITCONTROL_CLEAR) # Untick Auto weight
 
         valueB = keyB.GetValue() # Get keyframe's value
         timeB  = keyB.GetTime().Get() # Get keyframe's time
@@ -128,7 +138,7 @@ def ConstantSpeed(keyMod):
 
         # More stuff
         k = (valueB - valueA) / (timeB - timeA) # Calculate slope
-  
+
         if keyMod == "Shift": # If shift pressed
             keyA.ChangeNBit(c4d.NBIT_CKEY_BREAK, c4d.NBITCONTROL_SET) # Break tangents for first keyframe
             keyB.ChangeNBit(c4d.NBIT_CKEY_BREAK, c4d.NBITCONTROL_SET) # Break tangents for second keyframe

@@ -3,37 +3,40 @@
 
 My collection of Python scripts for Maxon Cinema 4D ([@aturtur](https://twitter.com/aturtur)). Almost every script is commented to make learning Python scripting in Cinema 4D faster and easier. You can find more of Cinema 4D related stuff on my [blog](https://aturtur.com/) e.g. Python Generators, Python Effectors, custom Xpresso setups and so on.
 
-Latest version: **1.77** _(Released 25.12.2023)_
+Latest version: **1.78** _(Released 09.07.2024)_
 
 ## Change Log
-**Changes in 1.77**
-- _25.12.2023_ New script: AR_TakeMatte
-- _22.12.2023_ New script: AR_LayerToggle
-- _22.12.2023_ New script: AR_LayerOff
-- _22.12.2023_ New script: AR_LayerOn
-- _20.12.2023_ Updated: AR_RandomColors, Support for C4D 2024 (gradient)
-- _20.12.2023_ Updated: AR_LayerColorizeWithGradient, Support for C4D 2024 (gradient) and name change
-- _14.12.2023_ Updated: AR_ExportMat, Exports with current render settings
-- _09.12.2023_ Updated: AR_CameraPlane, Option to create camera plane that stays on place, but scales (shift)
-- _09.12.2023_ Updated: AR_Reference, Dialog with different options
-- _08.12.2023_ New script: AR_KeysConstantSpeed
-- _24.11.2023_ New script: AR_TakeCamera
+**Changes in 1.78**
+- _09.07.2024_ New script: AR_ZoomHelper (Camera)
+- _04.07.2024_ New script: AR_AxisToParent (Modeling)
+- _04.07.2024_ Updated: AR_AxisToCenter, doesn't change children transformations
+- _27.06.2024_ New script: AR_MarkersToRange (Animation)
+- _26.04.2024_ New script: AR_TakeMarkSelected, AR_TakeUnmarkSelected, AR_TakeMarkToggleSelected (Takes)
+- _26.04.2024_ Updated: AR_BakePLA and AR_BakePSR, disables alembic morph tag on baked object(s)
+- _10.04.2024_ Updated: AR_TglEnable, added support for new 2024.4.0 particle objects and Thicken generator and Doodle object
+- _20.02.2024_ New script: AR_PrintCloneCount (Utility)
+- _20.02.2024_ Updated: AR_LayerToggle, AR_LayerOff, AR_LayerOn, added undo support
+- _17.01.2024_ Updated: AR_KeysConstantSpeed, error checking
+- _12.01.2024_ New script: AR_EdgeSelectionsToSpline (Modeling)
+- _10.01.2024_ New script: AR_EditorCamToSelectedCam (Camera)
+- _10.01.2024_ New script: AR_SelectedCamToEditorCam (Camera)
+- _26.12.2023_ New script: AR_TakeMaterialPreviews (Take)
 
-Older change logs are collected in CHANGELOG.md file  
+Older change logs are collected in [CHANGELOG.md](https://github.com/aturtur/cinema4d-scripts/CHANGELOG.md) file  
 
 ## How to use
-In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for **Maxon Cinema 4D 2024.2.0** (usually always the newest version) and Python 3.11.4. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.
+In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for **Maxon Cinema 4D 2024.4.0** (usually always the newest version) and Python 3.11.4. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.
 
 _Use these scripts with your own risk!_
 
 ### Installation
-Download this [repo](https://github.com/aturtur/cinema4d-scripts/archive/master.zip) and put AR_Scripts_#.##\_R25 folder to following path:
+Download this [repo](https://github.com/aturtur/cinema4d-scripts/archive/master.zip) and put AR_Scripts_#.## folder to following path:
 
 #### Windows
 `C:\Users\<USER>\AppData\Roaming\MAXON\Maxon Cinema 4D 2024\library\scripts`
 
 #### Mac OS
-`/Applications/MAXON/CINEMA 4D RXX/library/scripts`
+`/Applications/MAXON/CINEMA 4D 2024/library/scripts`
 
 Other way to find folder for installing scripts is to opening C4D and opening preferences (Ctrl+E / Cmd+E) and pressing 'Open Preferences Folder...' -button and navigating to library > scripts.
 
@@ -112,29 +115,33 @@ Use in dope sheet editor, does not work in f-curve editor.
 **Default:** Increases selected keyframe(s) value.  
 **Shift:** Set custom value as default (shared with AR_KeysValueSub).  
 **Ctrl:** Increases selected keyframe(s) value times 2.  
-Use in dope sheet editor, does not work in f-curve editor.  
+>Note: Use in dope sheet editor, does not work in f-curve editor.  
 
 ### ![AR_KeysValueSub](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_KeysValueSub.png) AR_KeysValueSub.py
 **Default:** Decreases selected keyframe(s) value.  
 **Shift:** Set custom value as default (shared with AR_KeysValueAdd).  
 **Ctrl:** Decreases selected keyframe(s) value times 2.  
-Use in dope sheet editor, does not work in f-curve editor.  
+>Note: Use in dope sheet editor, does not work in f-curve editor.  
+
+### ![AR_MarkersToRange](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_MarkersToRange.png) AR_MarkersToRange.py
+**Default:** Set render range from markers.  
 
 ### ![AR_TracksRemap](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TracksRemap.png) AR_TracksRemap.py
 Adds special track: Time for selected track(s) for time remapping.  
 **Default:** Time track is set to absolute.  
 **Shift:** time track is set to relative.  
-Use in dope sheet editor, does not work in f-curve editor.  
+>Note: Use in dope sheet editor, does not work in f-curve editor.  
 
 ### ![AR_TracksRemove](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TracksRemove.png) AR_TracksRemove.py
-**Default:** Removes animated tracks from selected item(s).  
+**Default:** Removes all animated tracks from selected item(s).  
 
 ### ![AR_TracksSequence](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TracksSequence.png) AR_TracksSequence.py
 **Default:** Sequences selected animation tracks.  
 **Shift:** Sequences selected animation tracks with a given gap (in frames).  
 **Ctrl:** Sequencing is reversed.  
 **Shift+Ctrl:** Reversed sequencing with a given gap.  
-Requires at least two (2) selected tracks to correctly function. Use in dope sheet editor, does not work in f-curve editor.  
+Requires at least two (2) selected tracks to correctly function.
+>Note: Use in dope sheet editor, does not work in f-curve editor.  
 
 ## Camera
 ### ![AR_AspectRatioGuide](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AspectRatioGuide.png) AR_AspectRatioGuide.py
@@ -158,6 +165,9 @@ Changes active render settings resolution and selected/active camera's sensor si
 **Default:** Cycles through available cameras.  
 **Shift:** Cycles cameras backwards.  
 
+### ![AR_EditorCamToSelectedCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_EditorCamToSelectedCam.png) AR_EditorCamToSelectedCam.py
+**Default:** Copies settings from editor camera to selected camera.  
+
 ### ![AR_ResizeCanvas](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ResizeCanvas.png) AR_ResizeCanvas.py
 **Default:** Resizes the canvas without changing the perspective.  
 Changes active render settings resolution and selected/active camera's sensor size or focal length and possibly also film offsets.  
@@ -165,9 +175,15 @@ Changes active render settings resolution and selected/active camera's sensor si
 ### ![AR_SelectActiveCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectActiveCamera.png) AR_SelectActiveCamera.py
 **Default:** Selects the active camera in the object manager.  
 
+### ![AR_SelectedCamToEditorCam](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_SelectedCamToEditorCam.png) AR_SelectedCamToEditorCam.py
+**Default:** Copies settings from selected camera to editor camera.  
+
 ### ![AR_StabilizeCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_StabilizeCamera.png) AR_StabilizeCamera.py
 **Default:** Stabilizes active camera view to selected object.  
 Designed to use with AR_AverageLocator.  
+
+### ![AR_ZoomHelper](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ZoomHelper.png) AR_ZoomHelper.py  
+**Default:** Creates a helper camera from active camera and activates 'Film Magnify' tool  
 
 ## Export
 ### ![AR_ExportAISeq](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_ExportAISeq.png) AR_ExportAISeq.py
@@ -264,6 +280,9 @@ Case sensitive. Supports Cinema 4D's naming conventions. The first material in t
 **Default:** Sets object's axis to world origin.  
 Currently does not support objects with exposed normal tags.  
 
+### ![AR_AxisToParent](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AxisToParent.png) AR_AxisToParent.py
+**Default:** Sets object's axis to parent's origin (axis).  
+
 ### ![AR_BooleSplit](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_BooleSplit.png) AR_BooleSplit.py
 **Default:** Splits selected objects in half.  
 
@@ -274,6 +293,9 @@ Currently does not support objects with exposed normal tags.
 **Default:** Remeshes selected object with ZRemesher.  
 **Shift:** Dialog to set different options. Options will be saved.  
 >Note: Requires Cinema 4D S26 or newer!
+
+### ![AR_EdgeSelectionsToSpline](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_EdgeSelectionsToSpline.png) AR_EdgeSelectionsToSpline.py
+**Default:** Creates splines for each edge selection tags.  
 
 ### ![AR_FlipIt](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_FlipIt.png) AR_FlipIt.py
 **Default:** Flips selected object(s) (multiplies specific axis by -1).  
@@ -567,8 +589,20 @@ Set frame range with dash (-) and separate different frames and ranges with a co
 ### ![AR_TakeCamera](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TakeCamera.png) AR_TakeCamera.py
 **Default:** Creates take from selected camera(s) or if no selection for each camera.  
 
+### ![AR_TakeMarkSelected](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TakeMarkSelected.png) AR_TakeMarkSelected.py
+**Default:** Marks selected take(s).  
+
+### ![AR_TakeMarkToggleSelected](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TakeMarkToggleSelected.png) AR_TakeMarkToggleSelected.py
+**Default:** Toggles mark on selected take(s).  
+
+### ![AR_TakeMaterialPreviews](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TakeMaterialPreviews.png) AR_TakeMaterialPreviews.py
+**Default:** Creates take for each selected material assigned to selected object.  
+
 ### ![AR_TakeMatte](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TakeMatte.png) AR_TakeMatte.py
 **Default:** Creates matte take from selected materials.  
+
+### ![AR_TakeUnmarkSelected](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_TakeUnmarkSelected.png) AR_TakeUnmarkSelected.py
+**Default:** Unmarks selected take(s).  
 
 ## Tracking
 ### ![AR_AverageLocator](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_AverageLocator.png) AR_AverageLocator.py
@@ -603,6 +637,9 @@ For example: Cinema 4D's native Render Queue does not work with relative render 
 ### ![AR_OpenRenderFolder](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_OpenRenderFolder.png) AR_OpenRenderFolder.py
 **Default:** Opens the folder where the project is rendered.  
 >The folder must exist already! Does not support all of the tokens!  
+
+### ![AR_PrintCloneCount](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PrintCloneCount.png) AR_PrintCloneCount.py
+**Default:** Prints to console count of the clones of the selected MoGraph object.  
 
 ### ![AR_PrintType](https://raw.githubusercontent.com/aturtur/cinema4d-scripts/master/img/AR_PrintType.png) AR_PrintType.py
 **Default:** Prints info about selected objects, tags, materials, Xpresso nodes and Redshift nodes.  

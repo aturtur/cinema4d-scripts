@@ -8,16 +8,38 @@ Version: 1.4.0
 
 Installation path: C:/Users/[USER]]/AppData/Roaming/MAXON/Maxon Cinema 4D [VERSION]/python311/libs
 
-Written for Maxon Cinema 4D 2024.2.0
+Written for Maxon Cinema 4D 2024.4.0
 Python version 3.11.4
 
 Change log:
+
 1.4.0 (17.12.2023) - Merged with ar_template
 1.3.0 (25.09.2022) - Alt+Ctrl+Shift keymodifier opens the asset document
 1.2.1 (16.09.2022) - Bug fixes and code improvements
 1.2.0 (06.05.2022) - Added icon parsing here
 1.1.0 (04.05.2022) - Added support to change icon and icon color
 1.0.0 (08.04.2022) - Initial release
+
+Main functions and their arguments:
+
+    ImportAsset
+        path     = assetPath, # Asset path
+        icon     = __file__,  # Icon path. Set to None if you don't want to use an icon
+        color    = None,      # Icon color in c4d.Vector() format
+        matsOnly = False      # If 'True' imports only materials from asset file
+
+    ImportMaterial
+        path = materialPath   # Material path
+
+    MergeDocument
+        path              = templatePath, # Template path
+        objects           = True, # Import objects
+        materials         = True, # Import materials
+        documentSettings  = True, # Import project settings
+        renderSettings    = True, # Import render settings
+        viewportSettings  = True, # Import viewport settings
+        camera            = True  # Set active camera
+
 """
 
 # Libraries
@@ -27,7 +49,7 @@ from c4d import documents
 from c4d import storage
 
 # -----------------------------------------------------------------------------------------------------------------------------------------
-# Asset
+# Asset (shelf tool)
 # -----------------------------------------------------------------------------------------------------------------------------------------
 
 # Global variables
@@ -322,7 +344,7 @@ def ImportAsset(path=None, icon=None, color=None, matsOnly=False):
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------
-# Template
+# Template / Merge Document
 # -----------------------------------------------------------------------------------------------------------------------------------------
 
 # Functions
@@ -768,5 +790,17 @@ def MergeDocument(path, objects = True, materials = True, documentSettings = Tru
         CopyRenderSettings(tempDoc, newDoc) # Copy render settings
         DeleteRenderSettings(newDoc, oldRenderSettings) # Delete old render settings
         SetActiveRenderSettingsByName(newDoc, activeRenderDataName) # Set active render settings
+
+    c4d.EventAdd() # Refresh Cinema 4D
+
+
+# -----------------------------------------------------------------------------------------------------------------------------------------
+# Material
+# -----------------------------------------------------------------------------------------------------------------------------------------
+
+def ImportMaterial(path, add):
+
+    # To do!
+
 
     c4d.EventAdd() # Refresh Cinema 4D

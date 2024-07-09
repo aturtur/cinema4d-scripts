@@ -1,16 +1,17 @@
 """
-AR_LayerOff
+AR_LayerOn
 
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
-Name-US: AR_LayerOff
-Version: 1.0.0
-Description-US: Set layer options OFF
+Name-US: AR_LayerOn
+Version: 1.1.0
+Description-US: Set layer options ON
 
 Written for Maxon Cinema 4D 2024.2.0
 Python version 3.11.4
 
 Change log:
+1.1.0 (20.02.2024) - Added support for undos
 1.0.0 (22.12.2023) - Initial realease
 """
 
@@ -85,7 +86,7 @@ class Dialog(GeDialog):
         self.SetInt32(CHK_DEFORMERS,   settings['deformers'])
         self.SetInt32(CHK_EXPRESSIONS, settings['expressions'])
         self.SetInt32(CHK_XREFS,       settings['xfers'])
-        
+
         self.GroupEnd()
         # ----------------------------------------------------------------------------------------
         # Buttons
@@ -231,7 +232,7 @@ def CollectLayers():
         startLayer = layers[0] # Get start layer for iterating through all layers
         return IterateLayers(startLayer) # Return collection of all layers
 
-def LayerOff(settings):
+def LayerOn(settings):
 
     doc = c4d.documents.GetActiveDocument() # Get the active Cinema 4D document
     doc.StartUndo() # Start recording undos
@@ -241,48 +242,54 @@ def LayerOff(settings):
 
     if len(selectedLayers) == 0: # If no layers are selected
         for s in layers: # Iterate through all layers
+            
+            doc.AddUndo(c4d.UNDOTYPE_CHANGE, s) # Add undo step
+            
             if settings['solo'] == 1:
-                s[c4d.ID_LAYER_SOLO] = False
+                s[c4d.ID_LAYER_SOLO] = True
             if settings['editor'] == 1:
-                s[c4d.ID_LAYER_VIEW] = False
+                s[c4d.ID_LAYER_VIEW] = True
             if settings['render'] == 1:
-                s[c4d.ID_LAYER_RENDER] = False
+                s[c4d.ID_LAYER_RENDER] = True
             if settings['manager'] == 1:
-                s[c4d.ID_LAYER_MANAGER] = False
+                s[c4d.ID_LAYER_MANAGER] = True
             if settings['animation'] == 1:
-                s[c4d.ID_LAYER_ANIMATION] = False
+                s[c4d.ID_LAYER_ANIMATION] = True
             if settings['generators'] == 1:
-                s[c4d.ID_LAYER_GENERATORS] = False
+                s[c4d.ID_LAYER_GENERATORS] = True
             if settings['deformers'] == 1:
-                s[c4d.ID_LAYER_DEFORMERS] = False
+                s[c4d.ID_LAYER_DEFORMERS] = True
             if settings['expressions'] == 1:
-                s[c4d.ID_LAYER_EXPRESSIONS] = False
+                s[c4d.ID_LAYER_EXPRESSIONS] = True
             if settings['locked'] == 1:
-                s[c4d.ID_LAYER_LOCKED] = True
+                s[c4d.ID_LAYER_LOCKED] = False
             if settings['xfers'] == 1:
-                s[c4d.ID_LAYER_XREF] = False
+                s[c4d.ID_LAYER_XREF] = True
 
     for i, s in enumerate(selectedLayers): # For selected layers
+        
+        doc.AddUndo(c4d.UNDOTYPE_CHANGE, s) # Add undo step
+        
         if settings['solo'] == 1:
-            s[c4d.ID_LAYER_SOLO] = False
+            s[c4d.ID_LAYER_SOLO] = True
         if settings['editor'] == 1:
-            s[c4d.ID_LAYER_VIEW] = False
+            s[c4d.ID_LAYER_VIEW] = True
         if settings['render'] == 1:
-            s[c4d.ID_LAYER_RENDER] = False
+            s[c4d.ID_LAYER_RENDER] = True
         if settings['manager'] == 1:
-            s[c4d.ID_LAYER_MANAGER] = False
+            s[c4d.ID_LAYER_MANAGER] = True
         if settings['animation'] == 1:
-            s[c4d.ID_LAYER_ANIMATION] = False
+            s[c4d.ID_LAYER_ANIMATION] = True
         if settings['generators'] == 1:
-            s[c4d.ID_LAYER_GENERATORS] = False
+            s[c4d.ID_LAYER_GENERATORS] = True
         if settings['deformers'] == 1:
-            s[c4d.ID_LAYER_DEFORMERS] = False
+            s[c4d.ID_LAYER_DEFORMERS] = True
         if settings['expressions'] == 1:
-            s[c4d.ID_LAYER_EXPRESSIONS] = False
+            s[c4d.ID_LAYER_EXPRESSIONS] = True
         if settings['locked'] == 1:
-            s[c4d.ID_LAYER_LOCKED] = True
+            s[c4d.ID_LAYER_LOCKED] = False
         if settings['xfers'] == 1:
-            s[c4d.ID_LAYER_XREF] = False
+            s[c4d.ID_LAYER_XREF] = True
 
     doc.EndUndo() # End recording undos
     c4d.EventAdd() # Update Cinema 4D
@@ -291,7 +298,7 @@ def main():
     keyMod = GetKeyMod() # Get key modifier
     if keyMod == "None": # If no key modifier
         settings = loadSettings() # Load settings
-        LayerOff(settings)
+        LayerOn(settings)
     elif keyMod == "Alt+Ctrl+Shift": # If key modifier ALT + CTRL + SHIFT
         dlg = Dialog() # Create dialog object
         dlg.Open(c4d.DLG_TYPE_MODAL, 0, -1, -1, 0, 0) # Open dialog

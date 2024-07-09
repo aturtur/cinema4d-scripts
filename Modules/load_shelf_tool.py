@@ -17,7 +17,7 @@ def main():
     # Import the asset
     ar_modules.ImportAsset(
         path     = assetPath, # Asset path
-        icon     = __file__,  # Icon path
+        icon     = __file__,  # Icon path. Set to None if you don't want to use an icon
         color    = None,      # Icon color in c4d.Vector() format
         matsOnly = False      # If 'True' imports only materials from asset file
     )

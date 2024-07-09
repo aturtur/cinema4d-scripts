@@ -86,8 +86,6 @@ def SelectTags(op, tag, sel):
 def main():
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     doc.StartUndo() # Start recording undos
-    selection = doc.GetSelection() # Get active selection
-
     commonTags = [c4d.BaseTag, c4d.TextureTag, c4d.NormalTag, c4d.UVWTag, c4d.SelectionTag, c4d.modules.character.CAPoseMorphTag, c4d.modules.character.CAWeightTag,
     c4d.VariableTag, c4d.modules.graphview.XPressoTag, c4d.VertexColorTag, c4d.modules.hair.HairVertexMapTag, c4d.modules.hair.HairSelectionTag] # List of tags
     selection = doc.GetSelection() # Get active selection

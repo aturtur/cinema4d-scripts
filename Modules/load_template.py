@@ -12,7 +12,7 @@ import ar_modules
 # Functions
 def main():
     # File path of the template
-    templatePath = ""
+    templatePath = "C:/Users/Arttu/Oma Drive/Vault/My C4D Assets/Scenes/shaderball/shaderball.c4d"
 
     # Import the template
     ar_modules.MergeDocument(
@@ -23,8 +23,8 @@ def main():
         renderSettings    = True, # Import render settings
         viewportSettings  = True, # Import viewport settings
         camera            = True  # Set active camera
-        ) # Template path
-
+    )
+    
 # Execute main()
 if __name__=='__main__':
     main()

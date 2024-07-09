@@ -4,19 +4,23 @@ AR_AxisToOrigin
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_AxisToOrigin
-Version: 1.0.0
+Version: 1.1.0
 Description-US: Sets object's axis to world origin.
 
 Note: Currently does not support normal tags!
 
-Written for Maxon Cinema 4D R25.117
-Python version 3.9.1
+Written for Maxon Cinema 4D 2024.4.1
+Python version 3.11.4
 
 To do:
 - Normal tag support
 
 https://forums.cgsociety.org/t/script-help-zero-axis/1707180/6
 https://plugincafe.maxon.net/topic/11359/handling-direction-of-the-normal-tag
+
+Change log:
+1.1.0 (04.07.2024) - Does not change children objects transformation
+1.0.0 (17.09.2022) - Initial release
 
 """
 
@@ -32,6 +36,11 @@ def AxisToOrigin(obj):
         workplane = snap.GetWorkplaneObject(doc) # Get workplane
         doc.AddUndo(c4d.UNDOTYPE_CHANGE, obj) # Record undo for changing object
         obj.SetMg(workplane.GetMg()) # Set object's matrix
+
+        childrenMat = [] # Initialize a list for storing children matrices
+        children = obj.GetChildren() # Get children
+        for child in children: # Iterate through children
+            childrenMat.append(child.GetMg()) # Store child's matrix
 
         if obj.CheckType(c4d.Opoint): # If point object
             mat  = obj.GetMg() # Get global matrix
@@ -62,6 +71,12 @@ def AxisToOrigin(obj):
                         obj.SetTangent(i, tan_l_new, tan_r_new) # Set new tangent
 
         obj.Message(c4d.MSG_UPDATE)
+
+        # Fix children
+        for i, child in enumerate(children): # Iterate through children
+            doc.AddUndo(c4d.UNDOTYPE_CHANGE, child) # Record undo for changing child
+            child.SetMg(matOld * ~mat * childrenMat[i]) # Restore matrix
+
     else: # Otherwise
         print("Select editable object!")
     return True # All good!

@@ -22,7 +22,7 @@ Latest version: **1.78** _(Released 09.07.2024)_
 - _10.01.2024_ New script: AR_SelectedCamToEditorCam (Camera)
 - _26.12.2023_ New script: AR_TakeMaterialPreviews (Take)
 
-Older change logs are collected in [CHANGELOG.md](https://github.com/aturtur/cinema4d-scripts/CHANGELOG.md) file  
+Older change logs are collected in [CHANGELOG.md](https://github.com/aturtur/cinema4d-scripts/blob/master/CHANGELOG.md) file  
 
 ## How to use
 In this section I go through how you install AR_Scripts to  Cinema 4D. These scripts are written for **Maxon Cinema 4D 2024.4.0** (usually always the newest version) and Python 3.11.4. Scripts are tested using Microsoft Windows 11. All of the scripts should be compatible also with Mac OS. I'm not writing scripts anymore for older Cinema 4D versions.

@@ -4,13 +4,15 @@ AR_MarkersToRange
 Author: Arttu Rautio (aturtur)
 Website: http://aturtur.com/
 Name-US: AR_MarkersToRange
-Version: 1.0.0
+Version: 1.1.0
 Description-US: Set render range from markers
 
 Written for Maxon Cinema 4D 2024.4.1
 Python version 3.11.4
 
 Change log:
+1.1.0 (22.07.2024) - Default values, 'Close' button added, fixes 
+1.0.1 (21.07.2024) - Bug fixes
 1.0.0 (27.06.2024) - Initial release
 """
 
@@ -24,8 +26,10 @@ GRP_MAIN      = 1000
 GRP_SECOND    = 1001
 GRP_MARKERS   = 1002
 GRP_RENDERSET = 1003
+GRP_BUTTONS   = 1004
 
 BTN_SET       = 2000
+BTN_CLOSE     = 2001
 
 RAD_MARKERS   = 3000
 RAD_RENDERSET = 4000
@@ -53,18 +57,24 @@ def CollectMarkers():
 def CollectRenderData():
     renderDatas = []
     firstRenderData = doc.GetFirstRenderData() # Get the first render data
+    activeRenderData = doc.GetActiveRenderData() # Get the active render data
     currentRenderData = firstRenderData
+    count = 0
     while currentRenderData:
+        if currentRenderData == activeRenderData:
+            activeSlot = count
         renderDatas.append(renderSettingsObject(currentRenderData, # Add render data object to the render datas list
                                                 currentRenderData.GetName()))
         currentRenderData = GetNext(currentRenderData)
-    return renderDatas
+        count += 1
+
+    return activeSlot, renderDatas
 
 def SetRange(marker, renderData):
     doc.StartUndo() # Start recording undos
-    frame = c4d.BaseTime(1.0 / doc.GetFps())
+    #frame = c4d.BaseTime(1.0 / doc.GetFps())
     startTime = marker.time
-    endTime   = marker.time + (marker.length - frame)
+    endTime   = marker.time + marker.length
     if endTime.Get() < startTime.Get():
         endTime = startTime
 
@@ -102,7 +112,7 @@ class Dialog(GeDialog):
         markers = CollectMarkers() # Get markers
 
         sortedMarkers = sorted(markers, key=lambda x: x.sec, reverse=False) # Sort markers by time
-        renderSettings = CollectRenderData() # Get render settings
+        activeSlot, renderSettings = CollectRenderData() # Get render settings
 
         self.SetTitle("Markers to Ranges") # Set dialog title
 
@@ -113,18 +123,28 @@ class Dialog(GeDialog):
         self.GroupBorderSpace(9, 0, 9, 9)
 
         # Markers
-        self.GroupBegin(GRP_MARKERS, c4d.BFH_LEFT, 1, 1, "Markers", 150, 150) # Start Group 3
+        self.GroupBegin(GRP_MARKERS, c4d.BFH_LEFT | c4d.BFV_TOP, 1, 1, "Markers", 150, 150) # Start Group 3
         self.GroupBorder(c4d.BORDER_GROUP_IN)
         self.GroupBorderSpace(4, 4, 4, 4)
         self.AddRadioGroup(RAD_MARKERS, c4d.BFH_LEFT, 1, len(markers))
         for i, marker in enumerate(sortedMarkers):
-            startFrame = marker.time.GetFrame(doc.GetFps())
-            endFrame = (marker.time.GetFrame(doc.GetFps())) + (marker.length.GetFrame(doc.GetFps()) - 1)
+            #startFrame = marker.time.GetFrame(doc.GetFps())
+            startFrame = round(marker.time.Get()*doc.GetFps(), 2)
+            if startFrame.is_integer():
+                startFrame = int(startFrame)
+
+            #endFrame = (marker.time.GetFrame(doc.GetFps())) + (marker.length.GetFrame(doc.GetFps()))
+            endFrame = round(startFrame + (marker.length.Get()*doc.GetFps()), 2)
+            if endFrame.is_integer():
+                endFrame = int(endFrame)
+
             if endFrame < startFrame:
                 endFrame = startFrame
+
             name = marker.name+" | "+str(startFrame)+" - "+str(endFrame)
             self.AddChild(RAD_MARKERS, i, name)
         self.GroupEnd() # End Group 3
+        self.SetInt32(RAD_MARKERS, 0) # Set default markers value
 
         # Render settings
         self.GroupBegin(GRP_RENDERSET, c4d.BFH_RIGHT | c4d.BFV_TOP, 1, 1, "Render Settings", 150, 150) # Start Group 4
@@ -135,12 +155,13 @@ class Dialog(GeDialog):
             name = renderSetting.name
             self.AddChild(RAD_RENDERSET, i, name)
         self.GroupEnd() # End Group 4
-
+        self.SetInt32(RAD_RENDERSET, activeSlot) # Set default render settings value
         self.GroupEnd() # End Group 2
 
         # Button
-        self.AddButton(BTN_SET, c4d.BFH_LEFT, name="Set range") # Add button
-
+        self.GroupBegin(GRP_BUTTONS, c4d.BFH_CENTER, 2, 1) # Start Group 4
+        self.AddButton(BTN_SET, c4d.BFH_LEFT, name="Set Range") # Add button 'Set Range'
+        self.AddButton(BTN_CLOSE, c4d.BFH_RIGHT, name="Close") # Add button 'Close'
         self.GroupEnd() # End Group 1
 
         return True
@@ -160,9 +181,10 @@ class Dialog(GeDialog):
 
             SetRange(theMarker, theRenderSetting)
 
-            #self.Close() # Close dialog
             c4d.EventAdd() # Refresh Cinema 4D
-            pass
+
+        if paramid == BTN_CLOSE: # If 'Close' button is pressed
+            self.Close() # Close dialog
 
         return True # Everything is fine
 

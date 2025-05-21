@@ -1,22 +1,23 @@
 """
 AR_ExportAISeq
 
-Author: Arttu Rautio (aturtur)
+Author: Arttu Rautio (aturtur) 
 Website: http://aturtur.com/
 Name-US: AR_ExportAISeq
-Version: 1.0.1
-Description-US: DEFAULT: Exports selected spline objects to Adobe Illustrator-sequence. Preview range will determine which frames will be exported. SHIFT: Export objects to separated folders.
+Version: 1.1.0 / extend
+Description-US: DEFAULT: Exports selected spline objects to Adobe Illustrator-sequence. Preview range will determine which frames will be exported. SHIFT: Export objects to separated folders. 
 
 Written for Maxon Cinema 4D R25.117
 Python version 3.9.1
 
 Change log:
 1.0.1 (28.04.2021) - Support for R23
-
+Update: extend render region (Aleksandrovsky)
 """
 # Libraries
-import c4d, os
+import c4d,os,json
 from c4d import plugins
+from math import sqrt
 
 # Functions
 def GetFolderSeparator():
@@ -93,12 +94,92 @@ def SetRender(doc):
         renderData.InsertVideoPostLast(sketchEffect) # Add 'Sketch and Toon' effect to render settings
     return sntFound, sketchEffect
 
+def SaveJSONforAE(fn, ow, oh, osensor, nw, nh, d0, d1, ext_h, doc):
+    jd = {
+        'original_width': int(ow),
+        'original_height': int(oh),
+        'original_sensor': osensor,
+        'extend_width': int(nw),
+        'extend_height': int(nh),
+        'extend_sensor': round(osensor*(d1/d0),3),
+        'user_extend': int(ext_h),
+        'project_fps': doc.GetFps()
+    }
+    with open(os.path.splitext(fn)[0]+'_info.json', 'w', encoding='utf-8') as f:
+        json.dump(jd, f, ensure_ascii=False)
+
+import c4d
+
+class ExtendDialog(c4d.gui.GeDialog):
+    def __init__(self):
+        self.result = None
+
+    ID_TEXT = 1000
+    ID_INPUT = 1001
+    ID_OK = 1002
+    ID_CANCEL = 1003
+
+    def CreateLayout(self):
+        self.SetTitle("Extend Render Area")
+
+        # Обёртка вертикального лэйаута
+        self.GroupBegin(3000, c4d.BFH_SCALEFIT | c4d.BFV_SCALEFIT, cols=1, rows=2)
+        self.GroupBorderSpace(10, 10, 10, 10)
+
+        # Текстовое описание
+        self.AddMultiLineEditText(self.ID_TEXT, c4d.BFH_SCALEFIT, 0, 80)
+        self.SetString(self.ID_TEXT,
+            "Enter number of pixels to extend render area:\n"
+            "\n"
+            "•  0px = No extend\n"
+            "\n"
+            "⚠️ Animating the camera's Sensor Size is not supported.\n"
+            "Script overrides this value and resets it after exporting.")
+
+        # Поле ввода
+        self.AddEditNumberArrows(self.ID_INPUT, c4d.BFH_SCALEFIT)
+        self.SetInt32(self.ID_INPUT, 40)
+
+        self.GroupEnd()
+
+        # Группа кнопок
+        self.GroupBegin(3001, c4d.BFH_CENTER, cols=2)
+        self.GroupBorderSpace(0, 10, 0, 0)
+
+        self.AddButton(self.ID_OK, c4d.BFH_LEFT, name="OK")
+        self.AddButton(self.ID_CANCEL, c4d.BFH_LEFT, name="Cancel")
+
+        self.GroupEnd()
+
+        return True
+
+    def Command(self, id, msg):
+        if id == self.ID_OK:
+            self.result = self.GetInt32(self.ID_INPUT)
+            self.Close()
+        elif id == self.ID_CANCEL:
+            self.result = None
+            self.Close()
+        return True
+
+
 def main():
     """ Step 1 - Setup and export AI-sequence with Sketch and Toon """
     keyMod = GetKeyMod() # Get keymodifier
+    extend_mode = 0
 
     doc = c4d.documents.GetActiveDocument() # Get active Cinema 4D document
     sketchTags = [] # Initialize list for 'Sketch Style' tags
+
+
+    dlg = ExtendDialog()
+    dlg.Open(c4d.DLG_TYPE_MODAL_RESIZEABLE, defaultw=400, defaulth=200)
+
+    if dlg.result is None:
+        return  # Нажали Cancel или Esc
+
+    ext_h = dlg.result
+    extend_mode = 1 if ext_h > 0 else 0
 
     if keyMod == "None":
         fn = c4d.storage.SaveDialog(c4d.FILESELECTTYPE_ANYTHING, "Select Save Path") # Select path to save
@@ -108,6 +189,28 @@ def main():
         doc.InsertMaterial(sketchMat) # Insert material to document
         sntFound, sketchEffect = SetRender(doc) # Set render settings
         SetExporter(doc) # Set exporter settings
+        
+        if(extend_mode==1):
+            doc = c4d.documents.GetActiveDocument()
+            rd  = doc.GetActiveRenderData()
+            ow = rd[c4d.RDATA_XRES]; oh = rd[c4d.RDATA_YRES]; ol = rd[c4d.RDATA_LOCKRATIO]
+            cam = doc.GetActiveObject()
+            if not cam or cam.GetType()!=c4d.Ocamera:
+                for o in doc.GetObjects():
+                    if o.GetType()==c4d.Ocamera: cam=o; break
+            osensor = cam[c4d.CAMERAOBJECT_APERTURE] or 36.0 if cam else None
+            # Change Resolution and Sensor Size in Camera
+            if ext_h is not None:
+                if ext_h==0:
+                    rd[c4d.RDATA_XRES]=ow+1; rd[c4d.RDATA_YRES]=oh+1
+                else:
+                    nh=oh+ext_h; nw=int(round(nh*ow/oh))
+                    rd[c4d.RDATA_XRES]=nw; rd[c4d.RDATA_YRES]=nh; rd[c4d.RDATA_LOCKRATIO]=True
+                    if cam and osensor:
+                        d0=sqrt(ow*ow+oh*oh); d1=sqrt(nw*nw+nh*nh)
+                        cam[c4d.CAMERAOBJECT_APERTURE]=osensor*(d1/d0)
+                    SaveJSONforAE(fn, ow, oh, osensor, nw, nh, d0, d1, ext_h, doc)
+
 
         selection = doc.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_0) # Get selected objects
         for i in range(0, len(selection)): # Loop through selected objects
@@ -154,12 +257,22 @@ def main():
             c4d.documents.SaveDocument(doc, fullFilePath, c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST, 1012074) # Export AI-file
             sketchTag.Remove() # Delete sketch tag
 
+
+
     # Remove unnecessary stuff
     for st in sketchTags: # Loop through sketchTags
         st.Remove() # Remove 'Sketch Style' tag
     sketchMat.Remove() # Remove 'Sketch Material'
     if sntFound == False: # If there was not 'Sketch and Toon' render effect already
         sketchEffect.Remove() # Remove 'Sketch and Toon' render effect
+
+    # Restore Originial Resolution & Sensor
+    if(extend_mode==1): 
+        rd[c4d.RDATA_XRES] = ow
+        rd[c4d.RDATA_YRES] = oh
+        rd[c4d.RDATA_LOCKRATIO] = ol
+        if cam and osensor: 
+            cam[c4d.CAMERAOBJECT_APERTURE] = osensor
 
     # Rest of the stuff
     c4d.StatusClear() # Clear status bar
